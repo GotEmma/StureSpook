@@ -1,6 +1,4 @@
-package edu.chl.StureSpook.view;
-
-import edu.chl.StureSpook.model.Project;
+package main.java.edu.chl.StureSpook.view;
 
 import java.awt.GridLayout;
 
@@ -8,6 +6,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import main.java.edu.chl.StureSpook.model.Project;
 
 public class ProjectView extends JFrame {
 

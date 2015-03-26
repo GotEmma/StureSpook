@@ -1,4 +1,4 @@
-package edu.chl.change2projectname;
+package test.java.edu.chl.change2projectname;
 
 import java.io.IOException;
 import jdepend.framework.JDepend;

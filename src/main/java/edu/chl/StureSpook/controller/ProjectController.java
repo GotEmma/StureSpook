@@ -1,10 +1,10 @@
-package edu.chl.StureSpook.controller;
-
-import edu.chl.StureSpook.model.Project;
-import edu.chl.StureSpook.view.ProjectView;
+package main.java.edu.chl.StureSpook.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import main.java.edu.chl.StureSpook.model.Project;
+import main.java.edu.chl.StureSpook.view.ProjectView;
 
 public class ProjectController {
 	private final Project project;

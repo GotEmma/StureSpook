@@ -1,6 +1,6 @@
-package edu.chl.change2projectname.model;
+package test.java.edu.chl.change2projectname.model;
 
-import edu.chl.StureSpook.model.Project;
+import main.java.edu.chl.StureSpook.model.Project;
 
 import org.junit.Assert;
 import org.junit.Test;
