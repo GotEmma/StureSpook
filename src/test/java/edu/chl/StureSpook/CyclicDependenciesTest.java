@@ -1,4 +1,4 @@
-package test.java.edu.chl.change2projectname;
+package test.java.edu.chl.StureSpook;
 
 import java.io.IOException;
 import jdepend.framework.JDepend;

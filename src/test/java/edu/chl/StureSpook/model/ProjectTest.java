@@ -1,4 +1,4 @@
-package test.java.edu.chl.change2projectname.model;
+package test.java.edu.chl.StureSpook.model;
 
 import main.java.edu.chl.StureSpook.model.Project;
 
