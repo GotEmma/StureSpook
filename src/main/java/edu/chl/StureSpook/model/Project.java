@@ -1,4 +1,4 @@
-package main.java.edu.chl.StureSpook.model;
+package edu.chl.StureSpook.model;
 
 public class Project {
 	public static final String PROJECT_WINDOW_TEXT = "ProjectTemplate";

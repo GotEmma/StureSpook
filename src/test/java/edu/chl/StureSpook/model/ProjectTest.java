@@ -1,6 +1,6 @@
-package test.java.edu.chl.StureSpook.model;
+package edu.chl.StureSpook.model;
 
-import main.java.edu.chl.StureSpook.model.Project;
+import edu.chl.StureSpook.model.Project;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package test.java.edu.chl.StureSpook;
+package edu.chl.StureSpook;
 
 import java.io.IOException;
 import jdepend.framework.JDepend;
