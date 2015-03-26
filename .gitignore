@@ -6,3 +6,22 @@
 
 log/
 target/
+
+#Netbeans#
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Class Files #
+*.class
+
+
