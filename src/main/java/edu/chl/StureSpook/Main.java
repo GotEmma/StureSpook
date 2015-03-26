@@ -2,9 +2,9 @@ package edu.chl.StureSpook;
 
 import javax.swing.SwingUtilities;
 
-import main.java.edu.chl.StureSpook.controller.ProjectController;
-import main.java.edu.chl.StureSpook.model.Project;
-import main.java.edu.chl.StureSpook.view.ProjectView;
+import edu.chl.StureSpook.controller.ProjectController;
+import edu.chl.StureSpook.model.Project;
+import edu.chl.StureSpook.view.ProjectView;
 
 /*
   Application entry class (if using standard java and Swing)
