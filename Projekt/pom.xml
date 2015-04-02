@@ -11,6 +11,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        
+        <!-- Vår kod: -->
+        <lwjgl.version>2.1.0</lwjgl.version>
+        <phys2D.version>060408</phys2D.version>
+        <platform>mac</platform>
     </properties>
 
     <!-- Libraries needed by out project --> 
@@ -31,6 +36,68 @@
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>annotations</artifactId>
             <version>2.0.3</version>
+        </dependency>
+        
+        <!-- Vår kod: -->
+        <dependency>
+            <groupId>phys2d</groupId>
+            <artifactId>phys2d</artifactId>
+            <version>${phys2D.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <version>${lwjgl.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-jinput</artifactId>
+            <version>${lwjgl.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-native</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>mac</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-native</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>win32</classifier>
+        </dependency>
+        
+        
+        <dependency>
+            <groupId>javax.jnlp</groupId>
+            <artifactId>jnlp</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ibxm</groupId>
+            <artifactId>ibxm</artifactId>
+            <version>unknown</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jcraft</groupId>
+            <artifactId>jogg</artifactId>
+            <version>0.0.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jcraft</groupId>
+            <artifactId>jorbis</artifactId>
+            <version>0.0.15</version>
+        </dependency>
+        <dependency>
+            <groupId>slick</groupId>
+            <artifactId>slick</artifactId>
+            <version>239</version>
         </dependency>
     </dependencies>
 
@@ -82,6 +149,44 @@
                     </execution>
                 </executions>
             </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>org.lwjgl</groupId>
+                            <artifactId>lwjgl-native</artifactId>
+                            <version>${lwjgl.version}</version>
+                            <type>jar</type>
+                            <classifier>win32</classifier>
+                            <outputDirectory>${project.build.directory}/natives</outputDirectory>
+                            <overWrite>true</overWrite>
+                        </artifactItem>
+                        <artifactItem>
+                            <groupId>org.lwjgl</groupId>
+                            <artifactId>lwjgl-native</artifactId>
+                            <version>${lwjgl.version}</version>
+                            <type>jar</type>
+                            <classifier>mac</classifier>
+                            <outputDirectory>${project.build.directory}/natives</outputDirectory>
+                            <overWrite>true</overWrite>
+                        </artifactItem>
+                    </artifactItems>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            
             <plugin>
                 <!--
                 FindBugs looks for bugs in Java programs. It is based on 
@@ -156,4 +261,23 @@
             </plugin>
         </plugins>
     </build>
+    
+    
+    <repositories>
+
+        <repository>
+            <id>b2s-repo</id>
+            <url>http://b2s-repo.googlecode.com/svn/trunk/mvn-repo</url>
+        </repository>
+
+        <repository>
+            <id>freehep</id>
+            <url>http://java.freehep.org/maven2</url>
+        </repository>
+        
+        <repository>
+            <id>nifty-maven-repo.sourceforge.net</id>
+            <url>http://nifty-gui.sourceforge.net/nifty-maven-repo</url>
+        </repository>
+    </repositories>
 </project>
