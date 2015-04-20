@@ -5,6 +5,8 @@ import javax.swing.SwingUtilities;
 import edu.chl.StureSpook.controller.ProjectController;
 import edu.chl.StureSpook.model.Project;
 import edu.chl.StureSpook.view.ProjectView;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.SlickException;
 
 /*
   Application entry class (if using standard java and Swing)
@@ -16,12 +18,13 @@ public final class Main {
 	}
 
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(() -> {
-                    final Project project = new Project();
-                    final ProjectView projectView = new ProjectView(project);
-                    
-                    ProjectController.create(project, projectView);
-                    projectView.setVisible(true);
-                });
+                
+                try{
+                    AppGameContainer container = new AppGameContainer(ProjectController.create("StureSpook"));
+                    container.setDisplayMode(800,600,false);
+                    container.start();
+                }catch (SlickException e){
+                    e.printStackTrace();
+                }
 	}
 }

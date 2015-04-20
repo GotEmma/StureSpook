@@ -5,28 +5,40 @@ import java.awt.event.ActionListener;
 
 import edu.chl.StureSpook.model.Project;
 import edu.chl.StureSpook.view.ProjectView;
+import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 
-public class ProjectController {
-	private final Project project;
-	private final ProjectView projectView;
-	public static final int KO = 1;
+public class ProjectController extends BasicGame{
 
-	public static ProjectController create(Project project, ProjectView projectView) {
-		return new ProjectController(project, projectView);
+        private ProjectView view;
+        private Project model;
+
+	public static ProjectController create(String name) {
+		return new ProjectController(name);
 	}
 
-	private ProjectController(Project project, ProjectView projectView) {
-		projectView.getButton().addActionListener(new ProjectButtonPressed());
-
-		this.project = project;
-		this.projectView = projectView;
+	private ProjectController(String name) {
+                super(name);
+                model = new Project();
+		view = new ProjectView(model);
+                
 	}
 
-	private class ProjectButtonPressed implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			project.incrementPresses();
-			projectView.getPressesLabel().setText(String.valueOf(project.getPresses()));
-		}
-	}
+    @Override
+    public void init(GameContainer gc) throws SlickException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update(GameContainer gc, int i) throws SlickException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void render(GameContainer gc, Graphics grphcs) throws SlickException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

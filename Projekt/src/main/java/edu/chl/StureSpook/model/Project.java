@@ -1,16 +1,17 @@
 package edu.chl.StureSpook.model;
 
 public class Project {
-	public static final String PROJECT_WINDOW_TEXT = "ProjectTemplate";
-	public static final String PROJECT_BUTTON_TEXT = "Press me!";
 
-	private int presses;
-
-	public int getPresses() {
-		return presses; 
-	}
-
-	public void incrementPresses() {
-		this.presses++;
-	}
+    private Player player;
+    private World world;
+    
+    public Project(){
+        player = new Player();
+        
+        world = new World();
+    }
+    
+    public void update() {
+        
+    }
 }
