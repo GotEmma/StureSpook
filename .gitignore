@@ -24,4 +24,6 @@ nb-configuration.xml
 # Class Files #
 *.class
 
+# Gradle output #
+build/
 
