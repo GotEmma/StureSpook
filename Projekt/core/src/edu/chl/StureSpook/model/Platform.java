@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
  *
  * @author Olof
  */
-public class Platform {
+public class Platform implements Drawable{
     
     private float x,y,width,height;
     private Rectangle shape;
@@ -56,4 +56,9 @@ public class Platform {
     //    graphics.drawRect(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
     //    return image;
     //}
+
+    @Override
+    public DrawArg getDrawArg() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

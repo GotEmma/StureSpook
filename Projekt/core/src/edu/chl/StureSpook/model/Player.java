@@ -5,17 +5,23 @@
  */
 package edu.chl.StureSpook.model;
 
+import static com.badlogic.gdx.Gdx.graphics;
+import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
 
 
 /**
  *
  * @author emmafahlen
  */
-public class Player {
+public class Player implements Drawable{
     private float x,y;
-    //private Rectangle shape;
-    //private Image image;
-    //private Graphics graphics;
+    private String textureName = "player";
+    private Rectangle shape;
+    private Image image;
+    private Graphics graphics;
     
     public Player(){
         x = 0; y = 0;
@@ -29,15 +35,14 @@ public class Player {
         //graphics.drawRect(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
     }
     
-    public void setX(float x){
-        this.x = x;
-    }
-    public void setY(float y){
-        this.y = y;
-    }
+    public void setX(float x){ this.x = x; }
+    public void setY(float y){ this.y = y; }
+    
+    public float getX(){ return this.x; }
+    public float getY(){ return this.y; }
 
-    //public Image getImage() {
-    //    graphics.drawRect(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
-    //    return image;
-    //}
+    @Override
+    public DrawArg getDrawArg() {
+        return new DrawArg(this.textureName,(int)x,(int)y);
+    }
 }

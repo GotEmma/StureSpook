@@ -10,16 +10,16 @@ package edu.chl.StureSpook.model;
  * @author Née
  */
 public class DrawArg {
-    private String texture;
-    private int x,y;
+    private final String texture;
+    private float x,y;
     
-    public DrawArg(String textureName, int posX, int posY) {
-        this.texture = texture;
+    public DrawArg(String textureName, float posX, float posY) {
+        this.texture = textureName;
         this.x = posX;
         this.y = posY;
     }
     
     public String getTextureName() { return this.texture; }
-    public int getX() { return this.x; }
-    public int getY() { return this.y; }
+    public float getX() { return this.x; }
+    public float getY() { return this.y; }
 }

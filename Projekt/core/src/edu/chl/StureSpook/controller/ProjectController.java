@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import edu.chl.StureSpook.model.GameModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,15 +15,16 @@ import edu.chl.StureSpook.view.ProjectView;
 public class ProjectController extends ApplicationAdapter {
     SpriteBatch batch;
     Texture img;
+    Texture img2;
     private ProjectView view;
-    private Project model;
+    private GameModel model;
 
-
-    public static ProjectController create(String name) {
-            return new ProjectController(name);
+    @Override
+    public void create() {
+        this.view.init();
     }
 
-    private ProjectController(String name) {
+    public ProjectController() {
             model = new Project();
             view = new ProjectView(model);
 
@@ -30,12 +32,10 @@ public class ProjectController extends ApplicationAdapter {
 
     @Override
     public void render () {
-        // TODO: Det här skall väl typ vara i view:en?
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        batch.draw(img, 0, 0);
-        batch.end();
+        // -do something with time here-
+        this.model.update(0.1f /*-feed the time thing in here when done-*/);
+        this.view.render();
+        
     }
 
 }

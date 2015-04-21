@@ -5,6 +5,8 @@
  */
 package edu.chl.StureSpook.model;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
 
 
 /**
@@ -25,12 +27,16 @@ public class World {
         player.setX(50);
         player.setY(50);
     }
+    
+    public void movePlayer() {
+        this.player.setX(this.player.getX()+3.0f);
+    }
 
-    /*public Image[] getImages() {
-        Image[] images = new Image[2];
-        images[0] = player.getImage();
-        images[1] = testPlatform.getImage();
+    public DrawArg[] getImages() {
+        DrawArg[] images = new DrawArg[1];
+        images[0] = player.getDrawArg();
+        //images[1] = testPlatform.getImage();
         return images;
-    }*/
+    }
     
 }
