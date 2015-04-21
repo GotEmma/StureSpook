@@ -27,3 +27,4 @@ nb-configuration.xml
 # Gradle output #
 build/
 
+/Projekt/.nb-gradle/private/
