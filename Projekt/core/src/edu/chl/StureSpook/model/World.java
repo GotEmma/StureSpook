@@ -28,8 +28,8 @@ public class World {
         player.setY(50);
     }
     
-    public void movePlayer() {
-        this.player.setX(this.player.getX()+3.0f);
+    public void movePlayer(boolean[] WASD) {
+        this.player.setX(this.player.getX() + (WASD[3] ? 3.0f : 0.0f) - (WASD[1] ? 3.0f : 0.0f));
     }
 
     public Drawable[] getImages() {

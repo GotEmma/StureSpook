@@ -12,9 +12,11 @@ public class Project implements GameModel{
         world = new World();
     }
     
-    public void update(float delta) {
+    
+    @Override
+    public void update(float delta, boolean[] WASD) {
         //Update game logic here
-        this.world.movePlayer();
+        this.world.movePlayer(WASD);
     }
     
     public Drawable[] getImages(){
