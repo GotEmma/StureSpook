@@ -2,6 +2,7 @@ package edu.chl.StureSpook.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import edu.chl.StureSpook.model.Drawable;
@@ -13,6 +14,7 @@ public class ProjectView implements GameView{
     private GameModel model;
     private SpriteBatch batch;
     private HashMap<String,Texture> textures;
+    private OrthographicCamera camera;
 
     public ProjectView(GameModel model) {
         this.model = model;
@@ -27,6 +29,7 @@ public class ProjectView implements GameView{
     @Override
     public void init() {
         batch = new SpriteBatch();
+        camera = new OrthographicCamera();
         this.loadAssets();
     }
     
