@@ -4,9 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import edu.chl.StureSpook.model.DrawArg;
+import edu.chl.StureSpook.model.Drawable;
 import edu.chl.StureSpook.model.GameModel;
-import edu.chl.StureSpook.model.Project;
 import java.util.HashMap;
 
 public class ProjectView implements GameView{
@@ -25,11 +24,13 @@ public class ProjectView implements GameView{
         textures.put("player", new Texture("player.bmp"));
     }
     
+    @Override
     public void init() {
         batch = new SpriteBatch();
         this.loadAssets();
     }
     
+    @Override
     public void render(){
         //Clear screen so that next frame is drawn on a clean slate
         Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -39,10 +40,10 @@ public class ProjectView implements GameView{
         batch.begin();
         //batch.draw(img, 0, 0);
         //TODO: REFAKTORERA DETTA SÅ ATT draw() FINNS SOM METOD I Drawable-OBJEKT! VIKTIKGT!
-        DrawArg[] images = model.getImages();
-        for(DrawArg i : images){
-            batch.draw(this.textures.get(i.getTextureName()), i.getX(), i.getY());
-            //images[i].draw();
+        Drawable[] images = model.getImages();
+        for(Drawable i : images){
+            //batch.draw(this.textures.get(i.getTextureName()), i.getX(), i.getY());
+            i.draw(batch, this.textures.get(i.getTextureName()));
         }
         batch.end();
         

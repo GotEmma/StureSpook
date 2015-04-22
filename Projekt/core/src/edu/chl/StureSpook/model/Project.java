@@ -17,7 +17,7 @@ public class Project implements GameModel{
         this.world.movePlayer();
     }
     
-    public DrawArg[] getImages(){
+    public Drawable[] getImages(){
         return world.getImages();
         
     }

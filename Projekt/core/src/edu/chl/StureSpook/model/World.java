@@ -32,9 +32,9 @@ public class World {
         this.player.setX(this.player.getX()+3.0f);
     }
 
-    public DrawArg[] getImages() {
-        DrawArg[] images = new DrawArg[1];
-        images[0] = player.getDrawArg();
+    public Drawable[] getImages() {
+        Drawable[] images = new Drawable[1];
+        images[0] = player;
         //images[1] = testPlatform.getImage();
         return images;
     }

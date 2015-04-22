@@ -7,6 +7,8 @@ package edu.chl.StureSpook.model;
 
 import static com.badlogic.gdx.Gdx.graphics;
 import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
@@ -42,7 +44,12 @@ public class Player implements Drawable{
     public float getY(){ return this.y; }
 
     @Override
-    public DrawArg getDrawArg() {
-        return new DrawArg(this.textureName,(int)x,(int)y);
+    public String getTextureName() {
+        return this.textureName;
+    }
+
+    @Override
+    public void draw(SpriteBatch batch,Texture texture) {
+        batch.draw(texture,this.x,this.y);
     }
 }

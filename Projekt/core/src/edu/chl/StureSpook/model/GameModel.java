@@ -17,5 +17,5 @@ public interface GameModel {
     * @param  delta  the time elapsed since last update
     */
     public void update(float delta);
-    public DrawArg[] getImages();
+    public Drawable[] getImages();
 }

@@ -6,6 +6,8 @@
 package edu.chl.StureSpook.model;
 
 import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -22,6 +24,7 @@ public class Platform implements Drawable{
     private Rectangle shape;
     private Image image;
     private Graphics graphics;
+    private String textureName;
     
     public Platform(float x, float y, float width, float height){
         this.x = x;
@@ -57,8 +60,14 @@ public class Platform implements Drawable{
     //    return image;
     //}
 
+
     @Override
-    public DrawArg getDrawArg() {
+    public String getTextureName() {
+        return this.textureName;
+    }
+    
+    @Override
+    public void draw(SpriteBatch batch,Texture texture) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

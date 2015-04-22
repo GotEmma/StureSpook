@@ -5,10 +5,14 @@
  */
 package edu.chl.StureSpook.model;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 /**
  *
  * @author Née
  */
 public interface Drawable {
-    public DrawArg getDrawArg();
+    public String getTextureName();
+    public void draw(SpriteBatch batch, Texture texture);
 }
