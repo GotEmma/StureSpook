@@ -30,6 +30,7 @@ public class ProjectView implements GameView{
     public void init() {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
+        camera.setToOrtho(false);
         this.loadAssets();
     }
     
