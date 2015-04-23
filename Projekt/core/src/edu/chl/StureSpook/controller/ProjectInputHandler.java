@@ -27,7 +27,12 @@ public class ProjectInputHandler implements InputHandler {
 
     @Override
     public void keyUp(int input, GameModel model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(input==options.getWalkLeftKey()){
+            model.setMoveLeft(false);
+        }
+        if(input==options.getWalkRightKey()){
+            model.setMoveRight(false);
+        }
     }
 
     @Override

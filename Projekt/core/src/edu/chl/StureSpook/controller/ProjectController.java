@@ -49,13 +49,15 @@ public class ProjectController extends ApplicationAdapter implements InputProces
 
     @Override
     public boolean keyDown(int i) {
-        System.out.println("updateMotion");
         inputHandler.keyDown(i, model);
         return true;
     }
 
     @Override
-    public boolean keyUp(int i) { return false; }
+    public boolean keyUp(int i) { 
+        inputHandler.keyUp(i, model);
+        return true;
+    }
 
     @Override
     public boolean keyTyped(char c) { return false; }

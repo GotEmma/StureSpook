@@ -20,7 +20,7 @@ import java.util.HashMap;
  * @author emmafahlen
  */
 public class Player implements Drawable{
-    private float x,y;
+    private float x,y,dx,dy;
     private String textureName = "player";
     private Rectangle shape;
     private Image image;
@@ -58,14 +58,14 @@ public class Player implements Drawable{
         if(moveRight && t){
             moveRight = false;
         }
-        moveLeft = true;
+        moveLeft = t;
     }
     
     public void setMoveRight(boolean t){
         if(moveLeft && t){
             moveLeft = false;
         }
-        moveRight = true;
+        moveRight = t;
     }
     @Override
     public String getTextureName() {
