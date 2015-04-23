@@ -28,3 +28,4 @@ nb-configuration.xml
 build/
 /Projekt/.nb-gradle/
 /Projekt/.gradle/
+.nb-gradle-properties
