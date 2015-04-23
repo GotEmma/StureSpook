@@ -33,4 +33,9 @@ public class Project implements GameModel{
     public void setMoveRight(boolean t) {
         world.movePlayerRight(t);
     }
+    
+    @Override
+    public void setJump(){
+        world.setJump();
+    }
 }

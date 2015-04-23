@@ -20,16 +20,17 @@ import java.util.HashMap;
  * @author emmafahlen
  */
 public class Player implements Drawable{
-    private float x,y,dx,dy;
+    private float x,y,dx,dy,ddy;
     private String textureName = "player";
     private Rectangle shape;
     private Image image;
     private Graphics graphics;
     private boolean moveLeft = false;
     private boolean moveRight = false;
+    private boolean jump;
     
     public Player(){
-        x = 0; y = 0;
+        x = 0; y = 0; ddy = 1;
         //shape = new Rectangle(x,y,20,20);
         
         
@@ -49,20 +50,36 @@ public class Player implements Drawable{
     public void updateMotion(){
         float maxSpeed = 3.5f;
         float ddx = 0.09f;
+        float friction = 0.8f;
         if(moveLeft){
-            if(dx > 0) dx*=0.8;
+            if(dx > 0) dx*=friction;
             dx = Math.max(-maxSpeed, dx-ddx);
         }else if(moveRight){
-            if(dx < 0) dx*=0.8;
+            if(dx < 0) dx*=friction;
             dx = Math.min(maxSpeed, dx+ddx);
         }else if(Math.abs(dx)>0){
-            //dx = dx-(dx>0? dx/2 : -dx/2);
-            dx*=0.8;
+            dx*=friction;
             if(Math.abs(dx)<1.5*ddx){
                 dx = 0;
             }
         }
         x = x+dx;
+        
+        if(jump){
+            if(y==0){
+                dy = 12;
+            }
+            jump = false;
+        }
+        
+        y=y+dy;
+        dy= dy-ddy;
+        
+        // Simple out of bounds test
+        if(y<0){
+            y=0;
+        }
+        
     }
     
     public void setMoveLeft(boolean t){
@@ -78,6 +95,11 @@ public class Player implements Drawable{
         }
         moveRight = t;
     }
+    
+    public void setJump(){
+        jump = true;
+    }
+    
     @Override
     public String getTextureName() {
         return this.textureName;

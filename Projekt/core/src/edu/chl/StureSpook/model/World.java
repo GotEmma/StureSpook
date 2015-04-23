@@ -48,4 +48,8 @@ public class World {
         return images;
     }
     
+    public void setJump(){
+        player.setJump();
+    }
+    
 }

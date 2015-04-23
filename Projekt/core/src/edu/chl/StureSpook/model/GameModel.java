@@ -20,5 +20,6 @@ public interface GameModel {
     public Drawable[] getImages();
     public void setMoveLeft(boolean t);
     public void setMoveRight(boolean t);
+    public void setJump();
     
 }

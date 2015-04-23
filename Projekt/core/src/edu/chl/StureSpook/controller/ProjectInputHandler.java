@@ -22,6 +22,8 @@ public class ProjectInputHandler implements InputHandler {
             model.setMoveLeft(true);
         }else if(input == options.getWalkRightKey()){
             model.setMoveRight(true);
+        }else if(input==options.getJumpKey()){
+            model.setJump();
         }
     }
 
