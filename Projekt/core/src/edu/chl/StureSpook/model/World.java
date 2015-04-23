@@ -29,6 +29,7 @@ public class World {
     }
     
     public void updateWorld(){
+        
         player.updateMotion();
     }
     

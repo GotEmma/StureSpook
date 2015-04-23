@@ -29,6 +29,7 @@ public class ProjectController extends ApplicationAdapter implements InputProces
         options.setJumpKey(Keys.W);
         options.setCrouchKey(Keys.S);
         this.view.init();
+        Gdx.input.setInputProcessor(this);
     }
 
     public ProjectController() {
@@ -48,7 +49,7 @@ public class ProjectController extends ApplicationAdapter implements InputProces
 
     @Override
     public boolean keyDown(int i) {
-        System.out.println("input");
+        System.out.println("updateMotion");
         inputHandler.keyDown(i, model);
         return true;
     }
