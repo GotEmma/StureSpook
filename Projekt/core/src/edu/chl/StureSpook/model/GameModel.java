@@ -17,9 +17,11 @@ public interface GameModel {
     * @param  delta  the time elapsed since last update
     */
     public void update(float delta);
-    public Drawable[] getImages();
+    public DrawableSprite[] getSprites();
+    public DrawableShape[] getShapes();
     public void setMoveLeft(boolean t);
     public void setMoveRight(boolean t);
     public void setJump();
+    public void setFlashlightPosition(int x, int y);
     
 }

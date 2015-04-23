@@ -19,7 +19,7 @@ import java.util.HashMap;
  *
  * @author Olof
  */
-public class Platform implements Drawable{
+public class Platform implements DrawableSprite{
     
     private float x,y,width,height;
     private Rectangle shape;
@@ -61,11 +61,6 @@ public class Platform implements Drawable{
     //    return image;
     //}
 
-
-    @Override
-    public String getTextureName() {
-        return this.textureName;
-    }
     
     @Override
     public void draw(SpriteBatch batch,HashMap<String,Texture> texture) {

@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import edu.chl.StureSpook.Options;
 import edu.chl.StureSpook.model.GameModel;
 
@@ -72,7 +73,11 @@ public class ProjectController extends ApplicationAdapter implements InputProces
     public boolean touchDragged(int i, int i1, int i2) { return false; }
 
     @Override
-    public boolean mouseMoved(int i, int i1) { return false; }
+    public boolean mouseMoved(int x, int y) { 
+        Vector3 coords = view.getCamera().unproject(new Vector3(x,y,0));
+        this.inputHandler.mouseMoved((int)coords.x, (int)coords.y, model);
+        return true; 
+    }
 
     @Override
     public boolean scrolled(int i) { return false; }

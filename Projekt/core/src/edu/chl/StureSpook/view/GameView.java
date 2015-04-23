@@ -5,6 +5,7 @@
  */
 package edu.chl.StureSpook.view;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
@@ -12,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * @author Née
  */
 public interface GameView {
+    public OrthographicCamera getCamera();
     public void init();
     public void render();
 }

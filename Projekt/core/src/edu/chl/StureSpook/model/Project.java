@@ -19,9 +19,15 @@ public class Project implements GameModel{
         this.world.updateWorld();
     }
     
-    public Drawable[] getImages(){
-        return world.getImages();
+    @Override
+    public DrawableSprite[] getSprites(){
+        return world.getSprites();
         
+    }
+    
+    @Override
+    public DrawableShape[] getShapes() {
+        return world.getShapes();
     }
 
     @Override
@@ -38,4 +44,12 @@ public class Project implements GameModel{
     public void setJump(){
         world.setJump();
     }
+
+    @Override
+    public void setFlashlightPosition(int x, int y) {
+        world.setFlashlightPosition(x, y);
+    }
+
+    
+    
 }

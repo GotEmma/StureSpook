@@ -16,5 +16,5 @@ public interface InputHandler {
     
     public void keyUp(int input, GameModel model);
     
-    public void mouseMoved(int input, GameModel model);
+    public void mouseMoved(int x,int y, GameModel model);
 }

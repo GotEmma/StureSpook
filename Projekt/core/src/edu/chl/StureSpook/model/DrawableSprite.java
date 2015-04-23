@@ -13,7 +13,6 @@ import java.util.HashMap;
  *
  * @author Née
  */
-public interface Drawable {
-    public String getTextureName();
+public interface DrawableSprite {
     public void draw(SpriteBatch batch, HashMap<String,Texture> texture);
 }

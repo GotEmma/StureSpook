@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import edu.chl.StureSpook.model.Drawable;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import edu.chl.StureSpook.model.DrawableShape;
+import edu.chl.StureSpook.model.DrawableSprite;
 import edu.chl.StureSpook.model.GameModel;
 import java.util.HashMap;
 
@@ -13,6 +15,7 @@ public class ProjectView implements GameView{
 
     private GameModel model;
     private SpriteBatch batch;
+    private ShapeRenderer renderer;
     private HashMap<String,Texture> textures;
     private OrthographicCamera camera;
 
@@ -27,10 +30,18 @@ public class ProjectView implements GameView{
     }
     
     @Override
+    public OrthographicCamera getCamera() {
+        return this.camera;
+    }
+    
+    @Override
     public void init() {
         batch = new SpriteBatch();
+        renderer = new ShapeRenderer();
+        renderer.setAutoShapeType(true);
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
+        renderer.setProjectionMatrix(camera.combined);
         this.loadAssets();
     }
     
@@ -42,15 +53,21 @@ public class ProjectView implements GameView{
         
         
         batch.begin();
-        //batch.draw(img, 0, 0);
-        //TODO: REFAKTORERA DETTA SÅ ATT draw() FINNS SOM METOD I Drawable-OBJEKT! VIKTIKGT!
-        Drawable[] images = model.getImages();
-        for(Drawable i : images){
+        DrawableSprite[] images = model.getSprites();
+        for(DrawableSprite i : images){
             //batch.draw(this.textures.get(i.getTextureName()), i.getX(), i.getY());
             i.draw(batch, this.textures);
         }
         batch.end();
         
+        renderer.begin();
+        DrawableShape[] shapes = model.getShapes();
+        for (DrawableShape s : shapes) {
+            s.draw(renderer);
+        }
+        renderer.end();
+        
     }
+
 
 }
