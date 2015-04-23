@@ -47,11 +47,22 @@ public class Player implements Drawable{
     public float getY(){ return this.y; }
 
     public void updateMotion(){
+        float maxSpeed = 3.5f;
+        float ddx = 0.09f;
         if(moveLeft){
-            x = x-5;
+            if(dx > 0) dx*=0.8;
+            dx = Math.max(-maxSpeed, dx-ddx);
         }else if(moveRight){
-            x = x+5;
+            if(dx < 0) dx*=0.8;
+            dx = Math.min(maxSpeed, dx+ddx);
+        }else if(Math.abs(dx)>0){
+            //dx = dx-(dx>0? dx/2 : -dx/2);
+            dx*=0.8;
+            if(Math.abs(dx)<1.5*ddx){
+                dx = 0;
+            }
         }
+        x = x+dx;
     }
     
     public void setMoveLeft(boolean t){
