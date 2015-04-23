@@ -7,21 +7,27 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import edu.chl.StureSpook.Options;
 import edu.chl.StureSpook.model.GameModel;
 
 import edu.chl.StureSpook.model.Project;
 import edu.chl.StureSpook.view.ProjectView;
 
 public class ProjectController extends ApplicationAdapter implements InputProcessor {
+    private Options options = Options.getInstance();
+    private InputHandler inputHandler = new ProjectInputHandler();
     SpriteBatch batch;
     Texture img;
     Texture img2;
     private ProjectView view;
     private GameModel model;
-    private boolean jumpPressed;
 
     @Override
     public void create() {
+        options.setWalkLeftKey(Keys.A);
+        options.setWalkRightKey(Keys.D);
+        options.setJumpKey(Keys.W);
+        options.setCrouchKey(Keys.S);
         this.view.init();
     }
 
@@ -34,23 +40,16 @@ public class ProjectController extends ApplicationAdapter implements InputProces
     
     @Override
     public void render () {
-        boolean[] WASD = new boolean[4];
-        WASD[0] = this.jumpPressed;
-        WASD[1] = Gdx.input.isKeyPressed(Input.Keys.A);
-        WASD[2] = Gdx.input.isKeyPressed(Input.Keys.S);
-        WASD[3] = Gdx.input.isKeyPressed(Input.Keys.D);
         // -do something with time here-
-        this.model.update(0.1f, WASD);
-        if (WASD[0]) { this.jumpPressed = false; }
+        this.model.update(0.1f);
         this.view.render();
         
     }
 
     @Override
     public boolean keyDown(int i) {
-        if (i == Keys.W) {
-            this.jumpPressed = true;
-        }
+        System.out.println("input");
+        inputHandler.keyDown(i, model);
         return true;
     }
 

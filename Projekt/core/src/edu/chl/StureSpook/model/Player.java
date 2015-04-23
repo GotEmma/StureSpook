@@ -25,6 +25,8 @@ public class Player implements Drawable{
     private Rectangle shape;
     private Image image;
     private Graphics graphics;
+    private boolean moveLeft = false;
+    private boolean moveRight = false;
     
     public Player(){
         x = 0; y = 0;
@@ -44,6 +46,27 @@ public class Player implements Drawable{
     public float getX(){ return this.x; }
     public float getY(){ return this.y; }
 
+    public void updateMotion(){
+        if(moveLeft){
+            x = x-5;
+        }else if(moveRight){
+            x = x+5;
+        }
+    }
+    
+    public void setMoveLeft(boolean t){
+        if(moveRight && t){
+            moveRight = false;
+        }
+        moveLeft = true;
+    }
+    
+    public void setMoveRight(boolean t){
+        if(moveLeft && t){
+            moveLeft = false;
+        }
+        moveRight = true;
+    }
     @Override
     public String getTextureName() {
         return this.textureName;

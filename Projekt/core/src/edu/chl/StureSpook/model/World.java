@@ -28,8 +28,16 @@ public class World {
         player.setY(50);
     }
     
-    public void movePlayer(boolean[] WASD) {
-        this.player.setX(this.player.getX() + (WASD[3] ? 3.0f : 0.0f) - (WASD[1] ? 3.0f : 0.0f));
+    public void updateWorld(){
+        player.updateMotion();
+    }
+    
+    public void movePlayerLeft(boolean t) {
+        player.setMoveLeft(t);
+    }
+    
+    public void movePlayerRight(boolean t){
+        player.setMoveRight(t);
     }
 
     public Drawable[] getImages() {

@@ -14,13 +14,23 @@ public class Project implements GameModel{
     
     
     @Override
-    public void update(float delta, boolean[] WASD) {
+    public void update(float delta) {
         //Update game logic here
-        this.world.movePlayer(WASD);
+        this.world.updateWorld();
     }
     
     public Drawable[] getImages(){
         return world.getImages();
         
+    }
+
+    @Override
+    public void setMoveLeft(boolean t) {
+        world.movePlayerLeft(t);
+    }
+
+    @Override
+    public void setMoveRight(boolean t) {
+        world.movePlayerRight(t);
     }
 }

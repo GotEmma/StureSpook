@@ -11,23 +11,35 @@ import com.badlogic.gdx.Input;
  *
  * @author emmafahlen
  */
-public abstract class Options {
+public class Options {
     
-    private static Input.Keys walkLeftKey;
-    private static Input.Keys walkRightKey;
-    private static Input.Keys jumpKey;
-    private static Input.Keys crouchKey;
+    private static Options instance;
     
-    public static Input.Keys getWalkLeftKey() {return Options.walkLeftKey; }
-    public static void setWalkLeftKey(Input.Keys k) { Options.walkLeftKey = k; }
+    private int walkLeftKey;
+    private int walkRightKey;
+    private int jumpKey;
+    private int crouchKey;
     
-    public static Input.Keys getWalkRightKey() {return Options.walkRightKey; }
-    public static void setWalkRightKey(Input.Keys k) { Options.walkRightKey = k; }
+    public static Options getInstance(){
+        if(instance == null){
+            instance = new Options();
+        }
+        return instance;
+    }
     
-    public static Input.Keys getJumpKey() {return Options.jumpKey; }
-    public static void setJumpKey(Input.Keys k) { Options.jumpKey = k; }
+    private Options(){
+        
+    }
+    public int getWalkLeftKey() {return walkLeftKey; }
+    public void setWalkLeftKey(int k) { walkLeftKey = k; }
     
-    public static Input.Keys getCrouchKey() {return Options.crouchKey; }
-    public static void setCrouchKey(Input.Keys k) { Options.crouchKey = k; }
+    public int getWalkRightKey() {return walkRightKey; }
+    public void setWalkRightKey(int k) { walkRightKey = k; }
+    
+    public int getJumpKey() {return jumpKey; }
+    public void setJumpKey(int k) { jumpKey = k; }
+    
+    public int getCrouchKey() {return crouchKey; }
+    public void setCrouchKey(int k) { crouchKey = k; }
     
 }
