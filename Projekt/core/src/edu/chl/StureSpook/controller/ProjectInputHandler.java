@@ -30,7 +30,7 @@ public class ProjectInputHandler implements InputHandler {
         if(input==options.getWalkLeftKey()){
             model.setMoveLeft(false);
         }
-        if(input==options.getWalkRightKey()){
+        else if(input==options.getWalkRightKey()){
             model.setMoveRight(false);
         }
     }
