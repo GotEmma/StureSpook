@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import java.util.HashMap;
 
 
 
@@ -67,7 +68,8 @@ public class Platform implements Drawable{
     }
     
     @Override
-    public void draw(SpriteBatch batch,Texture texture) {
+    public void draw(SpriteBatch batch,HashMap<String,Texture> texture) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

@@ -7,6 +7,7 @@ package edu.chl.StureSpook.model;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import java.util.HashMap;
 
 /**
  *
@@ -14,5 +15,5 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public interface Drawable {
     public String getTextureName();
-    public void draw(SpriteBatch batch, Texture texture);
+    public void draw(SpriteBatch batch, HashMap<String,Texture> texture);
 }

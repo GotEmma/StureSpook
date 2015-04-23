@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import java.util.HashMap;
 
 
 
@@ -49,7 +50,7 @@ public class Player implements Drawable{
     }
 
     @Override
-    public void draw(SpriteBatch batch,Texture texture) {
-        batch.draw(texture,this.x,this.y);
+    public void draw(SpriteBatch batch,HashMap<String,Texture> texture) {
+        batch.draw(texture.get(this.textureName),this.x,this.y);
     }
 }

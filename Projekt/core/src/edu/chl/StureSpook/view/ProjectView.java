@@ -47,7 +47,7 @@ public class ProjectView implements GameView{
         Drawable[] images = model.getImages();
         for(Drawable i : images){
             //batch.draw(this.textures.get(i.getTextureName()), i.getX(), i.getY());
-            i.draw(batch, this.textures.get(i.getTextureName()));
+            i.draw(batch, this.textures);
         }
         batch.end();
         
