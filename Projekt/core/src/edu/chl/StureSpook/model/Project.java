@@ -50,6 +50,11 @@ public class Project implements GameModel{
         world.setFlashlightPosition(x, y);
     }
 
+    @Override
+    public World getWorld() {
+        return this.world; //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     
 }

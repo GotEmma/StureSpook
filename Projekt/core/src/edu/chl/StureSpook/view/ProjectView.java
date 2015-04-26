@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import edu.chl.StureSpook.model.DrawableShape;
 import edu.chl.StureSpook.model.DrawableSprite;
 import edu.chl.StureSpook.model.GameModel;
+import edu.chl.StureSpook.model.Player;
+import edu.chl.StureSpook.model.World;
 import java.util.HashMap;
 
 public class ProjectView implements GameView{
@@ -58,6 +60,9 @@ public class ProjectView implements GameView{
             //batch.draw(this.textures.get(i.getTextureName()), i.getX(), i.getY());
             i.draw(batch, this.textures);
         }
+        camera.update();
+        camera.position.set(model.getWorld().getPlayer().getX(), model.getWorld().getPlayer().getY(), 100);
+        batch.setProjectionMatrix(camera.combined);
         batch.end();
         
         renderer.begin();

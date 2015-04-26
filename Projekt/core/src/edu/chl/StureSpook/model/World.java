@@ -67,4 +67,7 @@ public class World {
     public void setFlashlightPosition(int x, int y) {
         flashlight.setEndPoint(x, y);
     }
+    public Player getPlayer(){
+        return player;
+    }
 }
