@@ -5,7 +5,6 @@
  */
 package edu.chl.StureSpook.model;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 
 
@@ -66,5 +65,9 @@ public class World {
     
     public void setFlashlightPosition(int x, int y) {
         flashlight.setEndPoint(x, y);
+    }
+    
+    public GameTile[][] getTiles(){
+        return new GameTile[1][1];
     }
 }

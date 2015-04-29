@@ -23,5 +23,7 @@ public interface GameModel {
     public void setMoveRight(boolean t);
     public void setJump();
     public void setFlashlightPosition(int x, int y);
+    public GameTile[][] getTiles();
+    public float[] getFlashlightPolygon();
     
 }
