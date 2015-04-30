@@ -14,7 +14,7 @@ import java.util.HashMap;
  *
  * @author User
  */
-public class Flashlight implements DrawableShape {
+public class Flashlight {
     private float startPointX,startPointY;
     private float endPointX,endPointY;
     
@@ -28,10 +28,11 @@ public class Flashlight implements DrawableShape {
         this.endPointY = y;
     }
 
-    @Override
-    public void draw(ShapeRenderer renderer) {
-        renderer.line(startPointX, startPointY, endPointX, endPointY);
-        
-    }
+    public float getStartPointX() {return this.startPointX; }
+    public float getStartPointY() {return this.startPointY; }
+    
+    public float getEndPointX() {return this.endPointX; }
+    public float getEndPointY() {return this.endPointY; }
+    
     
 }

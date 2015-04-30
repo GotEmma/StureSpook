@@ -10,5 +10,13 @@ package edu.chl.StureSpook.model;
  * @author emmafahlen
  */
 public class Level {
+    private String textureName;
     
+    public Level(String textureName){
+        this.textureName=textureName;    
+    }
+    
+    public String getMapTextureName(){
+        return textureName;
+    }
 }

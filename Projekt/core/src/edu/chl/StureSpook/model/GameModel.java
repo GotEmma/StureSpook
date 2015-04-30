@@ -25,5 +25,7 @@ public interface GameModel {
     public void setFlashlightPosition(int x, int y);
     public GameTile[][] getTiles();
     public float[] getFlashlightPolygon();
+    public Level getCurrentLevel();
+    public Player getPlayer();
     
 }

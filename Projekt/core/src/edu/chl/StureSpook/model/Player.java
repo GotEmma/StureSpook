@@ -19,7 +19,7 @@ import java.util.HashMap;
  *
  * @author emmafahlen
  */
-public class Player implements DrawableSprite{
+public class Player {
     private float x,y,dx,dy,ddy;
     private String textureName = "player";
     private Rectangle shape;
@@ -99,10 +99,8 @@ public class Player implements DrawableSprite{
     public void setJump(){
         jump = true;
     }
-
-    @Override
-    public void draw(SpriteBatch batch,HashMap<String,Texture> texture) {
-        System.out.println("player");
-        batch.draw(texture.get(this.textureName),this.x,this.y);
+    public String getTextureName(){
+        return this.textureName;
     }
+
 }

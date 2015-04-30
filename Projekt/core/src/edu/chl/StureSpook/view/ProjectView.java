@@ -1,6 +1,7 @@
 package edu.chl.StureSpook.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -32,6 +33,7 @@ public class ProjectView implements GameView{
         textures = new HashMap<String,Texture>();
         textures.put("badlogic", new Texture("badlogic.jpg"));
         textures.put("player", new Texture("player.bmp"));
+        textures.put("testBackground", new Texture("testBackground.png"));
         
         sprites = new HashMap<String,Sprite>();
     }
@@ -54,9 +56,7 @@ public class ProjectView implements GameView{
     
     @Override
     public void render(){
-        /*//Clear screen so that next frame is drawn on a clean slate
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+       /*
         
         
         batch.begin();
@@ -88,7 +88,7 @@ public class ProjectView implements GameView{
 
         batch.begin();
         //DRAW BACKGROUND IMAGE HERE:
-        batch.draw(textures.get("this.world.getCurrentLevel().getMapTextureName()"), 0, 0);
+        batch.draw(textures.get(this.model.getCurrentLevel().getMapTextureName()), -50, -100);
         
         //DRAW TILE MAP HERE:
         GameTile[][] tiles = this.model.getTiles();
@@ -99,14 +99,15 @@ public class ProjectView implements GameView{
         }
         
         //DRAW WORLD OBJECTS - här hamnar spelare, fiender, och objekt på banan, exempelvis.
-        //hämta från model och rita in.
+        Player p = this.model.getPlayer();
+        batch.draw(textures.get(p.getTextureName()),p.getX() ,p.getY());
         
         batch.end();
         
         //DRAW FLASHLIGHT HERE
         float[] polygon  = this.model.getFlashlightPolygon(); //Gör något med denna
         renderer.begin(ShapeRenderer.ShapeType.Line);
-        renderer.polygon(polygon);
+        renderer.line(polygon[0], polygon[1], polygon[2], polygon[3], Color.MAGENTA, Color.CYAN);
         renderer.end();
         
         
