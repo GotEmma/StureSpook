@@ -56,16 +56,13 @@ public class Project implements GameModel{
     }
 
     @Override
-<<<<<<< HEAD
     public World getWorld() {
         return this.world; //To change body of generated methods, choose Tools | Templates.
     }
 
-=======
     public float[] getFlashlightPolygon() {
         return new float[1];
     }
->>>>>>> framework-extrication
     
     
 }

@@ -23,11 +23,8 @@ public interface GameModel {
     public void setMoveRight(boolean t);
     public void setJump();
     public void setFlashlightPosition(int x, int y);
-<<<<<<< HEAD
     public World getWorld();
-=======
     public GameTile[][] getTiles();
     public float[] getFlashlightPolygon();
->>>>>>> framework-extrication
     
 }

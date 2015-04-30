@@ -66,15 +66,12 @@ public class World {
     public void setFlashlightPosition(int x, int y) {
         flashlight.setEndPoint(x, y);
     }
-<<<<<<< HEAD
     public Player getPlayer(){
         return player;
     }
-=======
     
     public GameTile[][] getTiles(){
         return new GameTile[1][1];
     }
 
->>>>>>> framework-extrication
 }

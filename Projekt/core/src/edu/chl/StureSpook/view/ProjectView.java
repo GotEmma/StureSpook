@@ -10,12 +10,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import edu.chl.StureSpook.model.DrawableShape;
 import edu.chl.StureSpook.model.DrawableSprite;
 import edu.chl.StureSpook.model.GameModel;
-<<<<<<< HEAD
 import edu.chl.StureSpook.model.Player;
 import edu.chl.StureSpook.model.World;
-=======
 import edu.chl.StureSpook.model.GameTile;
->>>>>>> framework-extrication
 import java.util.HashMap;
 
 public class ProjectView implements GameView{
@@ -115,7 +112,6 @@ public class ProjectView implements GameView{
         
         //DRAW USER INTERFACE HERE
         //work out how interface will work. Only commands will be passed to model!
->>>>>>> framework-extrication
     }
 
 
