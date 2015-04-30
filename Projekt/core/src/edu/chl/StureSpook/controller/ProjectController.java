@@ -30,7 +30,7 @@ public class ProjectController extends ApplicationAdapter implements InputProces
         options.setJumpKey(Keys.W);
         options.setCrouchKey(Keys.S);
         this.view.init();
-        Gdx.input.setInputProcessor(this);
+        Gdx.input.setInputProcessor(this); //TODO: Sätt till View:en!
     }
 
     public ProjectController() {

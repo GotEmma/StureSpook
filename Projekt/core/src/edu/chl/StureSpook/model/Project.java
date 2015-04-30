@@ -49,12 +49,23 @@ public class Project implements GameModel{
     public void setFlashlightPosition(int x, int y) {
         world.setFlashlightPosition(x, y);
     }
+    
+    @Override
+    public GameTile[][] getTiles() {
+        return world.getTiles();
+    }
 
     @Override
+<<<<<<< HEAD
     public World getWorld() {
         return this.world; //To change body of generated methods, choose Tools | Templates.
     }
 
+=======
+    public float[] getFlashlightPolygon() {
+        return new float[1];
+    }
+>>>>>>> framework-extrication
     
     
 }
