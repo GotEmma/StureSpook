@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import edu.chl.StureSpook.Options;
 import edu.chl.StureSpook.model.GameModel;
 
-import edu.chl.StureSpook.model.Project;
+import edu.chl.StureSpook.model.World;
 import edu.chl.StureSpook.view.ProjectView;
 
 public class ProjectController extends ApplicationAdapter implements InputProcessor {
@@ -34,7 +34,7 @@ public class ProjectController extends ApplicationAdapter implements InputProces
     }
 
     public ProjectController() {
-            model = new Project();
+            model = new World();
             view = new ProjectView(model);
 
     }

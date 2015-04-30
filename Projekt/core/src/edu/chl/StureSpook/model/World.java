@@ -12,7 +12,7 @@ package edu.chl.StureSpook.model;
  *
  * @author emmafahlen
  */
-public class World {
+public class World implements GameModel {
     
     private Level[] levels = new Level[1];
     
@@ -31,17 +31,20 @@ public class World {
         flashlight.setStartPoint(player.getX()+10, player.getY()+10);
     }
     
-    public void updateWorld(){
+    @Override
+    public void update(float delta){
         
         player.updateMotion();
         flashlight.setStartPoint(player.getX()+10, player.getY()+10);
     }
     
-    public void movePlayerLeft(boolean t) {
+    @Override
+    public void setMoveLeft(boolean t) {
         player.setMoveLeft(t);
     }
     
-    public void movePlayerRight(boolean t){
+    @Override
+    public void setMoveRight(boolean t){
         player.setMoveRight(t);
     }
 
@@ -72,6 +75,11 @@ public class World {
     
     public GameTile[][] getTiles(){
         return new GameTile[1][1];
+    }
+
+    @Override
+    public float[] getFlashlightPolygon() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
