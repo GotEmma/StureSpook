@@ -1,6 +1,7 @@
 package edu.chl.StureSpook.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -85,8 +86,12 @@ public class ProjectView implements GameView{
         
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        
+        camera.position.set(model.getPlayer().getX(), /*model.getPlayer().getY()*/0, 100);
+        camera.update();
+        
         batch.begin();
+        batch.setProjectionMatrix(camera.combined);
         //DRAW BACKGROUND IMAGE HERE:
         batch.draw(textures.get(this.model.getCurrentLevel().getMapTextureName()), -50, -100);
         
@@ -102,13 +107,16 @@ public class ProjectView implements GameView{
         Player p = this.model.getPlayer();
         batch.draw(textures.get(p.getTextureName()),p.getX() ,p.getY());
         
+        
         batch.end();
         
         //DRAW FLASHLIGHT HERE
         float[] polygon  = this.model.getFlashlightPolygon(); //Gör något med denna
         renderer.begin(ShapeRenderer.ShapeType.Line);
-        renderer.line(polygon[0], polygon[1], polygon[2], polygon[3], Color.MAGENTA, Color.CYAN);
+        renderer.setProjectionMatrix(camera.combined);
+        renderer.line(polygon[0], polygon[1], polygon[2], polygon[3], Color.MAGENTA, Color.CYAN);//Rita helsvart över skärmen senare, med ett transparent hål som motsvarar ficklampsljus
         renderer.end();
+        
         
         
         //DRAW USER INTERFACE HERE

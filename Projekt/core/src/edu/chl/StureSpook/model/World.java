@@ -98,6 +98,5 @@ public class World implements GameModel {
         return levels [currentLevel];
     }
     
-    
 
 }
