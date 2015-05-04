@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import edu.chl.StureSpook.Options;
 import edu.chl.StureSpook.model.GameModel;
 
-import edu.chl.StureSpook.model.Project;
+import edu.chl.StureSpook.model.World;
 import edu.chl.StureSpook.view.ProjectView;
 
 public class ProjectController extends ApplicationAdapter implements InputProcessor {
@@ -30,11 +30,11 @@ public class ProjectController extends ApplicationAdapter implements InputProces
         options.setJumpKey(Keys.W);
         options.setCrouchKey(Keys.S);
         this.view.init();
-        Gdx.input.setInputProcessor(this);
+        Gdx.input.setInputProcessor(this); //TODO: Sätt till View:en!
     }
 
     public ProjectController() {
-            model = new Project();
+            model = new World();
             view = new ProjectView(model);
 
     }
