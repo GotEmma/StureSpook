@@ -92,13 +92,21 @@ public class ProjectView extends InputAdapter implements GameView{
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        camera.position.set(model.getPlayer().getX(), /*model.getPlayer().getY()*/0, 100);
+        float cameraX = Math.max(model.getPlayer().getX(),camera.viewportWidth/2); //left limit
+        cameraX = Math.min(cameraX, 
+                this.model.getCurrentLevel().getWidth()-(camera.viewportWidth/2) );//right limit
+        
+        float cameraY = Math.max(model.getPlayer().getY(),camera.viewportHeight/2); //bottom limit
+        cameraY = Math.min(cameraY, 
+                this.model.getCurrentLevel().getHeight()-(camera.viewportHeight/2) );//top limit
+        
+        camera.position.set(cameraX, cameraY, 100);
         camera.update();
         
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
         //DRAW BACKGROUND IMAGE HERE:
-        batch.draw(textures.get(this.model.getCurrentLevel().getMapTextureName()), -50, -100);
+        batch.draw(textures.get(this.model.getCurrentLevel().getMapTextureName()), 0, 0);
         
         //DRAW TILE MAP HERE:
         GameTile[][] tiles = this.model.getTiles();

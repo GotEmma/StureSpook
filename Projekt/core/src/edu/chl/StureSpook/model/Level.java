@@ -11,9 +11,21 @@ package edu.chl.StureSpook.model;
  */
 public class Level {
     private String textureName;
+    private float width;
+    private float height;
+    
+    public float getWidth() {
+        return this.width;
+    }
+    
+    public float getHeight() {
+        return this.height;
+    }
     
     public Level(String textureName){
-        this.textureName=textureName;    
+        this.textureName=textureName;  
+        this.width = 1000; //Set using constructor later?
+        this.height = 600;
     }
     
     public String getMapTextureName(){
