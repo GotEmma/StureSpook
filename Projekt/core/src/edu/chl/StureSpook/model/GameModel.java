@@ -5,6 +5,8 @@
  */
 package edu.chl.StureSpook.model;
 
+import java.beans.PropertyChangeListener;
+
 /**
  *
  * @author Née
@@ -27,5 +29,6 @@ public interface GameModel {
     public float[] getFlashlightPolygon();
     public Level getCurrentLevel();
     public Player getPlayer();
-    
+    public void addPropertyChangeListener(PropertyChangeListener l);
+    public void removePropertyChangeListener(PropertyChangeListener l);
 }

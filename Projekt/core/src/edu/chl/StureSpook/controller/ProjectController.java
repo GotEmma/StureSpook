@@ -31,13 +31,15 @@ public class ProjectController extends ApplicationAdapter{
         options.setCrouchKey(Keys.S);
         this.view.init();
         Gdx.input.setInputProcessor((InputProcessor) view); //TODO: Sätt till View:en!
-        view.addInputListener(desktopInputHandler);
+        
     }
 
     public ProjectController() {
             model = new World();
             view = new ProjectView(model);
             desktopInputHandler = new ProjectInputHandler(model);
+            view.addInputListener(desktopInputHandler);
+            model.addPropertyChangeListener(view);
 
     }
 
@@ -46,7 +48,7 @@ public class ProjectController extends ApplicationAdapter{
     public void render () {
         // -do something with time here-
         this.model.update(0.1f);
-        this.view.render();
+        // view listens to when model is done updating
         
     }
 

@@ -5,6 +5,9 @@
  */
 package edu.chl.StureSpook.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 
 
 
@@ -13,7 +16,7 @@ package edu.chl.StureSpook.model;
  * @author emmafahlen
  */
 public class World implements GameModel {
-    
+    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private Level[] levels = new Level[1];
     
     private Player player;
@@ -38,6 +41,7 @@ public class World implements GameModel {
         
         player.updateMotion();
         flashlight.setStartPoint(player.getX()+10, player.getY()+10);
+        pcs.firePropertyChange("logic updated", 1, 0);
     }
     
     @Override
@@ -96,6 +100,14 @@ public class World implements GameModel {
     @Override
     public Level getCurrentLevel() {
         return levels [currentLevel];
+    }
+    
+    public void addPropertyChangeListener(PropertyChangeListener l){
+        pcs.addPropertyChangeListener(l);
+    }
+    
+    public void removePropertyChangeListener(PropertyChangeListener l){
+        pcs.removePropertyChangeListener(l);
     }
     
 

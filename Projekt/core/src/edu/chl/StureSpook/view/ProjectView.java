@@ -17,10 +17,12 @@ import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
 import edu.chl.StureSpook.model.World;
 import edu.chl.StureSpook.model.GameTile;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ProjectView extends InputAdapter implements GameView{
+public class ProjectView extends InputAdapter implements GameView,PropertyChangeListener{
 
     private GameModel model;
     private SpriteBatch batch;
@@ -60,8 +62,7 @@ public class ProjectView extends InputAdapter implements GameView{
         this.loadAssets();
     }
     
-    @Override
-    public void render(){
+    private void render(){
        /*
         
         
@@ -163,6 +164,11 @@ public class ProjectView extends InputAdapter implements GameView{
             l.mouseMoved((int)coords.x, (int)coords.y);
         }
         return true; 
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        this.render();
     }
 
 
