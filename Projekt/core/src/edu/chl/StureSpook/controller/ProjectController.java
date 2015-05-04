@@ -14,9 +14,9 @@ import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.World;
 import edu.chl.StureSpook.view.ProjectView;
 
-public class ProjectController extends ApplicationAdapter implements InputProcessor {
+public class ProjectController extends ApplicationAdapter{
     private Options options = Options.getInstance();
-    private InputHandler inputHandler = new ProjectInputHandler();
+    private ProjectInputHandler desktopInputHandler;
     SpriteBatch batch;
     Texture img;
     Texture img2;
@@ -30,12 +30,14 @@ public class ProjectController extends ApplicationAdapter implements InputProces
         options.setJumpKey(Keys.W);
         options.setCrouchKey(Keys.S);
         this.view.init();
-        Gdx.input.setInputProcessor(this); //TODO: Sätt till View:en!
+        Gdx.input.setInputProcessor((InputProcessor) view); //TODO: Sätt till View:en!
+        view.addInputListener(desktopInputHandler);
     }
 
     public ProjectController() {
             model = new World();
             view = new ProjectView(model);
+            desktopInputHandler = new ProjectInputHandler(model);
 
     }
 
@@ -47,39 +49,5 @@ public class ProjectController extends ApplicationAdapter implements InputProces
         this.view.render();
         
     }
-
-    @Override
-    public boolean keyDown(int i) {
-        inputHandler.keyDown(i, model);
-        return true;
-    }
-
-    @Override
-    public boolean keyUp(int i) { 
-        inputHandler.keyUp(i, model);
-        return true;
-    }
-
-    @Override
-    public boolean keyTyped(char c) { return false; }
-
-    @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) { return false; }
-
-    @Override
-    public boolean touchUp(int i, int i1, int i2, int i3) { return false; }
-
-    @Override
-    public boolean touchDragged(int i, int i1, int i2) { return false; }
-
-    @Override
-    public boolean mouseMoved(int x, int y) { 
-        Vector3 coords = view.getCamera().unproject(new Vector3(x,y,0));
-        this.inputHandler.mouseMoved((int)coords.x, (int)coords.y, model);
-        return true; 
-    }
-
-    @Override
-    public boolean scrolled(int i) { return false; }
 
 }

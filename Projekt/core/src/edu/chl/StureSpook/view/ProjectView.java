@@ -9,15 +9,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector3;
+import edu.chl.StureSpook.controller.ProjectInputHandler;
 import edu.chl.StureSpook.model.DrawableShape;
 import edu.chl.StureSpook.model.DrawableSprite;
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
 import edu.chl.StureSpook.model.World;
 import edu.chl.StureSpook.model.GameTile;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ProjectView implements GameView{
+public class ProjectView extends InputAdapter implements GameView{
 
     private GameModel model;
     private SpriteBatch batch;
@@ -25,9 +28,11 @@ public class ProjectView implements GameView{
     private HashMap<String,Texture> textures;
     private HashMap<String,Sprite> sprites;
     private OrthographicCamera camera;
+    private ArrayList<DesktopInputListener> listeners;
 
     public ProjectView(GameModel model) {
         this.model = model;
+        listeners = new ArrayList<DesktopInputListener>();
     }
     
     private void loadAssets() {
@@ -121,6 +126,35 @@ public class ProjectView implements GameView{
         
         //DRAW USER INTERFACE HERE
         //work out how interface will work. Only commands will be passed to model!
+    }
+    
+    public void addInputListener(DesktopInputListener listener){
+        listeners.add(listener);
+    }
+    
+    @Override
+    public boolean keyUp(int i) { 
+        for(DesktopInputListener l:listeners){
+            l.keyUp(i);
+        }
+        return true;
+    }
+    
+    @Override
+    public boolean keyDown(int i) {
+        for(DesktopInputListener l:listeners){
+            l.keyDown(i);
+        }
+        return true;
+    }
+    
+    @Override
+    public boolean mouseMoved(int x, int y) { 
+        Vector3 coords = this.getCamera().unproject(new Vector3(x,y,0));
+        for(DesktopInputListener l:listeners){
+            l.mouseMoved((int)coords.x, (int)coords.y);
+        }
+        return true; 
     }
 
 

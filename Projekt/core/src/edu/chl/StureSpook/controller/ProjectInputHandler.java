@@ -7,17 +7,22 @@ package edu.chl.StureSpook.controller;
 
 import edu.chl.StureSpook.Options;
 import edu.chl.StureSpook.model.GameModel;
+import edu.chl.StureSpook.view.DesktopInputListener;
 
 /**
  *
  * @author Olof
  */
-public class ProjectInputHandler implements InputHandler {
+public class ProjectInputHandler implements DesktopInputListener {
     
     private Options options = Options.getInstance();
+    private GameModel model;
     
-    @Override
-    public void keyDown(int input, GameModel model) {
+    public ProjectInputHandler(GameModel model){
+        this.model = model;
+    }
+    
+    public void keyDown(int input) {
         if(input == options.getWalkLeftKey()){
             model.setMoveLeft(true);
         }else if(input == options.getWalkRightKey()){
@@ -27,8 +32,7 @@ public class ProjectInputHandler implements InputHandler {
         }
     }
 
-    @Override
-    public void keyUp(int input, GameModel model) {
+    public void keyUp(int input) {
         if(input==options.getWalkLeftKey()){
             model.setMoveLeft(false);
         }
@@ -37,8 +41,7 @@ public class ProjectInputHandler implements InputHandler {
         }
     }
 
-    @Override
-    public void mouseMoved(int x, int y, GameModel model) {
+    public void mouseMoved(int x, int y) {
         model.setFlashlightPosition(x,y);
     }
     
