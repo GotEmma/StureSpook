@@ -8,14 +8,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
-import edu.chl.StureSpook.controller.ProjectInputHandler;
-import edu.chl.StureSpook.model.DrawableShape;
-import edu.chl.StureSpook.model.DrawableSprite;
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
-import edu.chl.StureSpook.model.World;
 import edu.chl.StureSpook.model.GameTile;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -27,10 +24,10 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private GameModel model;
     private SpriteBatch batch;
     private ShapeRenderer renderer;
-    private HashMap<String,Texture> textures;
     private HashMap<String,Sprite> sprites;
     private OrthographicCamera camera;
     private ArrayList<DesktopInputListener> listeners;
+    private TextureAtlas textureAtlas;
 
     public ProjectView(GameModel model) {
         this.model = model;
@@ -38,10 +35,9 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     }
     
     private void loadAssets() {
-        textures = new HashMap<String,Texture>();
-        textures.put("badlogic", new Texture("badlogic.jpg"));
-        textures.put("player", new Texture("player.bmp"));
-        textures.put("testBackground", new Texture("testBackground.png"));
+        
+        textureAtlas = new TextureAtlas("packed/texturePack1.pack");
+        
         
         sprites = new HashMap<String,Sprite>();
     }
@@ -63,33 +59,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     }
     
     private void render(){
-       /*
-        
-        
-        batch.begin();
-        DrawableSprite[] images = model.getSprites();
-        for(DrawableSprite i : images){
-            //batch.draw(this.textures.get(i.getTextureName()), i.getX(), i.getY());
-            i.draw(batch, this.textures);
-        }
-        
-        batch.setProjectionMatrix(camera.combined);
-        batch.end();
-        
-        renderer.begin();
-        DrawableShape[] shapes = model.getShapes();
-        for (DrawableShape s : shapes) {
-            s.draw(renderer);
-        }
-<<<<<<< HEAD
-        renderer.setProjectionMatrix(camera.combined);
-        renderer.end();
-        
-        camera.update();
-        camera.position.set(model.getWorld().getPlayer().getX(), model.getWorld().getPlayer().getY(), 100);
-=======
-        renderer.end();*/
-        
+       
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
@@ -107,7 +77,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
         //DRAW BACKGROUND IMAGE HERE:
-        batch.draw(textures.get(this.model.getCurrentLevel().getMapTextureName()), 0, 0);
+        batch.draw(textureAtlas.findRegion(this.model.getCurrentLevel().getMapTextureName()), 0, 0);
         
         //DRAW TILE MAP HERE:
         GameTile[][] tiles = this.model.getTiles();
@@ -119,7 +89,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         //DRAW WORLD OBJECTS - här hamnar spelare, fiender, och objekt på banan, exempelvis.
         Player p = this.model.getPlayer();
-        batch.draw(textures.get(p.getTextureName()),p.getX() ,p.getY());
+        batch.draw(textureAtlas.findRegion(p.getTextureName()),p.getX() ,p.getY());
         
         
         batch.end();
