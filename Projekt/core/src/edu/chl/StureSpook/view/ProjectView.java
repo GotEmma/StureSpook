@@ -28,6 +28,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private OrthographicCamera camera;
     private ArrayList<DesktopInputListener> listeners;
     private TextureAtlas textureAtlas;
+    private Object[] GUIElements;
 
     public ProjectView(GameModel model) {
         this.model = model;
@@ -45,6 +46,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     @Override
     public OrthographicCamera getCamera() {
         return this.camera;
+    }
+    
+    private void buildGUI() {
+        this.GUIElements = new Object[2];
+        //Add buttons here
     }
     
     @Override

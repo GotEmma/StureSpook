@@ -2,12 +2,10 @@ package edu.chl.StureSpook.controller;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
 import edu.chl.StureSpook.Options;
 import edu.chl.StureSpook.model.GameModel;
 
@@ -30,7 +28,7 @@ public class ProjectController extends ApplicationAdapter{
         options.setJumpKey(Keys.W);
         options.setCrouchKey(Keys.S);
         this.view.init();
-        Gdx.input.setInputProcessor((InputProcessor) view); //TODO: Sätt till View:en!
+        Gdx.input.setInputProcessor((InputProcessor) view); 
         
     }
 
