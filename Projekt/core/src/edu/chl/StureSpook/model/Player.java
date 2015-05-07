@@ -46,6 +46,18 @@ public class Player {
     
     public float getX(){ return this.x; }
     public float getY(){ return this.y; }
+    
+    /** 
+     *  Returns the x coordinate of the tile on which the player's bottom left
+     * hand corner is located on the tilemap.
+     */ 
+    public int getPlayerTilemapX() { return ((int)this.x) / 16; }
+    
+    /** 
+     *  Returns the y coordinate of the tile on which the player's bottom left
+     * hand corner is located on the tilemap.
+     */
+    public int getPlayerTilemapY() { return ((int)this.y) / 16; }
 
     public void updateMotion(){
         float maxSpeed = 3.5f;

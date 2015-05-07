@@ -157,7 +157,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     public boolean mouseMoved(int x, int y) { 
         screenMouseX = x;
         screenMouseY = (int)camera.viewportHeight - y;
-        System.out.println("Mouse coords: " + screenMouseX + ", " + screenMouseY);
         Vector3 coords = camera.unproject(new Vector3(x,y,0));
         for(DesktopInputListener l:listeners){
             l.mouseMoved((int)coords.x, (int)coords.y);
@@ -169,7 +168,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     public boolean touchDown(int x, int y,int pointer, int button) {
         if (button == Input.Buttons.LEFT) {
             y = (int)camera.viewportHeight-y;
-            //System.out.println(x + ", " + y);
             for (GUIButton b:GUIElements) {
                 if (b.isClickInBoundaries(x, y)) {
                     doGUIAction(b.getCommand());
