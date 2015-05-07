@@ -1,6 +1,7 @@
 package edu.chl.StureSpook.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -25,13 +26,14 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
 
     private GameModel model;
     private OrthogonalTiledMapRenderer mapRenderer;
-    private SpriteBatch batch;
+    private SpriteBatch batch,guiBatch;
     private ShapeRenderer shapeRenderer;
     private HashMap<String,Sprite> sprites;
     private OrthographicCamera camera;
     private ArrayList<DesktopInputListener> listeners;
     private TextureAtlas textureAtlas;
-    private Object[] GUIElements;
+    private GUIButton[] GUIElements;
+    private int screenMouseX, screenMouseY;
 
     public ProjectView(GameModel model) {
         this.model = model;
@@ -52,20 +54,27 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     }
     
     private void buildGUI() {
-        this.GUIElements = new Object[2];
-        //Add buttons here
+        this.GUIElements = new GUIButton[2];
+        this.GUIElements[0] = new GUIButton("menu","menuButton","menuButtonMouseover",camera.viewportWidth-64,0,32,16);
+        this.GUIElements[1] = new GUIButton("toggleSound","soundButton","soundButtonMuted",camera.viewportWidth-32,0,32,16);
+    }
+    
+    private void doGUIAction(String command) {
+        System.out.println("Command pressed: " + command);
     }
     
     @Override
     public void init() {
         mapRenderer = new OrthogonalTiledMapRenderer(model.getCurrentLevel().getMap());
         batch = new SpriteBatch();
+        guiBatch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setAutoShapeType(true);
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
         //renderer.setProjectionMatrix(camera.combined);
         this.loadAssets();
+        buildGUI();
     }
     
     private void render(){
@@ -73,11 +82,12 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        float cameraX = Math.max(model.getPlayer().getX(),camera.viewportWidth/2); //left limit
+        Player player = this.model.getPlayer();
+        float cameraX = Math.max(player.getX(),camera.viewportWidth/2); //left limit
         cameraX = Math.min(cameraX, 
                 this.model.getCurrentLevel().getWidth()-(camera.viewportWidth/2) );//right limit
         
-        float cameraY = Math.max(model.getPlayer().getY(),camera.viewportHeight/2); //bottom limit
+        float cameraY = Math.max(player.getY(),camera.viewportHeight/2); //bottom limit
         cameraY = Math.min(cameraY, 
                 this.model.getCurrentLevel().getHeight()-(camera.viewportHeight/2) );//top limit
         
@@ -99,9 +109,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         mapRenderer.render();
         
         // DRAWS PLAYER + Other Objects
-        batch.begin();                
-        Player p = this.model.getPlayer();
-        batch.draw(textureAtlas.findRegion(p.getTextureName()),p.getX() ,p.getY());
+        batch.begin(); 
+        batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
         batch.end();
         
         //DRAW FLASHLIGHT HERE
@@ -114,7 +123,14 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         
         //DRAW USER INTERFACE HERE
-        //work out how interface will work. Only commands will be passed to model!
+        /*for (GUIButton b : GUIElements) {
+            b.draw(batch, textureAtlas, screenMouseX, screenMouseY);
+        }*/
+        guiBatch.begin();
+        for (GUIButton b : GUIElements) {
+            b.draw(guiBatch, textureAtlas, screenMouseX, screenMouseY);
+        }
+        guiBatch.end();
     }
     
     public void addInputListener(DesktopInputListener listener){
@@ -139,11 +155,29 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     @Override
     public boolean mouseMoved(int x, int y) { 
-        Vector3 coords = this.getCamera().unproject(new Vector3(x,y,0));
+        screenMouseX = x;
+        screenMouseY = (int)camera.viewportHeight - y;
+        System.out.println("Mouse coords: " + screenMouseX + ", " + screenMouseY);
+        Vector3 coords = camera.unproject(new Vector3(x,y,0));
         for(DesktopInputListener l:listeners){
             l.mouseMoved((int)coords.x, (int)coords.y);
         }
         return true; 
+    }
+    
+    @Override
+    public boolean touchDown(int x, int y,int pointer, int button) {
+        if (button == Input.Buttons.LEFT) {
+            y = (int)camera.viewportHeight-y;
+            //System.out.println(x + ", " + y);
+            for (GUIButton b:GUIElements) {
+                if (b.isClickInBoundaries(x, y)) {
+                    doGUIAction(b.getCommand());
+                }
+            }
+        }
+        
+        return true;
     }
 
     @Override
