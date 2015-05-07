@@ -32,7 +32,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private OrthographicCamera camera;
     private ArrayList<DesktopInputListener> listeners;
     private TextureAtlas textureAtlas;
-    private GUIButton[] GUIElements;
     private int screenMouseX, screenMouseY;
 
     public ProjectView(GameModel model) {
@@ -54,9 +53,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     }
     
     private void buildGUI() {
-        this.GUIElements = new GUIButton[2];
-        this.GUIElements[0] = new GUIButton("menu","menuButton","menuButtonMouseover",camera.viewportWidth-64,0,32,16);
-        this.GUIElements[1] = new GUIButton("toggleSound","soundButton","soundButtonMuted",camera.viewportWidth-32,0,32,16);
+        //build GUI here
     }
     
     private void doGUIAction(String command) {
@@ -123,13 +120,10 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         
         //DRAW USER INTERFACE HERE
-        /*for (GUIButton b : GUIElements) {
-            b.draw(batch, textureAtlas, screenMouseX, screenMouseY);
-        }*/
         guiBatch.begin();
-        for (GUIButton b : GUIElements) {
+        /*for (GUIButton b : GUIElements) {
             b.draw(guiBatch, textureAtlas, screenMouseX, screenMouseY);
-        }
+        }*/
         guiBatch.end();
     }
     
@@ -166,7 +160,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     @Override
     public boolean touchDown(int x, int y,int pointer, int button) {
-        if (button == Input.Buttons.LEFT) {
+        /*if (button == Input.Buttons.LEFT) {
             y = (int)camera.viewportHeight-y;
             for (GUIButton b:GUIElements) {
                 if (b.isClickInBoundaries(x, y)) {
@@ -175,7 +169,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
             }
         }
         
-        return true;
+        return true;*/
+        return false;
     }
 
     @Override
