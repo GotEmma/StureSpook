@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="WornDownHouse" tilewidth="16" tileheight="16">
+  <image source="FancyHouse.png" width="128" height="16"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="20" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2BoA0YoZqaieUxQmlJz0DGpepkYUP1HqjkwgKwXmY2Mmcgwl94AADE8ACk=
+  </data>
+ </layer>
+ <layer name="walls" width="20" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFAwFYoHgg7KSlvcSYTao7BiKsyAX0CGNke6jtFpZBjgHI0ADt
+  </data>
+ </layer>
+</map>

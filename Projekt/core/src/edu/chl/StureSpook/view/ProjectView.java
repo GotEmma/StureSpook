@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
 import edu.chl.StureSpook.model.GameTile;
@@ -22,8 +24,9 @@ import java.util.HashMap;
 public class ProjectView extends InputAdapter implements GameView,PropertyChangeListener{
 
     private GameModel model;
+    private OrthogonalTiledMapRenderer mapRenderer;
     private SpriteBatch batch;
-    private ShapeRenderer renderer;
+    private ShapeRenderer shapeRenderer;
     private HashMap<String,Sprite> sprites;
     private OrthographicCamera camera;
     private ArrayList<DesktopInputListener> listeners;
@@ -55,9 +58,10 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     @Override
     public void init() {
+        mapRenderer = new OrthogonalTiledMapRenderer(model.getCurrentLevel().getMap());
         batch = new SpriteBatch();
-        renderer = new ShapeRenderer();
-        renderer.setAutoShapeType(true);
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setAutoShapeType(true);
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
         //renderer.setProjectionMatrix(camera.combined);
@@ -80,6 +84,25 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         camera.position.set(cameraX, cameraY, 100);
         camera.update();
         
+        mapRenderer.setView(camera);
+        
+        Batch batch = mapRenderer.getBatch();
+	batch.begin();
+        batch.setProjectionMatrix(camera.combined);
+        batch.draw(textureAtlas.findRegion(this.model.getCurrentLevel().getMapTextureName()), 0, 0);
+        batch.end();
+                        
+        if(mapRenderer.getMap()!=model.getCurrentLevel().getMap()){
+            mapRenderer.setMap(model.getCurrentLevel().getMap());
+        }
+        mapRenderer.render();
+        
+        batch.begin();                
+        Player p = this.model.getPlayer();
+        batch.draw(textureAtlas.findRegion(p.getTextureName()),p.getX() ,p.getY());
+        batch.end();
+        
+        /* Old draw methods 
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
         //DRAW BACKGROUND IMAGE HERE:
@@ -100,12 +123,14 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         batch.end();
         
+        */
+        
         //DRAW FLASHLIGHT HERE
         float[] polygon  = this.model.getFlashlightPolygon(); //Gör något med denna
-        renderer.begin(ShapeRenderer.ShapeType.Line);
-        renderer.setProjectionMatrix(camera.combined);
-        renderer.line(polygon[0], polygon[1], polygon[2], polygon[3], Color.MAGENTA, Color.CYAN);//Rita helsvart över skärmen senare, med ett transparent hål som motsvarar ficklampsljus
-        renderer.end();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.line(polygon[0], polygon[1], polygon[2], polygon[3], Color.MAGENTA, Color.CYAN);//Rita helsvart över skärmen senare, med ett transparent hål som motsvarar ficklampsljus
+        shapeRenderer.end();
         
         
         

@@ -27,6 +27,7 @@ public class ProjectController extends ApplicationAdapter{
         options.setWalkRightKey(Keys.D);
         options.setJumpKey(Keys.W);
         options.setCrouchKey(Keys.S);
+        this.model.initLevels();
         this.view.init();
         Gdx.input.setInputProcessor((InputProcessor) view); 
         
