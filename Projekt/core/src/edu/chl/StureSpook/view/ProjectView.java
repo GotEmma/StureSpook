@@ -86,44 +86,23 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         mapRenderer.setView(camera);
         
-        Batch batch = mapRenderer.getBatch();
+        // DRAWS BACKGROUND
 	batch.begin();
         batch.setProjectionMatrix(camera.combined);
         batch.draw(textureAtlas.findRegion(this.model.getCurrentLevel().getMapTextureName()), 0, 0);
         batch.end();
-                        
+        
+        // DRAWS TILEMAP
         if(mapRenderer.getMap()!=model.getCurrentLevel().getMap()){
             mapRenderer.setMap(model.getCurrentLevel().getMap());
         }
         mapRenderer.render();
         
+        // DRAWS PLAYER + Other Objects
         batch.begin();                
         Player p = this.model.getPlayer();
         batch.draw(textureAtlas.findRegion(p.getTextureName()),p.getX() ,p.getY());
         batch.end();
-        
-        /* Old draw methods 
-        batch.begin();
-        batch.setProjectionMatrix(camera.combined);
-        //DRAW BACKGROUND IMAGE HERE:
-        batch.draw(textureAtlas.findRegion(this.model.getCurrentLevel().getMapTextureName()), 0, 0);
-        
-        //DRAW TILE MAP HERE:
-        GameTile[][] tiles = this.model.getTiles();
-        for (GameTile[] row : tiles) {
-            for (GameTile column : row) {
-                //DRAW TILE HERE
-            }
-        }
-        
-        //DRAW WORLD OBJECTS - här hamnar spelare, fiender, och objekt på banan, exempelvis.
-        Player p = this.model.getPlayer();
-        batch.draw(textureAtlas.findRegion(p.getTextureName()),p.getX() ,p.getY());
-        
-        
-        batch.end();
-        
-        */
         
         //DRAW FLASHLIGHT HERE
         float[] polygon  = this.model.getFlashlightPolygon(); //Gör något med denna
