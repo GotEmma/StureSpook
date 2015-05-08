@@ -31,4 +31,5 @@ public interface GameModel {
     public Player getPlayer();
     public void addPropertyChangeListener(PropertyChangeListener l);
     public void removePropertyChangeListener(PropertyChangeListener l);
+    public void initLevels();
 }

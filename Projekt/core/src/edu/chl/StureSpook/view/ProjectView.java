@@ -1,6 +1,7 @@
 package edu.chl.StureSpook.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
 import edu.chl.StureSpook.model.GameTile;
@@ -22,13 +25,14 @@ import java.util.HashMap;
 public class ProjectView extends InputAdapter implements GameView,PropertyChangeListener{
 
     private GameModel model;
-    private SpriteBatch batch;
-    private ShapeRenderer renderer;
+    private OrthogonalTiledMapRenderer mapRenderer;
+    private SpriteBatch batch,guiBatch;
+    private ShapeRenderer shapeRenderer;
     private HashMap<String,Sprite> sprites;
     private OrthographicCamera camera;
     private ArrayList<DesktopInputListener> listeners;
     private TextureAtlas textureAtlas;
-    private Object[] GUIElements;
+    private int screenMouseX, screenMouseY;
 
     public ProjectView(GameModel model) {
         this.model = model;
@@ -49,19 +53,25 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     }
     
     private void buildGUI() {
-        this.GUIElements = new Object[2];
-        //Add buttons here
+        //build GUI here
+    }
+    
+    private void doGUIAction(String command) {
+        System.out.println("Command pressed: " + command);
     }
     
     @Override
     public void init() {
+        mapRenderer = new OrthogonalTiledMapRenderer(model.getCurrentLevel().getMap());
         batch = new SpriteBatch();
-        renderer = new ShapeRenderer();
-        renderer.setAutoShapeType(true);
+        guiBatch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setAutoShapeType(true);
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
         //renderer.setProjectionMatrix(camera.combined);
         this.loadAssets();
+        buildGUI();
     }
     
     private void render(){
@@ -69,48 +79,52 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        float cameraX = Math.max(model.getPlayer().getX(),camera.viewportWidth/2); //left limit
+        Player player = this.model.getPlayer();
+        float cameraX = Math.max(player.getX(),camera.viewportWidth/2); //left limit
         cameraX = Math.min(cameraX, 
                 this.model.getCurrentLevel().getWidth()-(camera.viewportWidth/2) );//right limit
         
-        float cameraY = Math.max(model.getPlayer().getY(),camera.viewportHeight/2); //bottom limit
+        float cameraY = Math.max(player.getY(),camera.viewportHeight/2); //bottom limit
         cameraY = Math.min(cameraY, 
                 this.model.getCurrentLevel().getHeight()-(camera.viewportHeight/2) );//top limit
         
         camera.position.set(cameraX, cameraY, 100);
         camera.update();
         
-        batch.begin();
+        mapRenderer.setView(camera);
+        
+        // DRAWS BACKGROUND
+	batch.begin();
         batch.setProjectionMatrix(camera.combined);
-        //DRAW BACKGROUND IMAGE HERE:
         batch.draw(textureAtlas.findRegion(this.model.getCurrentLevel().getMapTextureName()), 0, 0);
+        batch.end();
         
-        //DRAW TILE MAP HERE:
-        GameTile[][] tiles = this.model.getTiles();
-        for (GameTile[] row : tiles) {
-            for (GameTile column : row) {
-                //DRAW TILE HERE
-            }
+        // DRAWS TILEMAP
+        if(mapRenderer.getMap()!=model.getCurrentLevel().getMap()){
+            mapRenderer.setMap(model.getCurrentLevel().getMap());
         }
+        mapRenderer.render();
         
-        //DRAW WORLD OBJECTS - här hamnar spelare, fiender, och objekt på banan, exempelvis.
-        Player p = this.model.getPlayer();
-        batch.draw(textureAtlas.findRegion(p.getTextureName()),p.getX() ,p.getY());
-        
-        
+        // DRAWS PLAYER + Other Objects
+        batch.begin(); 
+        batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
         batch.end();
         
         //DRAW FLASHLIGHT HERE
         float[] polygon  = this.model.getFlashlightPolygon(); //Gör något med denna
-        renderer.begin(ShapeRenderer.ShapeType.Line);
-        renderer.setProjectionMatrix(camera.combined);
-        renderer.line(polygon[0], polygon[1], polygon[2], polygon[3], Color.MAGENTA, Color.CYAN);//Rita helsvart över skärmen senare, med ett transparent hål som motsvarar ficklampsljus
-        renderer.end();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.line(polygon[0], polygon[1], polygon[2], polygon[3], Color.MAGENTA, Color.CYAN);//Rita helsvart över skärmen senare, med ett transparent hål som motsvarar ficklampsljus
+        shapeRenderer.end();
         
         
         
         //DRAW USER INTERFACE HERE
-        //work out how interface will work. Only commands will be passed to model!
+        guiBatch.begin();
+        /*for (GUIButton b : GUIElements) {
+            b.draw(guiBatch, textureAtlas, screenMouseX, screenMouseY);
+        }*/
+        guiBatch.end();
     }
     
     public void addInputListener(DesktopInputListener listener){
@@ -135,11 +149,28 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     @Override
     public boolean mouseMoved(int x, int y) { 
-        Vector3 coords = this.getCamera().unproject(new Vector3(x,y,0));
+        screenMouseX = x;
+        screenMouseY = (int)camera.viewportHeight - y;
+        Vector3 coords = camera.unproject(new Vector3(x,y,0));
         for(DesktopInputListener l:listeners){
             l.mouseMoved((int)coords.x, (int)coords.y);
         }
         return true; 
+    }
+    
+    @Override
+    public boolean touchDown(int x, int y,int pointer, int button) {
+        /*if (button == Input.Buttons.LEFT) {
+            y = (int)camera.viewportHeight-y;
+            for (GUIButton b:GUIElements) {
+                if (b.isClickInBoundaries(x, y)) {
+                    doGUIAction(b.getCommand());
+                }
+            }
+        }
+        
+        return true;*/
+        return false;
     }
 
     @Override

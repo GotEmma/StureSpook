@@ -5,14 +5,20 @@
  */
 package edu.chl.StureSpook.model;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+
 /**
  *
  * @author emmafahlen
  */
 public class Level {
-    private String textureName;
     private float width;
     private float height;
+    private TiledMap map;
+    private String mapFileName;
+    private String mapTextureName;
     
     public float getWidth() {
         return this.width;
@@ -22,13 +28,22 @@ public class Level {
         return this.height;
     }
     
-    public Level(String textureName){
-        this.textureName=textureName;  
+    public Level(String mapFileName, String mapTextureName){
+        this.mapTextureName = mapTextureName;
+        this.mapFileName = mapFileName;  
         this.width = 1000; //Set using constructor later?
         this.height = 600;
     }
     
+    public TiledMap getMap(){
+        return map;
+    }
+    
     public String getMapTextureName(){
-        return textureName;
+        return mapTextureName;
+    }
+    
+    public void init(){
+        map = new TmxMapLoader().load(mapFileName);
     }
 }

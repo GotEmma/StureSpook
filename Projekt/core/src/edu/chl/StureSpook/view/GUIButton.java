@@ -12,17 +12,18 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
  *
  * @author Née
  */
-public class GUIButton {
+public class GUIButton implements GUIClickable, GUIDrawable{
     private float x,y,height,width;
-    private String textureNameNonMouseover,textureNameMouseover;
+    private String textureNameNonMouseover,textureNameMouseover,command;
     
-    public GUIButton(String textureNameNonMouseover, String textureNameMouseover, float x, float y, float width, float height) {
+    public GUIButton(String command,String textureNameNonMouseover, String textureNameMouseover, float x, float y, float width, float height) {
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
         this.textureNameNonMouseover = textureNameNonMouseover;
         this.textureNameMouseover = textureNameMouseover;
+        this.command = command;
     }
     
     
@@ -30,15 +31,20 @@ public class GUIButton {
     * Determines whether the coordinates (x,y) are inside this GUIButton's click boundaries.
     * Always returns false if button is unclickable.
     * @param x The x coordinate of the click to test.
-    * @param y the y coordinate of the click to test. NOTE: This check uses y-up coordinates.
+    * @param y the y coordinate of the click to test. NOTE: This check uses y-down coordinates.
     */
-    public boolean isClickInBoundaries(float x, float y) {
-        return ((x > this.x)&&(x< this.x+this.width)) && ((y > this.y)&&(y< this.y+this.height)); 
+    private boolean isClickInBoundaries(float x, float y) {
+        boolean isInBoundsX = (x>this.x) && (x < this.x + this.width);
+        boolean isInBoundsY = (y > this.y) && (y < this.y + this.height);
+        return isInBoundsX && isInBoundsY;
+        //return ((x > this.x)&&(x< this.x+this.width)) && ((y > this.y)&&(y< this.y+this.height)); 
         //the above equals: x is between this.x and (this.x + this.width) && same for y and height
     }
     
-    public void draw(SpriteBatch batch, TextureAtlas atlas, float x, float y) {
-        if (this.isClickInBoundaries(x,y)) {
+    
+    @Override
+    public void draw(SpriteBatch batch, TextureAtlas atlas, float mouseX, float mouseY) {
+        if (this.isClickInBoundaries(mouseX,mouseY)) {
             //draw mouseover
             batch.draw(atlas.findRegion(textureNameMouseover),this.x,this.y);
         } else {
@@ -46,5 +52,14 @@ public class GUIButton {
             batch.draw(atlas.findRegion(textureNameNonMouseover),this.x,this.y);
         }
         
+    }
+
+    @Override
+    public String click(float x, float y) {
+        if (this.isClickInBoundaries(x, y)) {
+            return this.command;
+        } else {
+            return null;
+        }
     }
 }

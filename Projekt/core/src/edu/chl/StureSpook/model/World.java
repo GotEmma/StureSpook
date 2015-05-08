@@ -28,7 +28,7 @@ public class World implements GameModel {
     
     public World(){
         currentLevel = 0;
-        levels[0] = new Level("testBackground");
+        levels[0] = new Level("testTileMap2.tmx","testBackground");
         player = new Player();
         player.setX(50);
         player.setY(50);
@@ -110,5 +110,10 @@ public class World implements GameModel {
         pcs.removePropertyChangeListener(l);
     }
     
+    public void initLevels(){
+        for(Level l:levels){
+            l.init();
+        }
+    }
 
 }
