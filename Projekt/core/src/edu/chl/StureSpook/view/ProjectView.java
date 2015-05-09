@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import edu.chl.StureSpook.model.DeadlyObsticles;
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
 import edu.chl.StureSpook.model.GameTile;
@@ -80,6 +81,9 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         Player player = this.model.getPlayer();
+        
+        DeadlyObsticles enemy = model.getCurrentLevel().getCurrentEnemy("spider", 20, 30);
+        
         float cameraX = Math.max(player.getX(),camera.viewportWidth/2); //left limit
         cameraX = Math.min(cameraX, 
                 this.model.getCurrentLevel().getWidth()-(camera.viewportWidth/2) );//right limit
@@ -108,6 +112,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         // DRAWS PLAYER + Other Objects
         batch.begin(); 
         batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
+        batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy.getX(), enemy.getY());
         batch.end();
         
         //DRAW FLASHLIGHT HERE

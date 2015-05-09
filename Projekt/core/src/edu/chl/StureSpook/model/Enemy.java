@@ -12,35 +12,15 @@ import java.awt.Graphics;
  *
  * @author emmafahlen
  */
-public class Enemy {
-    private float x,y,dx,dy,ddy;
-    private String textureName = "Enemy";
-    //private Rectangle shape;
-    private Image image;
-    private Graphics graphics;
+public interface Enemy {
+ 
+    public float getX();
     
-    public Enemy(){
-        this.x = 0;
-        this.y = 0;
-    }
+    public float getY();
+  
+    public String getTextureName();
     
-    public float getX(){
-        return x;
-    }
+    public void setX(float x);
     
-    public float getY(){
-        return y;
-    }
-    
-    public String getTextureName(){
-        return textureName;
-    }
-    
-    public void setX(float x){
-        this.x = x;
-    }
-    
-    public void setY(float y){
-        this.y = y;
-    }
+    public void setY(float y);
 }
