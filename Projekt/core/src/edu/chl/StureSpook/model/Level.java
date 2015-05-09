@@ -20,6 +20,7 @@ public class Level {
     private String mapFileName;
     private String mapTextureName;
     private DeadlyObsticles spider;
+    private ActiveEnemies spikes;
     
     public float getWidth() {
         return this.width;
@@ -36,15 +37,22 @@ public class Level {
         this.height = 600;
     }
     
-    public DeadlyObsticles getCurrentEnemy(String deadly, float x, float y){
+    public Enemy createEnemy(String deadly, float x, float y){
         if (deadly == "spider"){            
-            return CreateSpider(x,y);
+            return createSpider(x,y);
         }
-        else {return CreateSpider(x,y);}
+        if (deadly == "spikes"){
+            return createSpikes(x,y);
+        }
+        else {return createSpider(x,y);}
     }
     
-    public DeadlyObsticles CreateSpider(float x, float y){
+    public DeadlyObsticles createSpider(float x, float y){
         return spider = new DeadlyObsticles(x,y);
+    }
+    
+    public ActiveEnemies createSpikes(float x, float y){
+        return spikes = new ActiveEnemies(x,y);
     }
     
     public TiledMap getMap(){

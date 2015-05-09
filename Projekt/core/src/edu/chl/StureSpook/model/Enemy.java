@@ -15,12 +15,8 @@ import java.awt.Graphics;
 public interface Enemy {
  
     public float getX();
-    
     public float getY();
-  
     public String getTextureName();
-    
     public void setX(float x);
-    
     public void setY(float y);
 }
