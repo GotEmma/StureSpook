@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
 import edu.chl.StureSpook.model.GameTile;
@@ -25,7 +27,6 @@ import java.util.HashMap;
 public class ProjectView extends InputAdapter implements GameView,PropertyChangeListener{
 
     private GameModel model;
-    private OrthogonalTiledMapRenderer mapRenderer;
     private SpriteBatch batch,guiBatch;
     private ShapeRenderer shapeRenderer;
     private HashMap<String,Sprite> sprites;
@@ -34,6 +35,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private TextureAtlas textureAtlas;
     private GUIButton[] GUIElements;
     private int screenMouseX, screenMouseY;
+    private String currentLvlTextureName;
+    private TextureAtlas currentLvlTextureAtlas;
 
     public ProjectView(GameModel model) {
         this.model = model;
@@ -44,6 +47,9 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         textureAtlas = new TextureAtlas("packed/texturePack1.pack");
         
+        // Load first level
+        currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
+        currentLvlTextureAtlas = new TextureAtlas("packed/testLevel.pack");
         
         sprites = new HashMap<String,Sprite>();
     }
@@ -65,7 +71,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     @Override
     public void init() {
-        mapRenderer = new OrthogonalTiledMapRenderer(model.getCurrentLevel().getMap());
         batch = new SpriteBatch();
         guiBatch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
@@ -94,22 +99,24 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         camera.position.set(cameraX, cameraY, 100);
         camera.update();
         
-        mapRenderer.setView(camera);
-        
         // DRAWS BACKGROUND
 	batch.begin();
         batch.setProjectionMatrix(camera.combined);
         batch.draw(textureAtlas.findRegion(this.model.getCurrentLevel().getMapTextureName()), 0, 0);
-        batch.end();
         
         // DRAWS TILEMAP
-        if(mapRenderer.getMap()!=model.getCurrentLevel().getMap()){
-            mapRenderer.setMap(model.getCurrentLevel().getMap());
+        if(currentLvlTextureName != model.getCurrentLevel().getMapTextureName()){
+            currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
+            currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
         }
-        mapRenderer.render();
+        int[][] tileMap = model.getCurrentLevel().getTileMap();
+        for(int i = 0; i < tileMap.length; i++){
+            for(int j = 0; j < tileMap[].length; j++){
+                tileMap[i][j]
+            }
+        }
         
         // DRAWS PLAYER + Other Objects
-        batch.begin(); 
         batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
         batch.end();
         
