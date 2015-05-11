@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
  *
  * @author Née
  */
-public class GUIButton {
+public class GUIButton implements GUIClickable, GUIDrawable{
     private float x,y,height,width;
     private String textureNameNonMouseover,textureNameMouseover,command;
     
@@ -33,7 +33,7 @@ public class GUIButton {
     * @param x The x coordinate of the click to test.
     * @param y the y coordinate of the click to test. NOTE: This check uses y-down coordinates.
     */
-    public boolean isClickInBoundaries(float x, float y) {
+    private boolean isClickInBoundaries(float x, float y) {
         boolean isInBoundsX = (x>this.x) && (x < this.x + this.width);
         boolean isInBoundsY = (y > this.y) && (y < this.y + this.height);
         return isInBoundsX && isInBoundsY;
@@ -41,10 +41,8 @@ public class GUIButton {
         //the above equals: x is between this.x and (this.x + this.width) && same for y and height
     }
     
-    public String getCommand() {
-        return this.command;
-    }
     
+    @Override
     public void draw(SpriteBatch batch, TextureAtlas atlas, float mouseX, float mouseY) {
         if (this.isClickInBoundaries(mouseX,mouseY)) {
             //draw mouseover
@@ -54,5 +52,14 @@ public class GUIButton {
             batch.draw(atlas.findRegion(textureNameNonMouseover),this.x,this.y);
         }
         
+    }
+
+    @Override
+    public String click(float x, float y) {
+        if (this.isClickInBoundaries(x, y)) {
+            return this.command;
+        } else {
+            return null;
+        }
     }
 }
