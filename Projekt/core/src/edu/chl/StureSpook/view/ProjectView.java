@@ -74,7 +74,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         shapeRenderer.setAutoShapeType(true);
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
-        //renderer.setProjectionMatrix(camera.combined);
         this.loadAssets();
         buildGUI();
     }
@@ -99,20 +98,21 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         // DRAWS BACKGROUND
 	batch.begin();
         batch.setProjectionMatrix(camera.combined);
-        batch.draw(textureAtlas.findRegion(this.model.getCurrentLevel().getMapTextureName()), 0, 0);
+        batch.draw(textureAtlas.findRegion(this.model.getCurrentLevel().getBackgroundImageName()), 0, 0);
         
         // DRAWS TILEMAP
         if(currentLvlTextureName != model.getCurrentLevel().getMapTextureName()){
             currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
             currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
         }
+        /*
         int[][] tileMap = model.getCurrentLevel().getTileMap();
         for(int i = 0; i < tileMap.length; i++){
-            for(int j = 0; j < tileMap[].length; j++){
-                tileMap[i][j]
+            for(int j = 0; j < tileMap[i].length; j++){
+                batch.draw(currentLvlTextureAtlas.findRegion(tileMap[i][j]+""),i*16,j*16);
             }
         }
-        
+        */
         // DRAWS PLAYER + Other Objects
         batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
         batch.end();

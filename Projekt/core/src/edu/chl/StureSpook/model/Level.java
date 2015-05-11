@@ -25,6 +25,7 @@ public class Level {
     private String mapFileName;
     private String mapTextureName;
     private int[][] tileMap;
+    private final String backgroundImageName;
 
     public float getWidth() {
         return this.width;
@@ -34,12 +35,17 @@ public class Level {
         return this.height;
     }
 
-    public Level(String mapTextureName) {
-        this.mapTextureName = mapTextureName;
+    public Level(String mapFileName,String backgroundImageName) {
+        this.backgroundImageName = backgroundImageName;
+        this.mapFileName = mapFileName;
         this.width = 1000; //Set using constructor later?
         this.height = 600;
     }
 
+    public String getBackgroundImageName(){
+        return backgroundImageName;
+    }
+    
     public String getMapTextureName() {
         return mapTextureName;
     }
@@ -77,7 +83,7 @@ public class Level {
                         if (line.charAt(i) != split) {
                             builder.append(line.charAt(i));
                         } else {
-                            tileMap[lineNbr-2][tileWidthNbr] = Integer.parseInt(builder.toString());
+                            tileMap[tileWidthNbr][lineNbr-2] = Integer.parseInt(builder.toString());
                             builder.delete(0, builder.length());
                             tileWidthNbr++;
                         }
