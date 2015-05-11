@@ -3,10 +3,17 @@ testLevel.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-FancyHouse
+0
   rotate: false
   xy: 1, 1
-  size: 128, 16
-  orig: 128, 16
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+1
+  rotate: false
+  xy: 19, 1
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1

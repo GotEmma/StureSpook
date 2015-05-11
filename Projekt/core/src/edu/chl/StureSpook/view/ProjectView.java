@@ -109,7 +109,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         int[][] tileMap = model.getCurrentLevel().getTileMap();
         for(int i = 0; i < tileMap.length; i++){
             for(int j = 0; j < tileMap[i].length; j++){
-                batch.draw(currentLvlTextureAtlas.findRegion(tileMap[i][j]+""),TileMapPosConverter.convertX(i),TileMapPosConverter.convertY(j));
+                batch.draw(currentLvlTextureAtlas.findRegion(tileMap[i][j]+""),convertX(i),convertY(j));
             }
         }
         */
@@ -185,13 +185,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         this.render();
     }
 
-    private class TileMapPosConverter{
-        public int convertX(int xTile){
-            return xTile*16;
-        }
-        public int convertY(int yTile){
-            return yTile*16;
-        }
+    public static int convertX(int xTile){
+        return xTile*16;
+    }
+    public static int convertY(int yTile){
+        return yTile*16;
     }
 
 }

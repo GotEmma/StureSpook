@@ -28,7 +28,7 @@ public class World implements GameModel {
     
     public World(){
         currentLevel = 0;
-        levels[0] = new Level("testTileMap2..csv","testBackground");
+        levels[0] = new Level("testTileMap.csv","testBackground");
         player = new Player();
         player.setX(50);
         player.setY(50);
