@@ -105,14 +105,16 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
             currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
             currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
         }
-        /*
+        
         int[][] tileMap = model.getCurrentLevel().getTileMap();
-        for(int i = 0; i < tileMap.length; i++){
-            for(int j = 0; j < tileMap[i].length; j++){
-                batch.draw(currentLvlTextureAtlas.findRegion(tileMap[i][j]+""),convertX(i),convertY(j));
+        for(int i = tileMap.length-1; i >= 0; i--){
+            for(int j = tileMap[i].length-1; j >= 0; j--){
+                if(tileMap[i][j] != -1){
+                    batch.draw(currentLvlTextureAtlas.findRegion(tileMap[i][j]+""),convertX(i),convertY(j));
+                }
             }
         }
-        */
+        
         // DRAWS PLAYER + Other Objects
         batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
         batch.end();
