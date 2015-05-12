@@ -14,13 +14,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.g2d.Batch;
-<<<<<<< HEAD
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-=======
 import edu.chl.StureSpook.model.DeadlyObsticles;
 import edu.chl.StureSpook.model.Enemy;
->>>>>>> againamy
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
 import edu.chl.StureSpook.model.GameTile;
