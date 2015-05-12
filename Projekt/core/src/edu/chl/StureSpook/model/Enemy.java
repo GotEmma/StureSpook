@@ -5,10 +5,18 @@
  */
 package edu.chl.StureSpook.model;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import java.awt.Graphics;
+
 /**
  *
  * @author emmafahlen
  */
-public class Enemy {
-    
+public interface Enemy {
+ 
+    public float getX();
+    public float getY();
+    public String getTextureName();
+    public void setX(float x);
+    public void setY(float y);
 }

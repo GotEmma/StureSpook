@@ -24,9 +24,15 @@ public class Level {
     private float height;
     private String mapFileName;
     private String mapTextureName;
+<<<<<<< HEAD
     private int[][] tileMap;
     private final String backgroundImageName;
 
+=======
+    private DeadlyObsticles spider;
+    private ActiveEnemies spikes;
+    
+>>>>>>> againamy
     public float getWidth() {
         return this.width;
     }
@@ -41,9 +47,33 @@ public class Level {
         this.width = 1000; //Set using constructor later?
         this.height = 600;
     }
+<<<<<<< HEAD
 
     public String getBackgroundImageName(){
         return backgroundImageName;
+=======
+    
+    public Enemy createEnemy(String deadly, float x, float y){
+        if (deadly == "spider"){            
+            return createSpider(x,y);
+        }
+        if (deadly == "spikes"){
+            return createSpikes(x,y);
+        }
+        else {return createSpider(x,y);}
+    }
+    
+    public DeadlyObsticles createSpider(float x, float y){
+        return spider = new DeadlyObsticles(x,y);
+    }
+    
+    public ActiveEnemies createSpikes(float x, float y){
+        return spikes = new ActiveEnemies(x,y);
+    }
+    
+    public TiledMap getMap(){
+        return map;
+>>>>>>> againamy
     }
     
     public String getMapTextureName() {

@@ -14,8 +14,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.g2d.Batch;
+<<<<<<< HEAD
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+=======
+import edu.chl.StureSpook.model.DeadlyObsticles;
+import edu.chl.StureSpook.model.Enemy;
+>>>>>>> againamy
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
 import edu.chl.StureSpook.model.GameTile;
@@ -84,6 +89,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         Player player = this.model.getPlayer();
+        
+        Enemy enemy1 = model.getCurrentLevel().createEnemy("spider", 20, 30);
+        Enemy enemy2 = model.getCurrentLevel().createEnemy("spikes", 200, 40);
+        
+        
         float cameraX = Math.max(player.getX(),camera.viewportWidth/2); //left limit
         cameraX = Math.min(cameraX, 
                 this.model.getCurrentLevel().getWidth()-(camera.viewportWidth/2) );//right limit
@@ -117,6 +127,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         // DRAWS PLAYER + Other Objects
         batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
+        batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy1.getX(), enemy1.getY());
+        batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy2.getX(), enemy2.getY());
         batch.end();
         
         //DRAW FLASHLIGHT HERE
