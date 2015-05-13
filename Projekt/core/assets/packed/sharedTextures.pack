@@ -1,0 +1,82 @@
+
+sharedTextures.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+testBackground
+  rotate: false
+  xy: 1, 137
+  size: 1000, 600
+  orig: 1000, 600
+  offset: 0, 0
+  index: -1
+soundButtonExpansion
+  rotate: false
+  xy: 1, 71
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+soundButtonMuted
+  rotate: false
+  xy: 1, 37
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+soundButtonUnmuted
+  rotate: false
+  xy: 35, 103
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 1003, 717
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+blankButton
+  rotate: false
+  xy: 1, 19
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+menuButton
+  rotate: false
+  xy: 35, 85
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+menuButtonMouseover
+  rotate: false
+  xy: 69, 119
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+soundButton
+  rotate: false
+  xy: 1, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+soundButtonSlider
+  rotate: false
+  xy: 35, 67
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+testSpider
+  rotate: false
+  xy: 1003, 699
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
