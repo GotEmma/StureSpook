@@ -113,4 +113,9 @@ public class World implements GameModel {
         }
     }
 
+    @Override
+    public void setCrouch(boolean t) {
+       player.setCrouch(t);
+    }
+
 }
