@@ -28,6 +28,7 @@ public class Player {
     private boolean moveLeft = false;
     private boolean moveRight = false;
     private boolean jump;
+    private boolean crouch;
     
     public Player(){
         x = 0; y = 0; ddy = 1;
@@ -110,6 +111,10 @@ public class Player {
     
     public void setJump(){
         jump = true;
+    }
+    
+    public void setCrouch(boolean t){
+       crouch = t;
     }
     public String getTextureName(){
         return this.textureName;

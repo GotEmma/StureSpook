@@ -30,6 +30,9 @@ public class ProjectInputHandler implements DesktopInputListener {
         }else if(input==options.getJumpKey()){
             model.setJump();
         }
+        else if(input==options.getCrouchKey()){
+            model.setCrouch(true);
+        }
     }
 
     public void keyUp(int input) {
@@ -38,6 +41,9 @@ public class ProjectInputHandler implements DesktopInputListener {
         }
         else if(input==options.getWalkRightKey()){
             model.setMoveRight(false);
+        }
+        else if(input==options.getCrouchKey()){
+            model.setCrouch(false);
         }
     }
 
