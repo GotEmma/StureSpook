@@ -6,19 +6,14 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import edu.chl.StureSpook.model.DeadlyObsticles;
 import edu.chl.StureSpook.model.Enemy;
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
-import edu.chl.StureSpook.model.GameTile;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -36,6 +31,9 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private int screenMouseX, screenMouseY;
     private String currentLvlTextureName;
     private TextureAtlas currentLvlTextureAtlas;
+    
+    private GUIDrawable[] visibleGUIElements;
+    private GUIClickable[] clickableGUIElements;
 
     public ProjectView(GameModel model) {
         this.model = model;
@@ -44,22 +42,20 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     private void loadAssets() {
         
-        textureAtlas = new TextureAtlas("packed/texturePack1.pack");
+        textureAtlas = new TextureAtlas("packed/sharedTextures.pack");
         
         // Load first level
         currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
         currentLvlTextureAtlas = new TextureAtlas("packed/testLevel.pack");
         
-        sprites = new HashMap<String,Sprite>();
-    }
-    
-    @Override
-    public OrthographicCamera getCamera() {
-        return this.camera;
     }
     
     private void buildGUI() {
-        //build GUI here
+        GUIButton menuButton = new GUIButton("menu","menuButton","menuButtonMouseover",camera.viewportWidth-64,0,32,16);
+        GUIVolumeControl volumeControl = new GUIVolumeControl(camera.viewportWidth-32,0);
+        this.clickableGUIElements = new GUIClickable[]{menuButton,volumeControl};
+        this.visibleGUIElements = new GUIDrawable[]{menuButton,volumeControl};
+        
     }
     
     private void doGUIAction(String command) {
@@ -137,9 +133,9 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         //DRAW USER INTERFACE HERE
         guiBatch.begin();
-        /*for (GUIButton b : GUIElements) {
+        for (GUIDrawable b : visibleGUIElements) {
             b.draw(guiBatch, textureAtlas, screenMouseX, screenMouseY);
-        }*/
+        }
         guiBatch.end();
     }
     
@@ -176,17 +172,16 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     @Override
     public boolean touchDown(int x, int y,int pointer, int button) {
-        /*if (button == Input.Buttons.LEFT) {
+        if (button == Input.Buttons.LEFT) {
             y = (int)camera.viewportHeight-y;
-            for (GUIButton b:GUIElements) {
-                if (b.isClickInBoundaries(x, y)) {
-                    doGUIAction(b.getCommand());
+            for (GUIClickable b: clickableGUIElements) {
+                String command = b.click(x, y);
+                if (!command.equals("oob")) {
+                    this.doGUIAction(command);
                 }
             }
         }
-        
-        return true;*/
-        return false;
+        return true;
     }
 
     @Override

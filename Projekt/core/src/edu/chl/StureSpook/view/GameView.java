@@ -13,6 +13,5 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * @author Née
  */
 public interface GameView {
-    public OrthographicCamera getCamera();
     public void init();
 }

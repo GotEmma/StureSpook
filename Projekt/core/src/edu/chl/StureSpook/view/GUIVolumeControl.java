@@ -19,10 +19,9 @@ public class GUIVolumeControl implements GUIClickable, GUIDrawable{
     private boolean muted;
     private float x,y,width,unexpandedHeight,expandedHeight;
     private final String unmutedTextureName, mutedTextureName, expansionTextureName, sliderTextureName;
-    
     private float sliderHeight;
     
-    public GUIVolumeControl() {
+    public GUIVolumeControl(float x, float y) {
         
         this.unmutedTextureName = "soundButtonUnmuted";
         this.mutedTextureName = "soundButtonMuted";
@@ -31,6 +30,9 @@ public class GUIVolumeControl implements GUIClickable, GUIDrawable{
         this.width = 32;
         this.unexpandedHeight = 32;
         this.expandedHeight = 96;
+        this.sliderHeight = 16;
+        this.x = x;
+        this.y = y;
     }
     
     public boolean isClickInExpandedBoundaries(float x, float y) {
@@ -41,11 +43,12 @@ public class GUIVolumeControl implements GUIClickable, GUIDrawable{
     
     private void setVolume(float mouseY) {
         float yMin = y + unexpandedHeight + (sliderHeight/2);
-        float yMax = yMin + (expandedHeight-unexpandedHeight);
+        float yMax = yMin + (expandedHeight-unexpandedHeight)-sliderHeight;
         float volumeFraction = (mouseY-yMin) / (yMax-yMin);
         volumeFraction = Math.min(1, volumeFraction);//trim top
         volumeFraction = Math.max(0, volumeFraction);//trim bottom
         this.volume = volumeFraction;
+        System.out.println(this.volume);
     }
     
     private void toggleMute() {
@@ -71,7 +74,7 @@ public class GUIVolumeControl implements GUIClickable, GUIDrawable{
             this.setVolume(y);
             return "volumeChanged";
         }
-        return null;
+        return "oob";
     }
     
     @Override

@@ -59,7 +59,7 @@ public class GUIButton implements GUIClickable, GUIDrawable{
         if (this.isClickInBoundaries(x, y)) {
             return this.command;
         } else {
-            return null;
+            return "oob";
         }
     }
 }
