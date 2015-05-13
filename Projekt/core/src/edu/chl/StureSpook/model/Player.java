@@ -116,6 +116,10 @@ public class Player {
     public void setCrouch(boolean t){
        crouch = t;
     }
+    public void toggleCrouch(){
+        this.crouch = !crouch;
+    }
+    
     public String getTextureName(){
         return this.textureName;
     }
