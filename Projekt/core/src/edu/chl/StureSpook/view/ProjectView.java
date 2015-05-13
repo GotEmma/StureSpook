@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import edu.chl.StureSpook.model.DeadlyObsticles;
+import edu.chl.StureSpook.model.Enemy;
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
 import edu.chl.StureSpook.model.GameTile;
@@ -25,7 +27,6 @@ import java.util.HashMap;
 public class ProjectView extends InputAdapter implements GameView,PropertyChangeListener{
 
     private GameModel model;
-    private OrthogonalTiledMapRenderer mapRenderer;
     private SpriteBatch batch,guiBatch;
     private ShapeRenderer shapeRenderer;
     private HashMap<String,Sprite> sprites;
@@ -33,6 +34,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private ArrayList<DesktopInputListener> listeners;
     private TextureAtlas textureAtlas;
     private int screenMouseX, screenMouseY;
+    private String currentLvlTextureName;
+    private TextureAtlas currentLvlTextureAtlas;
 
     public ProjectView(GameModel model) {
         this.model = model;
@@ -43,6 +46,9 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         textureAtlas = new TextureAtlas("packed/texturePack1.pack");
         
+        // Load first level
+        currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
+        currentLvlTextureAtlas = new TextureAtlas("packed/testLevel.pack");
         
         sprites = new HashMap<String,Sprite>();
     }
@@ -62,14 +68,12 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     @Override
     public void init() {
-        mapRenderer = new OrthogonalTiledMapRenderer(model.getCurrentLevel().getMap());
         batch = new SpriteBatch();
         guiBatch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setAutoShapeType(true);
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
-        //renderer.setProjectionMatrix(camera.combined);
         this.loadAssets();
         buildGUI();
     }
@@ -80,6 +84,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         Player player = this.model.getPlayer();
+        
+        Enemy enemy1 = model.getCurrentLevel().createEnemy("spider", 20, 30);
+        Enemy enemy2 = model.getCurrentLevel().createEnemy("spikes", 200, 40);
+        
+        
         float cameraX = Math.max(player.getX(),camera.viewportWidth/2); //left limit
         cameraX = Math.min(cameraX, 
                 this.model.getCurrentLevel().getWidth()-(camera.viewportWidth/2) );//right limit
@@ -91,23 +100,30 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         camera.position.set(cameraX, cameraY, 100);
         camera.update();
         
-        mapRenderer.setView(camera);
-        
         // DRAWS BACKGROUND
 	batch.begin();
         batch.setProjectionMatrix(camera.combined);
-        batch.draw(textureAtlas.findRegion(this.model.getCurrentLevel().getMapTextureName()), 0, 0);
-        batch.end();
+        batch.draw(textureAtlas.findRegion(this.model.getCurrentLevel().getBackgroundImageName()), 0, 0);
         
         // DRAWS TILEMAP
-        if(mapRenderer.getMap()!=model.getCurrentLevel().getMap()){
-            mapRenderer.setMap(model.getCurrentLevel().getMap());
+        if(currentLvlTextureName != model.getCurrentLevel().getMapTextureName()){
+            currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
+            currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
         }
-        mapRenderer.render();
+        
+        int[][] tileMap = model.getCurrentLevel().getTileMap();
+        for(int i = tileMap.length-1; i >= 0; i--){
+            for(int j = tileMap[i].length-1; j >= 0; j--){
+                if(tileMap[i][j] != -1){
+                    batch.draw(currentLvlTextureAtlas.findRegion(tileMap[i][j]+""),convertX(i,tileMap.length),convertY(j,tileMap[i].length));
+                }
+            }
+        }
         
         // DRAWS PLAYER + Other Objects
-        batch.begin(); 
         batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
+        batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy1.getX(), enemy1.getY());
+        batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy2.getX(), enemy2.getY());
         batch.end();
         
         //DRAW FLASHLIGHT HERE
@@ -178,5 +194,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         this.render();
     }
 
+    public static int convertX(int xTile, int tileMapXLength){
+        return xTile*16;
+    }
+    public static int convertY(int yTile, int tileMapYLength){
+        return (tileMapYLength-1)*16-(yTile*16);
+    }
 
 }

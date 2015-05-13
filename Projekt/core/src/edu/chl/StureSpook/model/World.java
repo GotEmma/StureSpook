@@ -18,17 +18,14 @@ import java.beans.PropertyChangeSupport;
 public class World implements GameModel {
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private Level[] levels = new Level[1];
-    
-    private Player player;
-    
+    private Player player;    
     private Platform testPlatform;
-    
     private Flashlight flashlight;
     private int currentLevel;
     
     public World(){
         currentLevel = 0;
-        levels[0] = new Level("testTileMap2.tmx","testBackground");
+        levels[0] = new Level("testTileMap.csv","testBackground");
         player = new Player();
         player.setX(50);
         player.setY(50);
