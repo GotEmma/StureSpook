@@ -100,5 +100,5 @@ public class GUIVolumeControl implements GUIClickable, GUIDrawable{
         
     }
     
-    
+     
 }

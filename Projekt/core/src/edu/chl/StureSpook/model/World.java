@@ -32,7 +32,6 @@ public class World implements GameModel {
         player.setX(50);
         player.setY(50);
         flashlight = new Flashlight();
-        flashlight.setStartPoint(player.getX()+10, player.getY()+10);
         options = Options.getInstance();
     }
     
@@ -40,6 +39,7 @@ public class World implements GameModel {
     public void update(float delta){
         
         player.updateMotion();
+        
         flashlight.setStartPoint(player.getX()+10, player.getY()+10);
         pcs.firePropertyChange("logic updated", 1, 0);
     }
