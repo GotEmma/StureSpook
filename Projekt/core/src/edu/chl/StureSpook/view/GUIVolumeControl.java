@@ -21,7 +21,7 @@ public class GUIVolumeControl implements GUIClickable, GUIDrawable{
     private final String unmutedTextureName, mutedTextureName, expansionTextureName, sliderTextureName;
     private float sliderHeight;
     
-    public GUIVolumeControl(float x, float y) {
+    public GUIVolumeControl(float volume, float x, float y) {
         
         this.unmutedTextureName = "soundButtonUnmuted";
         this.mutedTextureName = "soundButtonMuted";
@@ -31,11 +31,12 @@ public class GUIVolumeControl implements GUIClickable, GUIDrawable{
         this.unexpandedHeight = 32;
         this.expandedHeight = 96;
         this.sliderHeight = 16;
+        this.volume = volume;
         this.x = x;
         this.y = y;
     }
     
-    public boolean isClickInExpandedBoundaries(float x, float y) {
+    private boolean isClickInExpandedBoundaries(float x, float y) {
         boolean isInBoundsX = (x>this.x) && (x < this.x + this.width);
         boolean isInBoundsY = (y>this.y) && (y < this.y + this.expandedHeight);
         return isInBoundsX && isInBoundsY;
@@ -55,7 +56,7 @@ public class GUIVolumeControl implements GUIClickable, GUIDrawable{
         this.muted = !this.muted;
     }
     
-    public boolean isClickInUnexpandedBoundaries(float x, float y) {
+    private boolean isClickInUnexpandedBoundaries(float x, float y) {
         boolean isInBoundsX = (x>this.x) && (x < this.x + this.width);
         boolean isInBoundsY = (y>this.y) && (y < this.y + this.unexpandedHeight);
         return isInBoundsX && isInBoundsY;
@@ -65,12 +66,16 @@ public class GUIVolumeControl implements GUIClickable, GUIDrawable{
         return muted ? 0 : this.volume;
     }
     
+    public boolean getExpanded() {
+        return this.expanded;
+    }
+    
     @Override
     public String click(float x, float y) {
         if (this.isClickInUnexpandedBoundaries(x, y)) {
             this.toggleMute();
             return "volumeChanged";
-        } else if (this.isClickInExpandedBoundaries(x, y)) {
+        } else if (this.expanded && this.isClickInExpandedBoundaries(x, y)) {
             this.setVolume(y);
             return "volumeChanged";
         }
