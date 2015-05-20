@@ -6,6 +6,7 @@
 package edu.chl.StureSpook.model;
 
 import edu.chl.StureSpook.Options;
+import java.awt.Point;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
@@ -127,7 +128,7 @@ public class World implements GameModel {
         }
     }
     
-    private void applyCollision(Player p, Level l) {
+    private void applyCollision(Player player, Level l) {
         List collidable = Arrays.asList(new int[]{0,1});
         int[][] tilemap = l.getTileMap();
         
@@ -137,42 +138,63 @@ public class World implements GameModel {
         float yUpperLimit = 1e9f;
         float playerheight = 20;
         float playerwidth = 20;
-        float[] points = {10,0, 4,4, 16,4, 10,20, 4,16, 16,16};//change these later when changing player dimensions
+        Point[] points = new Point[]{
+            new Point(10,0), //bottom center
+            new Point(10,20),//top center
+            new Point(4,4),//bottom left
+            new Point(16,4),//bottom right
+            new Point(4,16),//top left
+            new Point(16,16)//top right
+        };
         
         //first check bottom middle point
         //float x = p.getX() + playerwidth/2; //x and y are juggling values
         //float y = p.getY();
-        for (int i = 0; i<points.length ;i+=2) {
-            if (tilemap[util.floatToTile(points[i]+p.getX())][util.floatToTile(points[i+1]+p.getY())] != -1 ) {
-                if (points[i+1] < playerheight/2) { //if point is below player center
-                    //handle as bottom point
-                    yLowerLimit = Math.max( yLowerLimit, util.floatToTile(points[i+1]+p.getY())*16+16 );
-                } else if (points[i+1] > playerheight/2){ //if point is above player center
-                    //handle as top point
-                    yUpperLimit = Math.min( yUpperLimit, util.floatToTile(points[i+1]+p.getY())*16 );
+        for (Point p : points) {
+            float currentX = p.x + player.getX();
+            float currentY = p.y + player.getY();
+            if (tilemap[util.floatToTile(currentX)][tilemap[0].length - util.floatToTile(currentY)-1] != -1) {
+                if (p.x < playerwidth/2) { //if point is right of player center
+                    //handle as right point
+                    xLowerLimit = Math.max(xLowerLimit, (util.floatToTile(currentX)*16+16));
+                    System.out.println("right");
+                    continue;
+                } else if (p.x > playerwidth/2){ //if point is left of player center
+                    //handle as left point
+                    xUpperLimit = Math.min(xUpperLimit, (util.floatToTile(currentX)*16)-16);
+                    System.out.println("left");
+                    continue;
                 }
                 
-                if (points[i] < playerwidth/2) { //if point is right of player center
-                    //handle as right point
-                    xLowerLimit = Math.max(xLowerLimit, util.floatToTile(points[i]+p.getX())*16+16);
-                } else if (points[i] > playerwidth/2){ //if point is left of player center
-                    //handle as left point
-                    xUpperLimit = Math.max(xUpperLimit, util.floatToTile(points[i]+p.getX())*16);
+                if (p.y < playerheight/2) { //if point is below player center
+                    //handle as bottom point
+                    yLowerLimit = Math.max( yLowerLimit, (util.floatToTile(currentY)*16+16) );
+                    //continue;
+                } else if (p.y > playerheight/2){ //if point is above player center
+                    //handle as top point
+                    yUpperLimit = Math.min( yUpperLimit, (util.floatToTile(currentY)*16) -16);
+                    //continue;
                 }
-            
+                
+                
+                
+                
             }
             
+          
         }
         
         
-        p.setX(Math.max(p.getX(),xLowerLimit));
-        p.setX(Math.min(p.getX(),xUpperLimit));
-        p.setY(Math.max(p.getY(),yLowerLimit));
-        p.setY(Math.min(p.getY(),yUpperLimit));
- 
-        if (p.getY() == yLowerLimit) {
-            p.setDY(0.0f);
+        player.setX(Math.max(player.getX(),xLowerLimit));
+        player.setX(Math.min(player.getX(),xUpperLimit));
+        player.setY(Math.max(player.getY(),yLowerLimit));
+        player.setY(Math.min(player.getY(),yUpperLimit));
+        System.out.println(xLowerLimit + ", " +xUpperLimit + ", " +yLowerLimit + ", " + yUpperLimit);
+        
+        if (player.getY() == yLowerLimit) {
+            player.setDY(0.0f);
         }
+        
     }
 
 }
