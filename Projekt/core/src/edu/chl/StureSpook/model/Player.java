@@ -80,7 +80,7 @@ public class Player {
         
         if(jump){
             //if(y==0){
-                dy = 12;
+                dy = 6;
             //}
             jump = false;
         }
