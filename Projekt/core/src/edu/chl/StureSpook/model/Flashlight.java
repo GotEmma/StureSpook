@@ -17,6 +17,7 @@ import java.util.HashMap;
 public class Flashlight {
     private float startPointX,startPointY;
     private float endPointX,endPointY;
+    private double visionDegree = Math.PI/6;
     
     public void setStartPoint(float x, float y) {
         this.startPointX = x;
@@ -33,6 +34,16 @@ public class Flashlight {
     
     public float getEndPointX() {return this.endPointX; }
     public float getEndPointY() {return this.endPointY; }
+
+    public float[] getPolygon() {
+        float relativeX = this.endPointX-this.startPointX;
+        float relativeY = this.endPointY-this.startPointY;
+        float[] polygon = {this.startPointX, this.startPointY, 
+                           relativeX*(float)Math.cos(visionDegree/2)-relativeY*(float)Math.sin(visionDegree/2)+this.startPointX, relativeY*(float)Math.cos(visionDegree/2)+relativeX*(float)Math.sin(visionDegree/2)+this.startPointY,
+                           relativeX*(float)Math.cos(-visionDegree/2)-relativeY*(float)Math.sin(-visionDegree/2)+this.startPointX, relativeY*(float)Math.cos(-visionDegree/2)+relativeX*(float)Math.sin(-visionDegree/2)+this.startPointY
+                           };
+        return polygon;
+    }
     
     
 }

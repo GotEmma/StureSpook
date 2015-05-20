@@ -71,10 +71,7 @@ public class World implements GameModel {
 
     @Override
     public float[] getFlashlightPolygon() {
-        Flashlight f = this.flashlight;
-        float [] polygon = {f.getStartPointX(), f.getStartPointY(), f.getEndPointX(), f.getEndPointY()};
-        
-        return polygon;
+        return flashlight.getPolygon();
     }
 
     @Override
