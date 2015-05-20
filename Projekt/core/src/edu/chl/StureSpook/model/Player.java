@@ -79,9 +79,9 @@ public class Player {
         x = x+dx;
         
         if(jump){
-            if(y==0){
+            //if(y==0){
                 dy = 12;
-            }
+            //}
             jump = false;
         }
         
@@ -122,6 +122,10 @@ public class Player {
     
     public String getTextureName(){
         return this.textureName;
+    }
+    
+    public void setDY(float dy) {
+        this.dy = dy;
     }
 
 }
