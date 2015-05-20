@@ -126,7 +126,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         float[] polygon  = this.model.getFlashlightPolygon(); //Gör något med denna
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.line(polygon[0], polygon[1], polygon[2], polygon[3], Color.MAGENTA, Color.CYAN);//Rita helsvart över skärmen senare, med ett transparent hål som motsvarar ficklampsljus
+        shapeRenderer.polygon(polygon);//Rita helsvart över skärmen senare, med ett transparent hål som motsvarar ficklampsljus
         shapeRenderer.end();
         
         
