@@ -133,8 +133,8 @@ public class World implements GameModel {
         
         float xLowerLimit = 0;
         float xUpperLimit = 1e9f;
-        float yLowerLimit = p.getY();
-        float yUpperLimit = p.getY();
+        float yLowerLimit = 0;
+        float yUpperLimit = 1e9f;
         float playerheight = 20;
         float playerwidth = 20;
         float[] points = {10,0, 4,4, 16,4, 10,20, 4,16, 16,16};//change these later when changing player dimensions
@@ -142,9 +142,8 @@ public class World implements GameModel {
         //first check bottom middle point
         //float x = p.getX() + playerwidth/2; //x and y are juggling values
         //float y = p.getY();
-        for (int i = 0; i<5 ;i+=2) {
-            if (collidable.contains(  tilemap[util.floatToTile(points[i]+p.getX())]
-                    [util.floatToTile(points[i+1]+p.getY())]  )) {
+        for (int i = 0; i<points.length ;i+=2) {
+            if (tilemap[util.floatToTile(points[i]+p.getX())][util.floatToTile(points[i+1]+p.getY())] != -1 ) {
                 if (points[i+1] < playerheight/2) { //if point is below player center
                     //handle as bottom point
                     yLowerLimit = Math.max( yLowerLimit, util.floatToTile(points[i+1]+p.getY())*16+16 );
