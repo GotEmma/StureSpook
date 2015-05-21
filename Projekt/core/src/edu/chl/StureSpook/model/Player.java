@@ -9,6 +9,7 @@ import static com.badlogic.gdx.Gdx.graphics;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import java.util.HashMap;
@@ -21,7 +22,9 @@ import java.util.HashMap;
  */
 public class Player {
     private float x,y,dx,dy,ddy;
-    private String textureName = "player";
+    private String textureNameStandStill = "playerStanding";
+    private TextureRegion [] textureNamesPlayerWalking = new TextureRegion []
+    {};
     private Rectangle shape;
     private Image image;
     private Graphics graphics;
@@ -120,8 +123,8 @@ public class Player {
         this.crouch = !crouch;
     }
     
-    public String getTextureName(){
-        return this.textureName;
-    }
+    //public String [] getTextureName(){
+        //return this.textureNamesPlayerWalking;
+   // }
 
 }
