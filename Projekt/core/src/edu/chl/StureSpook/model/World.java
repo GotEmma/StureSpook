@@ -42,7 +42,7 @@ public class World implements GameModel {
     public void update(float delta){
         
         player.updateMotion();
-        applyCollision(player, this.getCurrentLevel());
+        applySimpleCollision(player, this.getCurrentLevel());
         flashlight.setStartPoint(player.getX()+10, player.getY()+10);
         pcs.firePropertyChange("logic updated", 1, 0);
     }
@@ -161,7 +161,7 @@ public class World implements GameModel {
                     continue;
                 } else if (p.x > playerwidth/2){ //if point is left of player center
                     //handle as left point
-                    xUpperLimit = Math.min(xUpperLimit, (util.floatToTile(currentX)*16)-16);
+                    xUpperLimit = Math.min(xUpperLimit, (util.floatToTile(currentX-16)*16));
                     System.out.println("left");
                     continue;
                 }
@@ -195,6 +195,62 @@ public class World implements GameModel {
             player.setDY(0.0f);
         }
         
+    }
+    
+    private void applySimpleCollision(Player player, Level l) {
+        List collidable = Arrays.asList(new int[]{0,1});
+        int[][] tilemap = l.getTileMap();
+        
+        float xLowerLimit = 0;
+        float xUpperLimit = 1e9f;
+        float yLowerLimit = 0;
+        float yUpperLimit = 1e9f;
+        float playerheight = 20;
+        float playerwidth = 20;
+        Point[] points = new Point[]{
+            new Point(10,0), //bottom center
+            new Point(10,20),//top center
+            new Point(20,10),//right
+            new Point(0,10),//left
+        };
+        //check top point
+        float currentX = points[1].x + player.getX();
+        float currentY = points[1].y + player.getY();
+        if (tilemap[util.floatToTile(currentX)][tilemap[0].length - util.floatToTile(currentY)-1] != -1) {
+            yUpperLimit = Math.min(yUpperLimit, (util.floatToTile(currentY)*16));
+        }
+        
+        //check bottom point
+        currentX = points[0].x + player.getX();
+        currentY = points[0].y + player.getY();
+        if (tilemap[util.floatToTile(currentX)][tilemap[0].length - util.floatToTile(currentY)-1] != -1) {
+            yLowerLimit = Math.max(yLowerLimit, (util.floatToTile(currentY)*16+16));
+        }
+        
+        //check right point
+        currentX = points[1].x + player.getX();
+        currentY = points[1].y + player.getY();
+        if (tilemap[util.floatToTile(currentX)][tilemap[0].length - util.floatToTile(currentY)-1] != -1) {
+            yUpperLimit = Math.min(yUpperLimit, (util.floatToTile(currentY)*16));
+        }
+        
+        //check left point
+        currentX = points[0].x + player.getX();
+        currentY = points[0].y + player.getY();
+        if (tilemap[util.floatToTile(currentX)][tilemap[0].length - util.floatToTile(currentY)-1] != -1) {
+            yLowerLimit = Math.max(yLowerLimit, (util.floatToTile(currentY)*16+16));
+        }
+        
+        
+        player.setX(Math.max(player.getX(),xLowerLimit));
+        player.setX(Math.min(player.getX(),xUpperLimit-20));
+        player.setY(Math.max(player.getY(),yLowerLimit));
+        player.setY(Math.min(player.getY(),yUpperLimit-20));
+        System.out.println(xLowerLimit + ", " +xUpperLimit + ", " +yLowerLimit + ", " + yUpperLimit);
+        
+        if (player.getY() == yLowerLimit) {
+            player.setDY(0.0f);
+        }
     }
 
 }
