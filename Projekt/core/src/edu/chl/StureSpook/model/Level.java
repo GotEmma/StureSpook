@@ -28,6 +28,7 @@ public class Level {
     private final String backgroundImageName;
     private DeadlyObsticles spider;
     private ActiveEnemies spikes;
+    private int[] collisionValues;
     
     public float getWidth() {
         return this.width;
@@ -122,5 +123,15 @@ public class Level {
     
     public int[][] getTileMap(){
         return tileMap;
+    }
+    
+    // Kom ihåg att fixa inmatning av kollisionsvärden från csv filen 
+    public boolean isCollidable(int x, int y){
+        for(int i = 0; i < collisionValues.length; i++){
+            if(tileMap[x][y] == collisionValues[i]){
+                return true;
+            }
+        }
+        return false;
     }
 }
