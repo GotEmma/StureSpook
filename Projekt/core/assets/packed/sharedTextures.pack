@@ -31,41 +31,41 @@ playerJump
   orig: 64, 77
   offset: 0, 0
   index: -1
-playerWalk2
+playerWalk
   rotate: false
   xy: 1, 157
   size: 64, 70
   orig: 64, 70
   offset: 0, 0
-  index: -1
-playerWalk4
+  index: 2
+playerWalk
   rotate: false
   xy: 67, 236
   size: 64, 70
   orig: 64, 70
   offset: 0, 0
-  index: -1
-playerWalk5
+  index: 4
+playerWalk
   rotate: false
   xy: 133, 315
   size: 64, 70
   orig: 64, 70
   offset: 0, 0
-  index: -1
-playerWalk6
+  index: 5
+playerWalk
   rotate: false
   xy: 1, 85
   size: 64, 70
   orig: 64, 70
   offset: 0, 0
-  index: -1
-playerWalk3
+  index: 6
+playerWalk
   rotate: false
   xy: 67, 164
   size: 60, 70
   orig: 60, 70
   offset: 0, 0
-  index: -1
+  index: 3
 playerStanding
   rotate: false
   xy: 133, 249
@@ -73,13 +73,13 @@ playerStanding
   orig: 64, 64
   offset: 0, 0
   index: -1
-playerWalk1
+playerWalk
   rotate: false
   xy: 199, 321
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: -1
+  index: 1
 soundButtonExpansion
   rotate: false
   xy: 1, 19
