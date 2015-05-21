@@ -153,7 +153,7 @@ public class World implements GameModel {
         for (Point p : points) {
             float currentX = p.x + player.getX();
             float currentY = p.y + player.getY();
-            if (tilemap[util.floatToTile(currentX)][tilemap[0].length - util.floatToTile(currentY)-1] != -1) {
+            if (tilemap[util.floatToTile(currentX)][util.floatToTile(currentY)] != -1) {
                 if (p.x < playerwidth/2) { //if point is right of player center
                     //handle as right point
                     xLowerLimit = Math.max(xLowerLimit, (util.floatToTile(currentX)*16+16));
