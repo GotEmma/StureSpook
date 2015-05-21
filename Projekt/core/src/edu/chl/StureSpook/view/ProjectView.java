@@ -6,10 +6,16 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import edu.chl.StureSpook.model.Enemy;
 import edu.chl.StureSpook.model.GameModel;
@@ -34,6 +40,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     private GUIDrawable[] visibleGUIElements;
     private GUIClickable[] clickableGUIElements;
+    
+    private FrameBuffer lightMap;
 
     public ProjectView(GameModel model) {
         this.model = model;
@@ -72,6 +80,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         camera.setToOrtho(false);
         this.loadAssets();
         buildGUI();
+        
+        lightMap = new FrameBuffer(Format.RGBA8888, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
     }
     
     private void render(){
@@ -121,15 +131,15 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy1.getX(), enemy1.getY());
         batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy2.getX(), enemy2.getY());
         batch.end();
-        
+        /*
         //DRAW FLASHLIGHT HERE
         float[] polygon  = this.model.getFlashlightPolygon(); //Gör något med denna
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.line(polygon[0], polygon[1], polygon[2], polygon[3], Color.MAGENTA, Color.CYAN);//Rita helsvart över skärmen senare, med ett transparent hål som motsvarar ficklampsljus
         shapeRenderer.end();
-        
-        
+        */
+        this.drawLightFrameBuffer();
         
         //DRAW USER INTERFACE HERE
         guiBatch.begin();
@@ -187,6 +197,92 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         this.render();
+    }
+    
+    private void drawLightDepthMasking() {
+        Gdx.gl.glClearDepthf(1.0f);
+        Gdx.gl.glClear(GL20.GL_DEPTH_BUFFER_BIT);
+        
+        //3. set the function to LESS
+        Gdx.gl.glDepthFunc(GL20.GL_LESS);
+
+        //4. enable depth writing
+        Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+
+        //5. Enable depth writing, disable RGBA color writing 
+        Gdx.gl.glDepthMask(true);
+        Gdx.gl.glColorMask(false, false, false, false);
+
+        ///////////// Draw mask shape(s)
+
+        //6. render your primitive shapes
+        shapeRenderer.begin(ShapeType.Filled);
+
+        shapeRenderer.setColor(0f, 1f, 1f, 0.5f);
+        
+        
+        shapeRenderer.circle(50, 50, 50);
+        
+        shapeRenderer.end();
+
+        ///////////// Draw sprite(s) to be masked
+        shapeRenderer.begin(ShapeType.Filled);
+
+        //8. Enable RGBA color writing
+        //   (SpriteBatch.begin() will disable depth mask)
+        Gdx.gl.glColorMask(true, true, true, true);
+
+        //9. Make sure testing is enabled.
+        Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+
+        //10. Now depth discards pixels outside our masked shapes
+        Gdx.gl.glDepthFunc(GL20.GL_EQUAL);
+        shapeRenderer.setColor(Color.valueOf("FF000000"));
+        //push to the batch
+        shapeRenderer.rect(0, 0, 300, 300);
+        shapeRenderer.setColor(Color.valueOf("000000FF"));
+        shapeRenderer.circle(50, 50, 25);
+        //end/flush your batch
+        shapeRenderer.end();
+    }
+    
+    private void drawLightFrameBuffer() {
+        
+        
+        
+        shapeRenderer.begin(ShapeType.Filled);
+        lightMap.begin();
+        
+        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //Gdx.gl.glBlendFuncSeparate(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA, GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
+        shapeRenderer.setColor(0, 0, 0, 0.7f);
+        shapeRenderer.circle(200, 200, 150);
+        
+        shapeRenderer.setColor(0, 0, 1, 0);
+        shapeRenderer.circle(200, 200, 120);
+        shapeRenderer.end();
+        lightMap.end();
+        
+        guiBatch.begin();
+        guiBatch.draw(lightMap.getColorBufferTexture(), 0, 0);
+        guiBatch.end();
+        
+    }
+    
+    private void drawLightPixmap() {
+        lightMap.begin();
+        
+        Gdx.gl.glClearColor(0, 0, 0, 0.0f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 0.5f);
+        shapeRenderer.circle(50, 50, 50);
+        shapeRenderer.end();
+        lightMap.end();
+        
     }
 
 }
