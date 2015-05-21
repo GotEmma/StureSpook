@@ -157,12 +157,10 @@ public class World implements GameModel {
                 if (p.x < playerwidth/2) { //if point is right of player center
                     //handle as right point
                     xLowerLimit = Math.max(xLowerLimit, (util.floatToTile(currentX)*16+16));
-                    System.out.println("right");
                     continue;
                 } else if (p.x > playerwidth/2){ //if point is left of player center
                     //handle as left point
                     xUpperLimit = Math.min(xUpperLimit, (util.floatToTile(currentX-16)*16));
-                    System.out.println("left");
                     continue;
                 }
                 
@@ -172,27 +170,27 @@ public class World implements GameModel {
                     //continue;
                 } else if (p.y > playerheight/2){ //if point is above player center
                     //handle as top point
-                    yUpperLimit = Math.min( yUpperLimit, (util.floatToTile(currentY)*16) -16);
+                    yUpperLimit = Math.min( yUpperLimit, (util.floatToTile(currentY)*16) -20);
                     //continue;
                 }
                 
-                
-                
-                
             }
             
-          
         }
-        
         
         player.setX(Math.max(player.getX(),xLowerLimit));
         player.setX(Math.min(player.getX(),xUpperLimit));
         player.setY(Math.max(player.getY(),yLowerLimit));
         player.setY(Math.min(player.getY(),yUpperLimit));
-        System.out.println(xLowerLimit + ", " +xUpperLimit + ", " +yLowerLimit + ", " + yUpperLimit);
         
         if (player.getY() == yLowerLimit) {
             player.setDY(0.0f);
+        }
+        
+        if (tilemap[util.floatToTile(player.getX()+10)][util.floatToTile(player.getY()-4)] != -1) { 
+            player.setOnGround(true);
+        } else {
+            player.setOnGround(false);
         }
         
     }
