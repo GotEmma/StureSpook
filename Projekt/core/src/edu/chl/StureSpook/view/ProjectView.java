@@ -36,6 +36,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private TextureAtlas currentLvlTextureAtlas;
     private Animation playerWalking;
     private TextureRegion[] animationKeyFrames;
+    private float animationState = 0;
     
     private GUIDrawable[] visibleGUIElements;
     private GUIClickable[] clickableGUIElements;
@@ -73,9 +74,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         batch = new SpriteBatch();
         guiBatch = new SpriteBatch();
        // animationKeyFrames = new TextureRegion [] {new TextureRegion(new Texture(""))}; 
-        playerWalking = new Animation(1/12f, textureAtlas.findRegions("playerWalk"));
-        System.out.println(textureAtlas.findRegions("playerWalk").size);
-        System.out.println(textureAtlas.findRegion("playerWalk2"));
+        playerWalking = new Animation(4, textureAtlas.findRegions("playerWalk"));
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setAutoShapeType(true);
         camera = new OrthographicCamera();
@@ -122,8 +121,10 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         }
         
         // DRAWS PLAYER + Other Objects
+        
+        batch.draw(playerWalking.getKeyFrame(this.animationState), player.getX(), player.getY());
         playerWalking.setPlayMode(Animation.PlayMode.LOOP);
-        batch.draw(playerWalking.getKeyFrame(0.02f), player.getX(), player.getY());
+        this.animationState +=1;
         
         //batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
         //batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy1.getX(), enemy1.getY());
