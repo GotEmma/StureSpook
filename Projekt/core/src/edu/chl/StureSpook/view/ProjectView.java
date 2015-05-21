@@ -199,90 +199,38 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         this.render();
     }
     
-    private void drawLightDepthMasking() {
-        Gdx.gl.glClearDepthf(1.0f);
-        Gdx.gl.glClear(GL20.GL_DEPTH_BUFFER_BIT);
-        
-        //3. set the function to LESS
-        Gdx.gl.glDepthFunc(GL20.GL_LESS);
-
-        //4. enable depth writing
-        Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
-
-        //5. Enable depth writing, disable RGBA color writing 
-        Gdx.gl.glDepthMask(true);
-        Gdx.gl.glColorMask(false, false, false, false);
-
-        ///////////// Draw mask shape(s)
-
-        //6. render your primitive shapes
-        shapeRenderer.begin(ShapeType.Filled);
-
-        shapeRenderer.setColor(0f, 1f, 1f, 0.5f);
-        
-        
-        shapeRenderer.circle(50, 50, 50);
-        
-        shapeRenderer.end();
-
-        ///////////// Draw sprite(s) to be masked
-        shapeRenderer.begin(ShapeType.Filled);
-
-        //8. Enable RGBA color writing
-        //   (SpriteBatch.begin() will disable depth mask)
-        Gdx.gl.glColorMask(true, true, true, true);
-
-        //9. Make sure testing is enabled.
-        Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
-
-        //10. Now depth discards pixels outside our masked shapes
-        Gdx.gl.glDepthFunc(GL20.GL_EQUAL);
-        shapeRenderer.setColor(Color.valueOf("FF000000"));
-        //push to the batch
-        shapeRenderer.rect(0, 0, 300, 300);
-        shapeRenderer.setColor(Color.valueOf("000000FF"));
-        shapeRenderer.circle(50, 50, 25);
-        //end/flush your batch
-        shapeRenderer.end();
-    }
     
     private void drawLightFrameBuffer() {
-        
-        
-        
         shapeRenderer.begin(ShapeType.Filled);
+        
+        //start drawing to frame buffer
         lightMap.begin();
         
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //Gdx.gl.glBlendFuncSeparate(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA, GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
+        //draw outer circle to buffer with partial transparency
         shapeRenderer.setColor(0, 0, 0, 0.7f);
         shapeRenderer.circle(200, 200, 150);
         
+        //draw fully transparent "hole" in outer circle
         shapeRenderer.setColor(0, 0, 1, 0);
         shapeRenderer.circle(200, 200, 120);
+        
+        //flush shapeRenderer buffer to frame buffer and stop drawing
         shapeRenderer.end();
+        
+        //stop drawing to frame buffer
         lightMap.end();
         
+        //draw to GUI batch to make sure texture always covers screen
         guiBatch.begin();
+        //fetch frame buffer as texture and draw to screen
         guiBatch.draw(lightMap.getColorBufferTexture(), 0, 0);
         guiBatch.end();
         
     }
     
-    private void drawLightPixmap() {
-        lightMap.begin();
-        
-        Gdx.gl.glClearColor(0, 0, 0, 0.0f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
-        shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 0.5f);
-        shapeRenderer.circle(50, 50, 50);
-        shapeRenderer.end();
-        lightMap.end();
-        
-    }
 
 }
