@@ -23,8 +23,6 @@ import java.util.HashMap;
 public class Player {
     private float x,y,dx,dy,ddy;
     private String textureNameStandStill = "playerStanding";
-    private TextureRegion [] textureNamesPlayerWalking = new TextureRegion []
-    {};
     private Rectangle shape;
     private Image image;
     private Graphics graphics;
@@ -104,6 +102,9 @@ public class Player {
         }
         moveLeft = t;
     }
+    public boolean getMoveLeft(){
+        return moveLeft;
+    }
     
     public void setMoveRight(boolean t){
         if(moveLeft && t){
@@ -112,19 +113,32 @@ public class Player {
         moveRight = t;
     }
     
+    public boolean getMoveRight(){
+        return moveRight;
+    }
+    
     public void setJump(){
         jump = true;
+    }
+    
+    public boolean isJumping(){
+        
+        return dy > 0;
     }
     
     public void setCrouch(boolean t){
        crouch = t;
     }
+    
+    public boolean getCrouch(){
+        return crouch;
+    }
+    
     public void toggleCrouch(){
         this.crouch = !crouch;
     }
-    
-    //public String [] getTextureName(){
-        //return this.textureNamesPlayerWalking;
-   // }
+    public String getTextureNameStandStill(){
+        return this.textureNameStandStill;
+    }
 
 }

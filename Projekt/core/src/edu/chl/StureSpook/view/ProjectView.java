@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
@@ -35,8 +36,10 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private String currentLvlTextureName;
     private TextureAtlas currentLvlTextureAtlas;
     private Animation playerWalking;
+    private Animation playerWalkingLeft;
     private TextureRegion[] animationKeyFrames;
     private float animationState = 0;
+    private TextureRegion playerFrame;
     
     private GUIDrawable[] visibleGUIElements;
     private GUIClickable[] clickableGUIElements;
@@ -121,10 +124,20 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         }
         
         // DRAWS PLAYER + Other Objects
-        
-        batch.draw(playerWalking.getKeyFrame(this.animationState), player.getX(), player.getY());
-        playerWalking.setPlayMode(Animation.PlayMode.LOOP);
-        this.animationState +=1;
+        if(player.getMoveRight() || player.getMoveLeft()){
+            playerFrame = playerWalking.getKeyFrame(this.animationState);
+            playerFrame.flip((player.getMoveLeft() ^ playerFrame.isFlipX()), false);
+            
+            batch.draw(playerFrame, player.getX(), player.getY());
+            playerWalking.setPlayMode(Animation.PlayMode.LOOP);
+            this.animationState +=1;
+        } 
+        else if(player.isJumping()) {
+            batch.draw(textureAtlas.findRegion("playerJump"), player.getX(), player.getY());
+        }
+        else {
+            batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()),player.getX() ,player.getY());
+        }
         
         //batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
         //batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy1.getX(), enemy1.getY());
