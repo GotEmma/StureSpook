@@ -111,7 +111,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         for(int i = tileMap.length-1; i >= 0; i--){
             for(int j = tileMap[i].length-1; j >= 0; j--){
                 if(tileMap[i][j] != -1){
-                    batch.draw(currentLvlTextureAtlas.findRegion(tileMap[i][j]+""),convertX(i,tileMap.length),convertY(j,tileMap[i].length));
+                    batch.draw(currentLvlTextureAtlas.findRegion(tileMap[i][j]+""),i*16,j*16);
                 }
             }
         }
@@ -187,13 +187,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         this.render();
-    }
-
-    public static int convertX(int xTile, int tileMapXLength){
-        return xTile*16;
-    }
-    public static int convertY(int yTile, int tileMapYLength){
-        return (tileMapYLength-1)*16-(yTile*16);
     }
 
 }

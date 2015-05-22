@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
  */
 public class GUIButton implements GUIClickable, GUIDrawable{
     private float x,y,height,width;
-    private String textureNameNonMouseover,textureNameMouseover,command;
+    private String textureNameNonMouseover,textureNameMouseover,command, activeTexture;
     
     public GUIButton(String command,String textureNameNonMouseover, String textureNameMouseover, float x, float y, float width, float height) {
         this.x = x;
@@ -47,9 +47,11 @@ public class GUIButton implements GUIClickable, GUIDrawable{
         if (this.isClickInBoundaries(mouseX,mouseY)) {
             //draw mouseover
             batch.draw(atlas.findRegion(textureNameMouseover),this.x,this.y);
+            activeTexture = textureNameMouseover;
         } else {
             //draw non-mouseover
             batch.draw(atlas.findRegion(textureNameNonMouseover),this.x,this.y);
+            activeTexture = textureNameNonMouseover;
         }
         
     }
@@ -61,5 +63,9 @@ public class GUIButton implements GUIClickable, GUIDrawable{
         } else {
             return "oob";
         }
+    }
+    
+    public String getActiveTexture(){
+        return activeTexture;
     }
 }

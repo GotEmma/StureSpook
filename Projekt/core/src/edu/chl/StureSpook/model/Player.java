@@ -29,6 +29,7 @@ public class Player {
     private boolean moveRight;
     private boolean jump;
     private boolean crouch;
+    private boolean onGround;
     
     public Player(){
         x = 0; y = 0; ddy = 1;
@@ -47,6 +48,8 @@ public class Player {
     
     public float getX(){ return this.x; }
     public float getY(){ return this.y; }
+    
+    public void setOnGround(boolean onGround){ this.onGround = onGround; } 
     
     /** 
      *  Returns the x coordinate of the tile on which the player's bottom left
@@ -79,8 +82,8 @@ public class Player {
         x = x+dx;
         
         if(jump){
-            if(y==0){
-                dy = 12;
+            if(onGround){
+                dy = 15;
             }
             jump = false;
         }
@@ -122,6 +125,10 @@ public class Player {
     
     public String getTextureName(){
         return this.textureName;
+    }
+    
+    public void setDY(float dy) {
+        this.dy = dy;
     }
 
 }

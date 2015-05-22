@@ -105,7 +105,7 @@ public class Level {
                         if (line.charAt(i) != split) {
                             builder.append(line.charAt(i));
                         } else {
-                            tileMap[tileWidthNbr][lineNbr-2] = Integer.parseInt(builder.toString());
+                            tileMap[tileWidthNbr][tileHeight-1-(lineNbr-2)] = Integer.parseInt(builder.toString());
                             builder.delete(0, builder.length());
                             tileWidthNbr++;
                         }
