@@ -111,7 +111,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         // DRAWS BACKGROUND
 	batch.begin();
         batch.setProjectionMatrix(camera.combined);
-        batch.draw(textureAtlas.findRegion(this.model.getCurrentLevel().getBackgroundImageName()), 0, 0);
+        batch.draw(currentLvlTextureAtlas.findRegion(this.model.getCurrentLevel().getBackgroundImageName()), 0, 0);
         
         
         int[][] tileMap = model.getCurrentLevel().getTileMap();
