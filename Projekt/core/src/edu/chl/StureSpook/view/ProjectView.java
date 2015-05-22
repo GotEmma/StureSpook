@@ -52,7 +52,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     private void buildGUI() {
         GUIButton menuButton = new GUIButton("menu","menuButton","menuButtonMouseover",camera.viewportWidth-64,0,32,16);
-        GUIVolumeControl volumeControl = new GUIVolumeControl(camera.viewportWidth-32,0);
+        GUIVolumeControl volumeControl = new GUIVolumeControl(0.5f,camera.viewportWidth-32,0);
         this.clickableGUIElements = new GUIClickable[]{menuButton,volumeControl};
         this.visibleGUIElements = new GUIDrawable[]{menuButton,volumeControl};
         
@@ -75,7 +75,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     }
     
     private void render(){
-       
+        
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         

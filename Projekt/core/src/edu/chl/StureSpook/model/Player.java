@@ -25,8 +25,8 @@ public class Player {
     private Rectangle shape;
     private Image image;
     private Graphics graphics;
-    private boolean moveLeft = false;
-    private boolean moveRight = false;
+    private boolean moveLeft;
+    private boolean moveRight;
     private boolean jump;
     private boolean crouch;
     

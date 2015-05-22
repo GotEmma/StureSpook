@@ -7,7 +7,7 @@ import edu.chl.StureSpook.controller.ProjectController;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
             LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-            config.title = "StureSpook";
+            config.title = "Flashlight";
             config.width = 800;
             config.height = 480;
             new LwjglApplication(new ProjectController(), config);
