@@ -19,7 +19,7 @@ import java.util.HashMap;
  *
  * @author Olof
  */
-public class Platform implements DrawableSprite{
+public class Platform {
     
     private float x,y,width,height;
     private Rectangle shape;
@@ -56,15 +56,5 @@ public class Platform implements DrawableSprite{
         return height;
     }
     
-    //public Image getImage(){
-    //    graphics.drawRect(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
-    //    return image;
-    //}
-
-    
-    @Override
-    public void draw(SpriteBatch batch,HashMap<String,Texture> texture) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

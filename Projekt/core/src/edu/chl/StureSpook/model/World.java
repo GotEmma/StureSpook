@@ -9,8 +9,6 @@ import edu.chl.StureSpook.Options;
 import java.awt.Point;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.Arrays;
-import java.util.List;
 
 
 
@@ -23,7 +21,6 @@ public class World implements GameModel {
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private Level[] levels = new Level[1];
     private Player player;    
-    private Platform testPlatform;
     private Flashlight flashlight;
     private int currentLevel;
     private Options options;
@@ -59,22 +56,6 @@ public class World implements GameModel {
     }
 
     @Override
-    public DrawableSprite[] getSprites() {
-        DrawableSprite[] sprites = new DrawableSprite[1];
-        
-        
-        //images[1] = testPlatform.getImage();
-        return sprites;
-    }
-    
-    @Override
-    public DrawableShape[] getShapes() {
-        DrawableShape[] shapes = new DrawableShape[1];
-        
-        return shapes;
-    }
-    
-    @Override
     public void setJump(){
         player.setJump();
     }
@@ -86,11 +67,6 @@ public class World implements GameModel {
     @Override
     public Player getPlayer(){
         return player;
-    }
-    
-    @Override
-    public GameTile[][] getTiles(){
-        return new GameTile[1][1];
     }
 
     @Override
@@ -106,14 +82,17 @@ public class World implements GameModel {
         return levels [currentLevel];
     }
     
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener l){
         pcs.addPropertyChangeListener(l);
     }
     
+    @Override
     public void removePropertyChangeListener(PropertyChangeListener l){
         pcs.removePropertyChangeListener(l);
     }
     
+    @Override
     public void initLevels(){
         for(Level l:levels){
             l.init();
@@ -130,7 +109,6 @@ public class World implements GameModel {
     }
     
     private void applyCollision(Player player, Level l) {
-        List collidable = Arrays.asList(new int[]{0,1});
         int[][] tilemap = l.getTileMap();
         
         float xLowerLimit = 0;
@@ -149,8 +127,6 @@ public class World implements GameModel {
         };
         
         //first check bottom middle point
-        //float x = p.getX() + playerwidth/2; //x and y are juggling values
-        //float y = p.getY();
         for (Point p : points) {
             float currentX = p.x + player.getX();
             float currentY = p.y + player.getY();
