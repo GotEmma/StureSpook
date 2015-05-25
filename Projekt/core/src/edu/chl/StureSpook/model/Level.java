@@ -36,12 +36,12 @@ public class Level {
     public float getHeight() {
         return this.height;
     }
-    
-    public int getTileWidth(){
+
+    public int getTileWidth() {
         return this.tileWidth;
     }
-    
-    public int getTileHeight(){
+
+    public int getTileHeight() {
         return this.tileHeight;
     }
 
@@ -108,20 +108,21 @@ public class Level {
                     this.tileWidth = tWidth;
                     this.tileHeight = tHeight;
                 } else {
-                    for (int i = 0; i < tileHeight; i++) {
-                        StringBuilder builder = new StringBuilder();
-                        int tileWidthNbr = 0;
-                        for (int j = 0; j < line.length(); j++) {
-                            if (line.charAt(j) != split) {
-                                builder.append(line.charAt(j));
-                            } else {
-                                tileMap[tileWidthNbr][tileHeight - 1 - i] = Integer.parseInt(builder.toString());
-                                builder.delete(0, builder.length());
-                                tileWidthNbr++;
-                            }
+
+                    StringBuilder builder = new StringBuilder();
+                    int tileWidthNbr = 0;
+                    for (int j = 0; j < line.length(); j++) {
+                        if (line.charAt(j) != split) {
+                            builder.append(line.charAt(j));
+                        } else {
+                            tileMap[tileWidthNbr][tileHeight - 1 -(lineNbr - 2)] = Integer.parseInt(builder.toString());
+                            System.out.print(builder.toString());
+                            builder.delete(0, builder.length());
+                            tileWidthNbr++;
                         }
-                        lineNbr++;
                     }
+                    lineNbr++;
+                    System.out.print("\n");
                 }
             }
         } catch (FileNotFoundException e) {
@@ -162,10 +163,10 @@ public class Level {
     public boolean[][] getCollidableMap() {
         if (collidableMap == null) {
             collidableMap = new boolean[tileWidth][tileHeight];
-            
-            for(int i = 0; i < tileWidth; i++){
-                for(int j = 0; j < tileHeight; j++){
-                    if(isCollidable(i,j)){
+
+            for (int i = 0; i < tileWidth; i++) {
+                for (int j = 0; j < tileHeight; j++) {
+                    if (isCollidable(i, j)) {
                         collidableMap[i][j] = true;
                     }
                 }
