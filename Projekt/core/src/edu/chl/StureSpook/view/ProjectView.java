@@ -117,6 +117,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         batch.setProjectionMatrix(camera.combined);
         batch.draw(currentLvlTextureAtlas.findRegion(this.model.getCurrentLevel().getBackgroundImageName()), 0, 0);
         
+        // DRAWS TILEMAP
+        if(currentLvlTextureName != model.getCurrentLevel().getMapTextureName()){
+            currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
+            currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
+        }
         
         int[][] tileMap = model.getCurrentLevel().getTileMap();
         for(int i = tileMap.length-1; i >= 0; i--){
@@ -147,23 +152,9 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         //batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy1.getX(), enemy1.getY());
         //batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy2.getX(), enemy2.getY());
         batch.end();
-        /*
-=======
+
+        //DRAW FLASHLIGHTCONE
         
-        // DRAWS TILEMAP
-        if(currentLvlTextureName != model.getCurrentLevel().getMapTextureName()){
-            currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
-            currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
-        }
-        
->>>>>>> master
-        //DRAW FLASHLIGHT HERE
-        float[] polygon  = this.model.getFlashlightPolygon(); //Gör något med denna
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.polygon(polygon);//Rita helsvart över skärmen senare, med ett transparent hål som motsvarar ficklampsljus
-        shapeRenderer.end();
-        */
         this.drawLightFrameBuffer();
         
         //DRAW USER INTERFACE HERE
@@ -237,11 +228,14 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
 
         //draw outer circle to buffer with partial transparency
         shapeRenderer.setColor(0, 0, 0, 0.7f);
-        shapeRenderer.circle(200, 200, 150);
+        shapeRenderer.rect(0,0, camera.viewportWidth, camera.viewportHeight);
+        
+        shapeRenderer.flush();
+        shapeRenderer.set(ShapeType.Filled);
         
         //draw fully transparent "hole" in outer circle
         shapeRenderer.setColor(0, 0, 1, 0);
-        shapeRenderer.circle(200, 200, 120);
+        shapeRenderer.polygon(model.getFlashlightPolygon());
         
         //flush shapeRenderer buffer to frame buffer and stop drawing
         shapeRenderer.end();
@@ -252,7 +246,17 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         //draw to GUI batch to make sure texture always covers screen
         guiBatch.begin();
         //fetch frame buffer as texture and draw to screen
-        guiBatch.draw(lightMap.getColorBufferTexture(), 0, 0);
+        guiBatch.draw(lightMap.getColorBufferTexture(), //texture
+                0, //x
+                0, //y
+                camera.viewportWidth, //width
+                camera.viewportHeight, //height
+                0, //srcX
+                0, //srcY
+                (int)camera.viewportWidth, //srcWidth
+                (int)camera.viewportHeight, //srcHeight
+                false, //flipX
+                true);//flipY
         guiBatch.end();
         
     }
