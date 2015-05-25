@@ -110,10 +110,14 @@ public class World implements GameModel {
         pcs.removePropertyChangeListener(l);
     }
     
+    @Override
     public void initLevels(){
         for(Level l:levels){
             l.init();
         }
+        
+        //As of now you only need to update this once 
+        flashlight.updateCollidableMap(levels[currentLevel].getCollidableMap());
     }
 
     @Override
@@ -154,12 +158,10 @@ public class World implements GameModel {
                 if (p.x < playerwidth/2) { //if point is right of player center
                     //handle as right point
                     xLowerLimit = Math.max(xLowerLimit, (util.floatToTile(currentX)*16+16));
-                    System.out.println("right");
                     continue;
                 } else if (p.x > playerwidth/2){ //if point is left of player center
                     //handle as left point
                     xUpperLimit = Math.min(xUpperLimit, (util.floatToTile(currentX)*16)-16);
-                    System.out.println("left");
                     continue;
                 }
                 
@@ -186,7 +188,6 @@ public class World implements GameModel {
         player.setX(Math.min(player.getX(),xUpperLimit));
         player.setY(Math.max(player.getY(),yLowerLimit));
         player.setY(Math.min(player.getY(),yUpperLimit));
-        System.out.println(xLowerLimit + ", " +xUpperLimit + ", " +yLowerLimit + ", " + yUpperLimit);
         
         if (player.getY() == yLowerLimit) {
             player.setDY(0.0f);

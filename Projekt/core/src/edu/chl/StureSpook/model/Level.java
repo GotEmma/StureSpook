@@ -5,14 +5,10 @@
  */
 package edu.chl.StureSpook.model;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,6 +18,8 @@ public class Level {
 
     private float width;
     private float height;
+    private int tileWidth;
+    private int tileHeight;
     private String mapFileName;
     private String mapTextureName;
     private int[][] tileMap;
@@ -29,7 +27,8 @@ public class Level {
     private DeadlyObsticles spider;
     private ActiveEnemies spikes;
     private int[] collisionValues;
-    
+    private boolean[][] collidableMap;
+
     public float getWidth() {
         return this.width;
     }
@@ -37,38 +36,45 @@ public class Level {
     public float getHeight() {
         return this.height;
     }
+    
+    public int getTileWidth(){
+        return this.tileWidth;
+    }
+    
+    public int getTileHeight(){
+        return this.tileHeight;
+    }
 
-    public Level(String mapFileName,String backgroundImageName) {
+    public Level(String mapFileName, String backgroundImageName) {
         this.backgroundImageName = backgroundImageName;
         this.mapFileName = mapFileName;
         this.width = 1000; //Set using constructor later?
         this.height = 600;
     }
 
-
-    public String getBackgroundImageName(){
+    public String getBackgroundImageName() {
         return backgroundImageName;
     }
 
-    
-    public Enemy createEnemy(String deadly, float x, float y){
-        if (deadly == "spider"){            
-            return createSpider(x,y);
+    public Enemy createEnemy(String deadly, float x, float y) {
+        if (deadly == "spider") {
+            return createSpider(x, y);
         }
-        if (deadly == "spikes"){
-            return createSpikes(x,y);
+        if (deadly == "spikes") {
+            return createSpikes(x, y);
+        } else {
+            return createSpider(x, y);
         }
-        else {return createSpider(x,y);}
     }
-    
-    public DeadlyObsticles createSpider(float x, float y){
-        return spider = new DeadlyObsticles(x,y);
+
+    public DeadlyObsticles createSpider(float x, float y) {
+        return spider = new DeadlyObsticles(x, y);
     }
-    
-    public ActiveEnemies createSpikes(float x, float y){
-        return spikes = new ActiveEnemies(x,y);
+
+    public ActiveEnemies createSpikes(float x, float y) {
+        return spikes = new ActiveEnemies(x, y);
     }
-    
+
     public String getMapTextureName() {
         return mapTextureName;
     }
@@ -79,8 +85,8 @@ public class Level {
             String line = "";
             char split = ',';
             int lineNbr = 0;
-            int tileWidth = 0;
-            int tileHeight = 0;
+            int tWidth = 0;
+            int tHeight = 0;
 
             while ((line = br.readLine()) != null) {
                 if (lineNbr == 0) {
@@ -92,26 +98,30 @@ public class Level {
                         if (line.charAt(i) != split) {
                             builder.append(line.charAt(i));
                         } else {
-                            tileWidth = Integer.parseInt(builder.toString());
+                            tWidth = Integer.parseInt(builder.toString());
                             builder.delete(0, builder.length());
                         }
                     }
-                    tileHeight = Integer.parseInt(builder.toString());
+                    tHeight = Integer.parseInt(builder.toString());
                     lineNbr++;
-                    tileMap = new int[tileWidth][tileHeight];
+                    tileMap = new int[tWidth][tHeight];
+                    this.tileWidth = tWidth;
+                    this.tileHeight = tHeight;
                 } else {
-                    StringBuilder builder = new StringBuilder();
-                    int tileWidthNbr = 0;
-                    for (int i = 0; i < line.length(); i++) {
-                        if (line.charAt(i) != split) {
-                            builder.append(line.charAt(i));
-                        } else {
-                            tileMap[tileWidthNbr][tileHeight-1-(lineNbr-2)] = Integer.parseInt(builder.toString());
-                            builder.delete(0, builder.length());
-                            tileWidthNbr++;
+                    for (int i = 0; i < tileHeight; i++) {
+                        StringBuilder builder = new StringBuilder();
+                        int tileWidthNbr = 0;
+                        for (int j = 0; j < line.length(); j++) {
+                            if (line.charAt(j) != split) {
+                                builder.append(line.charAt(j));
+                            } else {
+                                tileMap[tileWidthNbr][tileHeight - 1 - i] = Integer.parseInt(builder.toString());
+                                builder.delete(0, builder.length());
+                                tileWidthNbr++;
+                            }
                         }
+                        lineNbr++;
                     }
-                    lineNbr++;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -120,18 +130,47 @@ public class Level {
             e.printStackTrace();
         }
     }
-    
-    public int[][] getTileMap(){
+
+    public int[][] getTileMap() {
         return tileMap;
     }
-    
+
     // Kom ihåg att fixa inmatning av kollisionsvärden från csv filen 
-    public boolean isCollidable(int x, int y){
-        for(int i = 0; i < collisionValues.length; i++){
-            if(tileMap[x][y] == collisionValues[i]){
+    public boolean isCollidable(int x, int y) {
+        return tileMap[x][y] != -1;
+        /*
+         for (int i = 0; i < collisionValues.length; i++) {
+         if (tileMap[x][y] == collisionValues[i]) {
+         return true;
+         }
+         }
+         return false;
+         */
+    }
+
+    public boolean isValueCollidable(int value) {
+        for (int i = 0; i < collisionValues.length; i++) {
+            if (collisionValues[i] == value) {
                 return true;
             }
         }
         return false;
+    }
+
+    //Returns a boolean matrix which gives the position of collidable tiles 
+    //from the tileMap.
+    public boolean[][] getCollidableMap() {
+        if (collidableMap == null) {
+            collidableMap = new boolean[tileWidth][tileHeight];
+            
+            for(int i = 0; i < tileWidth; i++){
+                for(int j = 0; j < tileHeight; j++){
+                    if(isCollidable(i,j)){
+                        collidableMap[i][j] = true;
+                    }
+                }
+            }
+        }
+        return collidableMap;
     }
 }
