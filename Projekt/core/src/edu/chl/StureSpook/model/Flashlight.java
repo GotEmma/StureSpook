@@ -25,8 +25,8 @@ public class Flashlight {
     private Point visionConePointB = new Point(0, 0);
 
     //Vision parameters
-    private double visionRadian = Math.PI / 3;
-    private float distanceVisible = 1000;
+    private double visionRadian = Math.PI / 6;
+    private float distanceVisible = 200;
 
     private Point[] points;
     private Edge[] edges;
