@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+<<<<<<< HEAD
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,6 +15,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+=======
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+>>>>>>> master
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
@@ -37,6 +47,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private int screenMouseX, screenMouseY;
     private String currentLvlTextureName;
     private TextureAtlas currentLvlTextureAtlas;
+    private Animation playerWalking;
+    private Animation playerWalkingLeft;
+    private TextureRegion[] animationKeyFrames;
+    private float animationState = 0;
+    private TextureRegion playerFrame;
     
     private GUIDrawable[] visibleGUIElements;
     private GUIClickable[] clickableGUIElements;
@@ -72,13 +87,16 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     @Override
     public void init() {
+        this.loadAssets();
         batch = new SpriteBatch();
         guiBatch = new SpriteBatch();
+       // animationKeyFrames = new TextureRegion [] {new TextureRegion(new Texture(""))}; 
+        playerWalking = new Animation(4, textureAtlas.findRegions("playerWalk"));
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setAutoShapeType(true);
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
-        this.loadAssets();
+        
         buildGUI();
         
         lightMap = new FrameBuffer(Format.RGBA8888, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
@@ -109,13 +127,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         // DRAWS BACKGROUND
 	batch.begin();
         batch.setProjectionMatrix(camera.combined);
-        batch.draw(textureAtlas.findRegion(this.model.getCurrentLevel().getBackgroundImageName()), 0, 0);
+        batch.draw(currentLvlTextureAtlas.findRegion(this.model.getCurrentLevel().getBackgroundImageName()), 0, 0);
         
-        // DRAWS TILEMAP
-        if(currentLvlTextureName != model.getCurrentLevel().getMapTextureName()){
-            currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
-            currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
-        }
         
         int[][] tileMap = model.getCurrentLevel().getTileMap();
         for(int i = tileMap.length-1; i >= 0; i--){
@@ -127,11 +140,36 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         }
         
         // DRAWS PLAYER + Other Objects
-        batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
-        batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy1.getX(), enemy1.getY());
-        batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy2.getX(), enemy2.getY());
+        if(player.getMoveRight() || player.getMoveLeft()){
+            playerFrame = playerWalking.getKeyFrame(this.animationState);
+            playerFrame.flip((player.getMoveLeft() ^ playerFrame.isFlipX()), false);
+            
+            batch.draw(playerFrame, player.getX(), player.getY());
+            playerWalking.setPlayMode(Animation.PlayMode.LOOP);
+            this.animationState +=1;
+        } 
+        else if(player.isJumping()) {
+            batch.draw(textureAtlas.findRegion("playerJump"), player.getX(), player.getY());
+        }
+        else {
+            batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()),player.getX() ,player.getY());
+        }
+        
+        //batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
+        //batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy1.getX(), enemy1.getY());
+        //batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy2.getX(), enemy2.getY());
         batch.end();
+<<<<<<< HEAD
         /*
+=======
+        
+        // DRAWS TILEMAP
+        if(currentLvlTextureName != model.getCurrentLevel().getMapTextureName()){
+            currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
+            currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
+        }
+        
+>>>>>>> master
         //DRAW FLASHLIGHT HERE
         float[] polygon  = this.model.getFlashlightPolygon(); //Gör något med denna
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
