@@ -9,9 +9,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 /**
@@ -28,7 +26,7 @@ public class Flashlight {
 
     //Vision parameters
     private double visionRadian = Math.PI / 3;
-    private float distanceVisible = 100;
+    private float distanceVisible = 1000;
 
     private Point[] points;
     private Edge[] edges;
@@ -38,7 +36,7 @@ public class Flashlight {
     public void setStartPoint(float x, float y) {
         this.startPointX = x;
         this.startPointY = y;
-        startPoint.setLocation((int) startPointX, (int) startPointY);
+        startPoint.setLocation(Math.round(startPointX), Math.round(startPointY));
     }
 
     public void setEndPoint(float x, float y) {
@@ -152,9 +150,9 @@ public class Flashlight {
         }
     }
 
-    //Traces the line created by start and b and returns the point this line
+    //Traces the line created by a and b and returns the point where this line
     //intersects with the edge. If it never intersects it returns null
-    //Uses a simple equation solving algorithm. 
+    //Uses a simple equation solving method. 
     private Point rayTracing(Point a, Point b, Edge intersection) {
         float k1 = ((float) (a.y - b.y)) / ((float) (a.x - b.x));
         float m1 = a.y - k1 * a.x;
@@ -179,7 +177,7 @@ public class Flashlight {
             newX = (m2 - m1) / (k1 - k2);
             newY = k1 * newX + m1;
         }
-        return new Point((int) newX, (int) newY);
+        return new Point(Math.round(newX), Math.round(newY));
     }
 
     private boolean insideVisionCone(Point p) {
@@ -206,7 +204,7 @@ public class Flashlight {
 
     private float[] computeVisionPolygon() {
         ArrayList<Point> polygon = new ArrayList<Point>();
-        System.out.println("size points: " + points.length);
+        //System.out.println("size points: " + points.length);
 
         PriorityQueue<Point> sortedPoints = new PriorityQueue<Point>(points.length, new RadianComparator());
         sortedPoints.addAll(Arrays.asList(points));
@@ -214,13 +212,15 @@ public class Flashlight {
         sortEdges();
         //Start point
         polygon.add(startPoint);
-        
+
         //First point
         for (Edge edge : edges) {
-            Point raytraced = rayTracing(startPoint, visionConePointA, edge);
-            if (raytraced != null) {
-                polygon.add(raytraced);
-                break;
+            if (insideVisionCone(edge.getPointA()) || insideVisionCone(edge.getPointB())) {
+                Point raytraced = rayTracing(startPoint, visionConePointA, edge);
+                if (raytraced != null) {
+                    polygon.add(raytraced);
+                    break;
+                }
             }
         }
 
@@ -229,17 +229,18 @@ public class Flashlight {
             if (insideVisionCone(point)) {
                 for (Edge edge : edges) {
                     Point raytraced = rayTracing(startPoint, point, edge);
-
-                    if (raytraced != null) {
-                        /*
-                        System.out.println("startPoint: (" + startPoint.x + ", " + startPoint.y + ")");
-                        System.out.println("point: (" + point.x + ", " + point.y + ")");
-                        System.out.println("e1: (" + edge.getPointA().x + ", " + edge.getPointA().y + ")");
-                        System.out.println("e2: (" + edge.getPointB().x + ", " + edge.getPointB().y + ")");
-                        System.out.println("raytraced: (" + raytraced.x + ", " + raytraced.y + ")");
-                                */
-                        polygon.add(raytraced);
-                        break;
+                    if (insideVisionCone(edge.getPointA()) || insideVisionCone(edge.getPointB())) {
+                        if (raytraced != null) {
+                            /*
+                             System.out.println("startPoint: (" + startPoint.x + ", " + startPoint.y + ")");
+                             System.out.println("point: (" + point.x + ", " + point.y + ")");
+                             System.out.println("e1: (" + edge.getPointA().x + ", " + edge.getPointA().y + ")");
+                             System.out.println("e2: (" + edge.getPointB().x + ", " + edge.getPointB().y + ")");
+                             System.out.println("raytraced: (" + raytraced.x + ", " + raytraced.y + ")");
+                             */
+                            polygon.add(raytraced);
+                            break;
+                        }
                     }
                 }
             }
@@ -247,17 +248,24 @@ public class Flashlight {
 
         //Last point
         for (Edge edge : edges) {
-            Point raytraced = rayTracing(startPoint, visionConePointB, edge);
-            if (raytraced != null) {
-                polygon.add(raytraced);
-                break;
+            if (insideVisionCone(edge.getPointA()) || insideVisionCone(edge.getPointB())) {
+                Point raytraced = rayTracing(startPoint, visionConePointB, edge);
+                if (raytraced != null) {
+                    polygon.add(raytraced);
+                    break;
+                }
             }
         }
 
         //Sorts the points again so that they all come in the right order.
         sortedPoints.addAll(polygon);
-
+        
+        /*
         System.out.println("Size polygon: " + polygon.size());
+        System.out.println("vision a: (" + visionConePointA.x + ", " + visionConePointA.y + ")");
+        System.out.println("vision b: (" + visionConePointB.x + ", " + visionConePointB.y + ")");
+        */
+        
         //Transforms the points to float
         float[] returned = new float[2 * polygon.size()];
         int j = 0;
