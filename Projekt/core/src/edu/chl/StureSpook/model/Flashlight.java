@@ -187,9 +187,9 @@ public class Flashlight {
         float aRadian = computeRadian(visionConePointA);
         float bRadian = computeRadian(visionConePointB);
         if (aRadian > bRadian) {
-            return pointRadian <= aRadian && pointRadian >= bRadian;
+            return pointRadian <= aRadian && pointRadian >= bRadian && computeDistance(p) <= distanceVisible;
         } else {
-            return pointRadian <= bRadian && pointRadian >= aRadian;
+            return pointRadian <= bRadian && pointRadian >= aRadian && computeDistance(p) <= distanceVisible;
         }
     }
 
