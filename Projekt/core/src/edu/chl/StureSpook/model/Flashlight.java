@@ -203,7 +203,7 @@ public class Flashlight {
     }
 
     private float[] computeVisionPolygon() {
-        ArrayList<Point> polygon = new ArrayList<Point>();
+        PriorityQueue<Point> polygon = new PriorityQueue<Point>(50, new RadianComparator());
         //System.out.println("size points: " + points.length);
 
         PriorityQueue<Point> sortedPoints = new PriorityQueue<Point>(points.length, new RadianComparator());
@@ -256,9 +256,6 @@ public class Flashlight {
                 }
             }
         }
-
-        //Sorts the points again so that they all come in the right order.
-        sortedPoints.addAll(polygon);
         
         /*
         System.out.println("Size polygon: " + polygon.size());
@@ -269,8 +266,8 @@ public class Flashlight {
         //Transforms the points to float
         float[] returned = new float[2 * polygon.size()];
         int j = 0;
-        while (!sortedPoints.isEmpty()) {
-            Point point = sortedPoints.poll();
+        while (!polygon.isEmpty()) {
+            Point point = polygon.poll();
             //System.out.println("Point: (" + point.x + ", " + point.y + ")");
             returned[j] = point.x;
             j++;
