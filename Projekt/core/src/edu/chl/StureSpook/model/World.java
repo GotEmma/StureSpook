@@ -94,6 +94,9 @@ public class World implements GameModel {
         for(Level l:levels){
             l.init();
         }
+        
+        //As of now you only need to update this once 
+        flashlight.updateCollidableMap(levels[currentLevel].getCollidableMap());
     }
 
     @Override
@@ -135,6 +138,7 @@ public class World implements GameModel {
                 } else if (p.x > playerwidth/2){ //if point is left of player center
                     //handle as left point
                     xUpperLimit = Math.min(xUpperLimit, (util.floatToTile(currentX-16)*16));
+
                     continue;
                 }
                 
