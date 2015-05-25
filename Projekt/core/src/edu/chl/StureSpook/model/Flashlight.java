@@ -31,7 +31,6 @@ public class Flashlight {
     private Point[] points;
     private Edge[] edges;
 
-    private int test = 0;
 
     public void setStartPoint(float x, float y) {
         this.startPointX = x;
@@ -68,14 +67,9 @@ public class Flashlight {
     }
 
     public float[] getPolygon() {
-        float[] polygon = {this.startPointX, this.startPointY, (float) visionConePointA.x, (float) visionConePointA.y, (float) visionConePointB.x, (float) visionConePointB.y};
+        //float[] polygon = {this.startPointX, this.startPointY, (float) visionConePointA.x, (float) visionConePointA.y, (float) visionConePointB.x, (float) visionConePointB.y};
 
-        if (test < 100) {
-            test++;
-            return polygon;
-        } else {
-            return computeVisionPolygon();
-        }
+        return computeVisionPolygon();
 
     }
 
