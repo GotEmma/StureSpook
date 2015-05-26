@@ -5,13 +5,16 @@
  */
 package edu.chl.StureSpook.view;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.InputProcessor;
+import edu.chl.StureSpook.controller.DesktopInputListener;
+import java.beans.PropertyChangeListener;
 
 /**
  *
  * @author Née
  */
-public interface GameView {
+public interface GameView extends PropertyChangeListener, InputProcessor{
     public void init();
+
+    public void addInputListener(DesktopInputListener desktopInputHandler);
 }

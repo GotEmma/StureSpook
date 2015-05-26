@@ -1,5 +1,6 @@
 package edu.chl.StureSpook.view;
 
+import edu.chl.StureSpook.controller.DesktopInputListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -15,9 +16,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
+import edu.chl.StureSpook.controller.ProjectInputHandler;
 import edu.chl.StureSpook.model.Enemy;
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
+import edu.chl.StureSpook.model.World;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ import java.util.HashMap;
 
 public class ProjectView extends InputAdapter implements GameView,PropertyChangeListener{
 
-    private GameModel model;
+    private World model;
     private SpriteBatch batch,guiBatch;
     private ShapeRenderer shapeRenderer;
     private HashMap<String,Sprite> sprites;
@@ -46,7 +49,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     private FrameBuffer lightMap;
 
-    public ProjectView(GameModel model) {
+    public ProjectView(World model) {
         this.model = model;
         listeners = new ArrayList<DesktopInputListener>();
     }
@@ -165,6 +168,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         guiBatch.end();
     }
     
+    @Override
     public void addInputListener(DesktopInputListener listener){
         listeners.add(listener);
     }
@@ -260,6 +264,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         guiBatch.end();
         
     }
+
+    
     
 
 }

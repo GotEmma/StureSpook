@@ -36,7 +36,12 @@ public class World implements GameModel {
     }
     
     @Override
-    public void update(float delta){
+    public void init() {
+        this.initLevels();
+    }
+    
+    @Override
+    public void update(){
         
         player.updateMotion();
         
@@ -45,36 +50,30 @@ public class World implements GameModel {
         pcs.firePropertyChange("logic updated", 1, 0);
     }
     
-    @Override
     public void setMoveLeft(boolean t) {
         player.setMoveLeft(t);
     }
     
-    @Override
     public void setMoveRight(boolean t){
         player.setMoveRight(t);
     }
 
-    @Override
     public void setJump(){
         player.setJump();
     }
     
-    @Override
     public void setFlashlightPosition(int x, int y) {
         flashlight.setEndPoint(x, y);
     }
-    @Override
+    
     public Player getPlayer(){
         return player;
     }
 
-    @Override
     public float[] getFlashlightPolygon() {
         return flashlight.getPolygon();
     }
 
-    @Override
     public Level getCurrentLevel() {
         return levels [currentLevel];
     }
@@ -89,8 +88,7 @@ public class World implements GameModel {
         pcs.removePropertyChangeListener(l);
     }
     
-    @Override
-    public void initLevels(){
+    private void initLevels(){
         for(Level l:levels){
             l.init();
         }
@@ -99,7 +97,6 @@ public class World implements GameModel {
         flashlight.updateCollidableMap(levels[currentLevel].getCollidableMap());
     }
 
-    @Override
     public void setCrouch(boolean t) {
         if(options.getCrouchToggle() && t){
             player.toggleCrouch();
@@ -172,6 +169,7 @@ public class World implements GameModel {
         }
         
     }
+
     
 
 }

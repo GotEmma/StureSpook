@@ -8,46 +8,68 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import edu.chl.StureSpook.Options;
 import edu.chl.StureSpook.model.GameModel;
+import edu.chl.StureSpook.model.MainMenuModel;
 
 import edu.chl.StureSpook.model.World;
+import edu.chl.StureSpook.view.GameView;
+import edu.chl.StureSpook.view.MainMenuView;
 import edu.chl.StureSpook.view.ProjectView;
 
 public class ProjectController extends ApplicationAdapter{
-    private Options options = Options.getInstance();
+    private final Options options = Options.getInstance();
     private ProjectInputHandler desktopInputHandler;
     SpriteBatch batch;
     Texture img;
     Texture img2;
-    private ProjectView view;
+    private GameView view;
     private GameModel model;
+    private boolean created;
 
     @Override
     public void create() {
+        Gdx.input.setInputProcessor((InputProcessor) view);
+        
+        this.model.init();
+        this.view.init();
+        created = true;
+        
+    }
+
+    private void startGame() {
+        World world = new World();
+        model = world;
+        view = new ProjectView(world);
+        desktopInputHandler = new ProjectInputHandler(world);
+        view.addInputListener(desktopInputHandler);
+        model.addPropertyChangeListener(view);
+        
         options.setWalkLeftKey(Keys.A);
         options.setWalkRightKey(Keys.D);
         options.setJumpKey(Keys.W);
         options.setCrouchKey(Keys.S);
         //options.setCrouchToggle(true);
-        this.model.initLevels();
-        this.view.init();
-        Gdx.input.setInputProcessor((InputProcessor) view); 
-        
+        created = false;
     }
-
+    
+    private void mainMenu() {
+        MainMenuModel mainMenuModel = new MainMenuModel();
+        model = (GameModel) mainMenuModel;
+        view = new MainMenuView(mainMenuModel);
+        
+        
+        created = false;
+    }
+    
     public ProjectController() {
-            model = new World();
-            view = new ProjectView(model);
-            desktopInputHandler = new ProjectInputHandler(model);
-            view.addInputListener(desktopInputHandler);
-            model.addPropertyChangeListener(view);
-
+        //mainMenu();
+        startGame();
     }
 
     
     @Override
     public void render () {
-        // -do something with time here-
-        this.model.update(0.1f);
+        if (!created) {this.create();}
+        this.model.update();
         // view listens to when model is done updating
         
     }
