@@ -125,8 +125,7 @@ public class Level {
                     tileMap = new int[tWidth][tHeight];
                     this.tileWidth = tWidth;
                     this.tileHeight = tHeight;
-                } else {
-
+                } else if(lineNbr < tileHeight -2){
                     StringBuilder builder = new StringBuilder();
                     int tileWidthNbr = 0;
                     for (int j = 0; j < line.length(); j++) {
@@ -134,13 +133,15 @@ public class Level {
                             builder.append(line.charAt(j));
                         } else {
                             tileMap[tileWidthNbr][tileHeight - 1 -(lineNbr - 2)] = Integer.parseInt(builder.toString());
-                            System.out.print(builder.toString());
                             builder.delete(0, builder.length());
                             tileWidthNbr++;
                         }
                     }
                     lineNbr++;
-                    System.out.print("\n");
+                }
+                else{
+                    //Add further data to the level here 
+                    //such as enemies, items or moving platforms
                 }
             }
         } catch (FileNotFoundException e) {

@@ -250,7 +250,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         //draw fully transparent "hole" in outer circle
         shapeRenderer.setColor(0, 0, 1, 0);
-        shapeRenderer.polygon(model.getFlashlightPolygon());
+        float[] polygon = model.getFlashlightPolygon();
+        //Must paint it as several triangles instead of a single polygon
+        for(int i = 2; i < polygon.length-3; i+=2){
+            shapeRenderer.triangle(polygon[0], polygon[1], polygon[i], polygon[i+1], polygon[i+2], polygon[i+3]);
+        }
         
         //flush shapeRenderer buffer to frame buffer and stop drawing
         shapeRenderer.end();
