@@ -28,6 +28,7 @@ public class Level {
     private ActiveEnemies spikes;
     private int[] collisionValues;
     private boolean[][] collidableMap;
+    
 
     public float getWidth() {
         return this.width;
