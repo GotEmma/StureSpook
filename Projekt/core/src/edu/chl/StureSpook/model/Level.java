@@ -96,7 +96,7 @@ public class Level {
 
     public void init() {
         DrawableObjects = new ArrayList<DrawableWorldObjects>();
-        createEnemy("spider", 32, 32, 60, 30);
+        //createEnemy("spider", 32, 32, 60, 30);
         createEnemy("spikes", 100, 32, 30, 30);
         
         try {

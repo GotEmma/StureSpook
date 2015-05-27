@@ -158,7 +158,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         //Draws all the DrawableWorldObjects on the current level
         for(DrawableWorldObjects dwo : model.getCurrentLevel().getDrawableObjects()){
-                    batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()), 
+                    System.out.println(dwo.getTextureName());
+                    batch.draw(textureAtlas.findRegion(dwo.getTextureName()), 
                     dwo.getX(),
                     dwo.getY());
         }
