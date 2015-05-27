@@ -1,5 +1,6 @@
 package edu.chl.StureSpook.view;
 
+import edu.chl.StureSpook.controller.DesktopInputListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -20,6 +21,7 @@ import edu.chl.StureSpook.model.DeadlyObsticles;
 import edu.chl.StureSpook.model.DrawableWorldObjects;
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
+import edu.chl.StureSpook.model.World;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import java.util.HashMap;
 
 public class ProjectView extends InputAdapter implements GameView,PropertyChangeListener{
 
-    private GameModel model;
+    private World model;
     private SpriteBatch batch,guiBatch;
     private ShapeRenderer shapeRenderer;
     private HashMap<String,Sprite> sprites;
@@ -52,7 +54,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private Sound running;
     
 
-    public ProjectView(GameModel model) {
+    public ProjectView(World model) {
         this.model = model;
         listeners = new ArrayList<DesktopInputListener>();
     }
@@ -248,7 +250,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         shapeRenderer.flush();
         shapeRenderer.set(ShapeType.Filled);
         
-        //draw fully transparent "hole" in outer circle
         shapeRenderer.setColor(0, 0, 1, 0);
         float[] polygon = model.getFlashlightPolygon();
         //Must paint it as several triangles instead of a single polygon
