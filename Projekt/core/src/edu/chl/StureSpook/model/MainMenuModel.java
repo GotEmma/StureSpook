@@ -23,6 +23,7 @@ public class MainMenuModel implements GameModel{
     @Override
     public void update() {
         //key-events?
+        pcs.firePropertyChange("logic updated", 1, 0);
     }
 
     @Override
@@ -30,6 +31,21 @@ public class MainMenuModel implements GameModel{
         menuItems = new MenuItem [] {new MenuItem("New Game"), new MenuItem("Load Game"), 
             new MenuItem("Options"), new MenuItem("Quit")};
         
+    }
+    
+    public void trigger() {
+        if(menuItems[this.selectedIndex].getName().equals("New Game")) {
+            this.pcs.firePropertyChange("New Game", 1, 0);
+        }
+        if(menuItems[this.selectedIndex].getName().equals("Load Game")) {
+            this.pcs.firePropertyChange("Load Game", 1, 0);   
+        }
+        if (menuItems[this.selectedIndex].getName().equals("Options")) {
+            this.pcs.firePropertyChange("New Game", 1, 0);
+        }
+        if (menuItems[this.selectedIndex].getName().equals("Quit")) {
+            this.pcs.firePropertyChange("Quit", 1, 0);
+        }
     }
     
     public void moveDown(){

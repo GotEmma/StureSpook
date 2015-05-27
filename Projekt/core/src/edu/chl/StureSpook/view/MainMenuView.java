@@ -6,6 +6,10 @@
 
 package edu.chl.StureSpook.view;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import edu.chl.StureSpook.controller.DesktopInputListener;
 import edu.chl.StureSpook.controller.ProjectInputHandler;
 import edu.chl.StureSpook.model.MainMenuModel;
@@ -21,6 +25,10 @@ import java.util.List;
 public class MainMenuView implements GameView{
     private MainMenuModel model;
     private List<DesktopInputListener> listeners = new ArrayList<DesktopInputListener>();
+    private SpriteBatch batch;
+    private TextureAtlas mainMenuTextureAtlas;
+    
+    
     
     public MainMenuView(MainMenuModel model) {
         this.model = model;
@@ -28,7 +36,8 @@ public class MainMenuView implements GameView{
 
     @Override
     public void init() {
-        //load stuff here
+        batch = new SpriteBatch();
+        mainMenuTextureAtlas = new TextureAtlas("packed/testLevel.pack") ; 
     }
 
     @Override
@@ -38,6 +47,12 @@ public class MainMenuView implements GameView{
 
     private void render() {
         //DRAW VIEW
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        batch.begin();
+        batch.draw(mainMenuTextureAtlas.findRegion("skyBackground"), 0, 0);
+        batch.end();
     }
 
     @Override

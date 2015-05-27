@@ -18,7 +18,16 @@ public class MenuItem {
     
     }
     public MenuItem(String name, int key){
+        this(name);
         this.key = key;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+    
+    public int getKey() {
+        return this.key;
     }
     
 }

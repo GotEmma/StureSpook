@@ -22,14 +22,14 @@ public class ProjectMenuInputHandler implements DesktopInputListener {
     
     @Override
     public void keyDown(int input) {
-        if(input == Keys.DOWN){//s
+        if(input == Keys.DOWN || input == Keys.S){
             model.moveDown();
         }
     }
 
     @Override
     public void keyUp(int input) {
-        if(input == Keys.UP){//w
+        if(input == Keys.UP  || input == Keys.W){
             model.moveUp();
         }
     }

@@ -14,8 +14,10 @@ import edu.chl.StureSpook.model.World;
 import edu.chl.StureSpook.view.GameView;
 import edu.chl.StureSpook.view.MainMenuView;
 import edu.chl.StureSpook.view.ProjectView;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class ProjectController extends ApplicationAdapter{
+public class ProjectController extends ApplicationAdapter implements PropertyChangeListener{
     private final Options options = Options.getInstance();
     private DesktopInputListener desktopInputHandler;
     
@@ -43,6 +45,7 @@ public class ProjectController extends ApplicationAdapter{
         desktopInputHandler = new ProjectInputHandler(world);
         view.addInputListener(desktopInputHandler);
         model.addPropertyChangeListener(view);
+        model.addPropertyChangeListener(this);
         
         options.setWalkLeftKey(Keys.A);
         options.setWalkRightKey(Keys.D);
@@ -59,9 +62,14 @@ public class ProjectController extends ApplicationAdapter{
         desktopInputHandler = new ProjectMenuInputHandler(mainMenuModel);
         view.addInputListener(desktopInputHandler);
         model.addPropertyChangeListener(view);
+        model.addPropertyChangeListener(this);
         
 
         created = false;
+    }
+    
+    private void quitGame(){
+        
     }
     
     public ProjectController() {
@@ -76,6 +84,13 @@ public class ProjectController extends ApplicationAdapter{
         this.model.update();
         // view listens to when model is done updating
         
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if(evt.getPropertyName().equals("New Game")){
+            startGame();
+        }
     }
 
 }
