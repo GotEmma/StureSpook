@@ -146,7 +146,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
             playerWalking.setPlayMode(Animation.PlayMode.LOOP);
             this.animationState +=1;
             
-            long id = walking.play();
+            //long id = walking.play();
         } 
         else if(player.isJumping()) {
             batch.draw(textureAtlas.findRegion("playerJump"), player.getX(), player.getY());
