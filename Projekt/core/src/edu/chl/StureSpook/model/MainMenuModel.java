@@ -41,7 +41,7 @@ public class MainMenuModel implements GameModel{
             this.pcs.firePropertyChange("Load Game", 1, 0);   
         }
         if (menuItems[this.selectedIndex].getName().equals("Options")) {
-            this.pcs.firePropertyChange("New Game", 1, 0);
+            this.pcs.firePropertyChange("Options", 1, 0);
         }
         if (menuItems[this.selectedIndex].getName().equals("Quit")) {
             this.pcs.firePropertyChange("Quit", 1, 0);
@@ -50,6 +50,7 @@ public class MainMenuModel implements GameModel{
     
     public void moveDown(){
         selectedIndex = (selectedIndex + 1) % this.menuItems.length;
+        System.out.println(selectedIndex);
     }
     public void moveUp(){
         selectedIndex = (selectedIndex-1 >= 0) ? (selectedIndex-1) : (menuItems.length-1);

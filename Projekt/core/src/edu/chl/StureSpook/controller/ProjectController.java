@@ -22,8 +22,6 @@ public class ProjectController extends ApplicationAdapter implements PropertyCha
     private DesktopInputListener desktopInputHandler;
     
     SpriteBatch batch;
-    Texture img;
-    Texture img2;
     private GameView view;
     private GameModel model;
     private boolean created;
@@ -90,6 +88,9 @@ public class ProjectController extends ApplicationAdapter implements PropertyCha
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().equals("New Game")){
             startGame();
+        }
+        else if(evt.getPropertyName().equals("Quit Game")){
+            quitGame();
         }
     }
 

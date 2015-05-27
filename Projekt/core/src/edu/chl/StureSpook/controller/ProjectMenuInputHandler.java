@@ -25,14 +25,18 @@ public class ProjectMenuInputHandler implements DesktopInputListener {
         if(input == Keys.DOWN || input == Keys.S){
             model.moveDown();
         }
+        else if(input == Keys.UP  || input == Keys.W){
+            model.moveUp();
+        }
+        else if(input == Keys.ENTER){
+            model.trigger();
+        }
     }
 
     @Override
     public void keyUp(int input) {
-        if(input == Keys.UP  || input == Keys.W){
-            model.moveUp();
-        }
     }
+    
 
     @Override
     public void mouseMoved(int x, int y) {
@@ -40,3 +44,4 @@ public class ProjectMenuInputHandler implements DesktopInputListener {
     }
     
 }
+

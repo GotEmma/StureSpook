@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class MainMenuView implements GameView{
     private MainMenuModel model;
-    private List<DesktopInputListener> listeners = new ArrayList<DesktopInputListener>();
+    private List<DesktopInputListener> listeners;
     private SpriteBatch batch;
     private TextureAtlas mainMenuTextureAtlas;
     
@@ -32,6 +32,7 @@ public class MainMenuView implements GameView{
     
     public MainMenuView(MainMenuModel model) {
         this.model = model;
+        listeners = new ArrayList<DesktopInputListener>();
     }
 
     @Override
@@ -51,7 +52,20 @@ public class MainMenuView implements GameView{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         batch.begin();
+        
+        //Draw menu background
         batch.draw(mainMenuTextureAtlas.findRegion("skyBackground"), 0, 0);
+        
+        //Draw menu items
+        /*
+        for(int i = 0; i < model.getMenuItems().length; i++) {
+            batch.draw(mainMenuTextureAtlas.findRegion(model.getMenuItems()[i].getTextureName()),
+                    0, 0); //add positions
+        }*/
+        
+        //Draw frame around selected item
+        //batch.draw(mainMenuTextureAtlas.findRegion(model.getSelectedItem().getSelectedTextureName()), 0, 0);
+        
         batch.end();
     }
 
@@ -62,7 +76,10 @@ public class MainMenuView implements GameView{
 
     @Override
     public boolean keyDown(int i) {
-        return false;
+        for(DesktopInputListener l:listeners){
+            l.keyDown(i);
+        }
+        return true;
     }
 
     @Override
