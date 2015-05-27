@@ -12,11 +12,10 @@ import java.awt.Graphics;
  *
  * @author emmafahlen
  */
-public interface Enemy {
+public interface DrawableWorldObjects {
  
     public float getX();
     public float getY();
     public String getTextureName();
-    public void setX(float x);
-    public void setY(float y);
+    
 }
