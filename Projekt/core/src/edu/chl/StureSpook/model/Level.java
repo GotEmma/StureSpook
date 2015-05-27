@@ -9,6 +9,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.List;
 
 /**
  *
@@ -24,11 +27,24 @@ public class Level {
     private String mapTextureName;
     private int[][] tileMap;
     private final String backgroundImageName;
-    private DeadlyObsticles spider;
-    private ActiveEnemies spikes;
+    private DeadlyObsticles spikes;
+    private ActiveEnemies spider;
     private int[] collisionValues;
     private boolean[][] collidableMap;
+    private List<DrawableWorldObjects> DrawableObjects;
 
+    public List<DrawableWorldObjects> getDrawableObjects(){
+        return DrawableObjects;
+    }
+    
+    public DeadlyObsticles getSpikes(){
+        return spikes;
+    }
+    
+    public ActiveEnemies getSpider(){
+        return spider;
+    }
+    
     public float getWidth() {
         return this.width;
     }
@@ -56,23 +72,21 @@ public class Level {
         return backgroundImageName;
     }
 
-    public Enemy createEnemy(String deadly, float x, float y) {
-        if (deadly == "spider") {
-            return createSpider(x, y);
+    public void createEnemy(String enemy, float x, float y) {
+        if (enemy == "spider") {
+            DrawableObjects.add(createSpider(x, y, enemy));
         }
-        if (deadly == "spikes") {
-            return createSpikes(x, y);
-        } else {
-            return createSpider(x, y);
+        if (enemy == "spikes") {
+            DrawableObjects.add(createSpikes(x, y, enemy));
         }
     }
 
-    public DeadlyObsticles createSpider(float x, float y) {
-        return spider = new DeadlyObsticles(x, y);
+    public ActiveEnemies createSpider(float x, float y, String str) {
+        return spider = new ActiveEnemies(str, x, y);
     }
 
-    public ActiveEnemies createSpikes(float x, float y) {
-        return spikes = new ActiveEnemies(x, y);
+    public DeadlyObsticles createSpikes(float x, float y, String str) {
+        return spikes = new DeadlyObsticles(str, x, y);
     }
 
     public String getMapTextureName() {
@@ -80,6 +94,10 @@ public class Level {
     }
 
     public void init() {
+        DrawableObjects = new ArrayList<DrawableWorldObjects>();
+        createEnemy("spider", 32, 32);
+        createEnemy("spikes", 50, 32);
+        
         try {
             BufferedReader br = new BufferedReader(new FileReader(mapFileName));
             String line = "";

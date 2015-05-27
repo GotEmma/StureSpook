@@ -38,11 +38,67 @@ public class World implements GameModel {
     @Override
     public void update(float delta){
         
+        for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
+            if(collide(player, dwo)){
+                System.out.println("DEAD");
+            }
+        } 
+        
         player.updateMotion();
         
         applyCollision(player, this.getCurrentLevel());
         flashlight.setStartPoint(player.getX()+10, player.getY()+10);
         pcs.firePropertyChange("logic updated", 1, 0);
+    }
+    
+    public boolean collideX(Player player, DrawableWorldObjects object){
+        //System.out.println(object.getX() + "" +  player.getX());
+        for(float i = player.getX()-1000; i<player.getX()+1000; i++){
+            for(float j = object.getX()-1000; j<object.getX()+1000; j++){
+                if(j == i){
+                    System.out.println("X true");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean collideY(Player player, DrawableWorldObjects object){
+        //System.out.println(object.getY() +"   "+ player.getY());
+        for(float i = player.getY(); i<player.getY()+60; i++){
+            for(float j = object.getY(); j<object.getY()+60; j++){
+                if(j == i){
+                    System.out.println("Y true");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean collide(Player player, DrawableWorldObjects object){
+        
+       // collideX(player, object);
+        //collideY(player,object);
+        
+        if(collideX(player, object) && collideY(player, object)){
+            return true;
+        }
+        return false;
+        //if (player.getX()+30 == object.getX() && player.getY()+30 == object.getY()){
+          //  return true;
+        //}
+        //else if (player.getX()+30 == object.getX() && player.getY() == object.getY()+30){
+          //  return true;
+        //}
+        //else if (player.getX() == object.getX()+30 && player.getY()+30 == object.getY()){
+          //  return true;
+        //}
+        //else if (player.getX() == object.getX()+30 && player.getY() == object.getY()+30){
+          //  return true;
+        //}
+        //return false;
     }
     
     @Override

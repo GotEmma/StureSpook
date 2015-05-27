@@ -9,16 +9,17 @@ package edu.chl.StureSpook.model;
  *
  * @author emmafahlen
  */
-public class DeadlyObsticles implements Enemy{
+public class DeadlyObsticles implements DrawableWorldObjects{
     private float x,y;
-    private String textureName = "DeadlyObsticles";
+    private String textureName;
     //private Rectangle shape;
    // private Image image;
    // private Graphics graphics;
     
-    public DeadlyObsticles(float x, float y){
+    public DeadlyObsticles(String str, float x, float y){
         this.x = x;
         this.y = y;
+        this.textureName = str;
     }
     
     public float getX(){
@@ -31,13 +32,5 @@ public class DeadlyObsticles implements Enemy{
     
     public String getTextureName(){
         return textureName;
-    }
-    
-    public void setX(float x){
-        this.x = x;
-    }
-    
-    public void setY(float y){
-        this.y = y;
     }
 }

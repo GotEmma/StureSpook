@@ -3,6 +3,7 @@ package edu.chl.StureSpook.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -15,7 +16,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
-import edu.chl.StureSpook.model.Enemy;
+import edu.chl.StureSpook.model.DeadlyObsticles;
+import edu.chl.StureSpook.model.DrawableWorldObjects;
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
 import java.beans.PropertyChangeEvent;
@@ -45,6 +47,10 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private GUIClickable[] clickableGUIElements;
     
     private FrameBuffer lightMap;
+    
+    private Sound walking;
+    private Sound running;
+    
 
     public ProjectView(GameModel model) {
         this.model = model;
@@ -96,11 +102,10 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         Player player = this.model.getPlayer();
-        
-        Enemy enemy1 = model.getCurrentLevel().createEnemy("spider", 20, 30);
-        Enemy enemy2 = model.getCurrentLevel().createEnemy("spikes", 200, 40);
-        
-        
+        walking = Gdx.audio.newSound(Gdx.files.internal("walk.wav"));
+        running = Gdx.audio.newSound(Gdx.files.internal("run.wav"));
+
+       
         float cameraX = Math.max(player.getX(),camera.viewportWidth/2); //left limit
         cameraX = Math.min(cameraX, 
                 this.model.getCurrentLevel().getWidth()-(camera.viewportWidth/2) );//right limit
@@ -140,16 +145,26 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
             batch.draw(playerFrame, player.getX(), player.getY());
             playerWalking.setPlayMode(Animation.PlayMode.LOOP);
             this.animationState +=1;
+            
+            long id = walking.play();
         } 
         else if(player.isJumping()) {
             batch.draw(textureAtlas.findRegion("playerJump"), player.getX(), player.getY());
         }
         else {
             batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()),player.getX() ,player.getY());
+            //walking.pause();
         }
         
+        for(DrawableWorldObjects dwo : model.getCurrentLevel().getDrawableObjects()){
+                    batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()), 
+                    dwo.getX(),
+                    dwo.getY());
+        }
+        
+       // batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill(), drawableObjects.get(1).getX(), ));
         //batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
-        //batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy1.getX(), enemy1.getY());
+        //batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()),spikes.getX(), spikes.getY());
         //batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy2.getX(), enemy2.getY());
         batch.end();
 
