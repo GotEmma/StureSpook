@@ -10,30 +10,46 @@ package edu.chl.StureSpook.model;
  * @author emmafahlen
  */
 public class Item implements DrawableWorldObjects {
+    
+    private String name;
+    private String textureName;
+    private float height;
+    private float width;
+    private float x;
+    private float y;
+    
+    public Item(String name, String textureName, float height, float width, float x, float y){
+        this.name = name;
+        this.textureName = textureName;
+        this.height = height;
+        this.width = width;
+        this.x = x;
+        this.y = y;
+    }
 
     @Override
     public float getX() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return x;
     }
 
     @Override
     public float getY() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return y;
     }
 
     @Override
     public String getTextureName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return textureName;
     }
 
     @Override
     public float getHeight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return height;
     }
 
     @Override
     public float getWidth() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return width;
     }
     
 }
