@@ -120,7 +120,6 @@ public class Level {
                         }
                     }
                     lineNbr++;
-                    System.out.print("\n");
                 }
                 else{
                     //Add further data to the level here 
