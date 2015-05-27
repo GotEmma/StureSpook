@@ -5,147 +5,154 @@ filter: Nearest,Nearest
 repeat: none
 testBackground
   rotate: false
-  xy: 1, 387
+  xy: 1, 409
   size: 1000, 600
   orig: 1000, 600
   offset: 0, 0
   index: -1
+spikes
+  rotate: false
+  xy: 1, 265
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: -1
 playerCrouch
   rotate: false
-  xy: 1, 308
+  xy: 1, 186
   size: 64, 77
   orig: 64, 77
   offset: 0, 0
   index: 1
 playerCrouch
   rotate: false
-  xy: 1, 229
+  xy: 145, 330
   size: 64, 77
   orig: 64, 77
   offset: 0, 0
   index: 2
 playerJump
   rotate: false
-  xy: 67, 308
+  xy: 1, 107
   size: 64, 77
   orig: 64, 77
   offset: 0, 0
   index: -1
 playerWalk
   rotate: false
-  xy: 1, 157
+  xy: 67, 193
   size: 64, 70
   orig: 64, 70
   offset: 0, 0
   index: 2
 playerWalk
   rotate: false
-  xy: 67, 236
+  xy: 211, 337
   size: 64, 70
   orig: 64, 70
   offset: 0, 0
   index: 4
 playerWalk
   rotate: false
-  xy: 133, 315
+  xy: 1, 35
   size: 64, 70
   orig: 64, 70
   offset: 0, 0
   index: 5
 playerWalk
   rotate: false
-  xy: 1, 85
+  xy: 67, 121
   size: 64, 70
   orig: 64, 70
   offset: 0, 0
   index: 6
 playerWalk
   rotate: false
-  xy: 67, 164
+  xy: 277, 337
   size: 60, 70
   orig: 60, 70
   offset: 0, 0
   index: 3
 playerStanding
   rotate: false
-  xy: 133, 249
+  xy: 67, 55
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 playerWalk
   rotate: false
-  xy: 199, 321
+  xy: 339, 343
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 1
 soundButtonExpansion
   rotate: false
-  xy: 1, 19
+  xy: 405, 343
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 soundButtonMuted
   rotate: false
-  xy: 67, 130
+  xy: 145, 296
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 soundButtonUnmuted
   rotate: false
-  xy: 199, 287
+  xy: 1, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player
   rotate: false
-  xy: 1003, 967
+  xy: 1003, 989
   size: 20, 20
   orig: 20, 20
   offset: 0, 0
   index: -1
 blankButton
   rotate: false
-  xy: 265, 369
+  xy: 67, 37
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 menuButton
   rotate: false
-  xy: 1, 1
+  xy: 439, 391
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 menuButtonMouseover
   rotate: false
-  xy: 67, 112
+  xy: 145, 278
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 soundButton
   rotate: false
-  xy: 199, 269
+  xy: 439, 373
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 soundButtonSlider
   rotate: false
-  xy: 265, 351
+  xy: 473, 391
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 testSpider
   rotate: false
-  xy: 35, 67
+  xy: 179, 312
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
