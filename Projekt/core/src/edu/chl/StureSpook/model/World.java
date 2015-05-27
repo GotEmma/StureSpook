@@ -50,55 +50,38 @@ public class World implements GameModel {
         flashlight.setStartPoint(player.getX()+10, player.getY()+10);
         pcs.firePropertyChange("logic updated", 1, 0);
     }
-    
+    //Checks if player collides with any DrawableWorldObjects like enemys
+    //on the X-axis and returns true if it does
     public boolean collideX(Player player, DrawableWorldObjects object){
-        //System.out.println(object.getX() + "" +  player.getX());
-        for(float i = player.getX()-1000; i<player.getX()+1000; i++){
-            for(float j = object.getX()-1000; j<object.getX()+1000; j++){
-                if(j == i){
-                    System.out.println("X true");
-                    return true;
-                }
+        if (player.getX()>object.getX()-player.getWidth()) { //inte för litet
+            if (player.getX()<object.getX()+object.getWidth()) { //inte heller för stort
+                System.out.println("X true");
+                return true;
+                
             }
+            
         }
         return false;
     }
-    
+
+    //Checks if player collides with any DrawableWorldObjects like enemys
+    //on the Y-axis and returns true if it does
     public boolean collideY(Player player, DrawableWorldObjects object){
-        //System.out.println(object.getY() +"   "+ player.getY());
-        for(float i = player.getY(); i<player.getY()+60; i++){
-            for(float j = object.getY(); j<object.getY()+60; j++){
-                if(j == i){
-                    System.out.println("Y true");
-                    return true;
-                }
-            }
+        if (player.getY()>object.getHeight()-player.getHeight()) { //inte för litet
+            if (player.getY()<object.getY()+object.getHeight()) { //inte heller för stort
+                System.out.println("Y true");
+                return true;   
+            } 
         }
         return false;
     }
-    
+    //Checks if player collides with any DrawableWorldObjects on both
+    //the X-axis and the Y-axis, and returns true if it does
     public boolean collide(Player player, DrawableWorldObjects object){
-        
-        collideX(player, object);
-        collideY(player,object);
-        
         if(collideX(player, object) && collideY(player, object)){
             return true;
         }
         return false;
-        //if (player.getX()+30 == object.getX() && player.getY()+30 == object.getY()){
-          //  return true;
-        //}
-        //else if (player.getX()+30 == object.getX() && player.getY() == object.getY()+30){
-          //  return true;
-        //}
-        //else if (player.getX() == object.getX()+30 && player.getY()+30 == object.getY()){
-          //  return true;
-        //}
-        //else if (player.getX() == object.getX()+30 && player.getY() == object.getY()+30){
-          //  return true;
-        //}
-        //return false;
     }
     
     @Override

@@ -11,13 +11,15 @@ package edu.chl.StureSpook.model;
  */
 class ActiveEnemies implements DrawableWorldObjects {
 
-    private float x,y;
+    private float x,y,height, width;
     private String textureName;
     
-    public ActiveEnemies(String str, float x, float y) {
+    public ActiveEnemies(String str, float height, float width, float x, float y) {
         this.x = x;
         this.y = y;
         this.textureName = str;
+        this.height = height;
+        this.width = width;
     }
 
     @Override
@@ -33,6 +35,16 @@ class ActiveEnemies implements DrawableWorldObjects {
     @Override
     public String getTextureName() {
         return textureName;
+    }
+
+    @Override
+    public float getHeight() {
+        return height;
+    }
+
+    @Override
+    public float getWidth() {
+        return width;
     }
     
 }

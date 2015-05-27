@@ -31,6 +31,8 @@ public class Player {
     private boolean jump;
     private boolean crouch;
     private boolean onGround;
+    private float height = 60;
+    private float width = 30;
     
     public Player(){
         x = 0; y = 0; ddy = 1;
@@ -49,6 +51,8 @@ public class Player {
     
     public float getX(){ return this.x; }
     public float getY(){ return this.y; }
+    public float getHeight(){ return this.height; }
+    public float getWidth(){ return this.width; }
     
     public void setOnGround(boolean onGround){ this.onGround = onGround; } 
     

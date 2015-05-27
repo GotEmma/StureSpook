@@ -73,21 +73,21 @@ public class Level {
     }
 
     //Creates enemies and adds them to an arraylist 
-    public void createEnemy(String enemy, float x, float y) {
+    public void createEnemy(String enemy, float x, float y, float height, float width) {
         if (enemy == "spider") {
-            DrawableObjects.add(createSpider(x, y, enemy));
+            DrawableObjects.add(createSpider(x, y, enemy, height, width));
         }
         if (enemy == "spikes") {
-            DrawableObjects.add(createSpikes(x, y, enemy));
+            DrawableObjects.add(createSpikes(x, y, enemy, height, width));
         }
     }
 
-    public ActiveEnemies createSpider(float x, float y, String str) {
-        return spider = new ActiveEnemies(str, x, y);
+    public ActiveEnemies createSpider(float x, float y, String str, float height, float width) {
+        return spider = new ActiveEnemies(str, x, y, height, width);
     }
 
-    public DeadlyObsticles createSpikes(float x, float y, String str) {
-        return spikes = new DeadlyObsticles(str, x, y);
+    public DeadlyObsticles createSpikes(float x, float y, String str, float height, float width) {
+        return spikes = new DeadlyObsticles(str, x, y, height, width);
     }
 
     public String getMapTextureName() {
@@ -96,8 +96,8 @@ public class Level {
 
     public void init() {
         DrawableObjects = new ArrayList<DrawableWorldObjects>();
-        createEnemy("spider", 32, 32);
-        createEnemy("spikes", 50, 32);
+        createEnemy("spider", 32, 32, 60, 30);
+        createEnemy("spikes", 50, 32, 60, 30);
         
         try {
             BufferedReader br = new BufferedReader(new FileReader(mapFileName));

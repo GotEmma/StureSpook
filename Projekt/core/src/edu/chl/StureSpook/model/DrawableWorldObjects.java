@@ -16,6 +16,8 @@ public interface DrawableWorldObjects {
  
     public float getX();
     public float getY();
+    public float getHeight();
+    public float getWidth();
     public String getTextureName();
     
 }

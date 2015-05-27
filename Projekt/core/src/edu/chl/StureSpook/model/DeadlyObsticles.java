@@ -10,16 +10,18 @@ package edu.chl.StureSpook.model;
  * @author emmafahlen
  */
 public class DeadlyObsticles implements DrawableWorldObjects{
-    private float x,y;
+    private float x,y, height, width;
     private String textureName;
     //private Rectangle shape;
    // private Image image;
    // private Graphics graphics;
     
-    public DeadlyObsticles(String str, float x, float y){
+    public DeadlyObsticles(String str, float x, float y, float height, float width){
         this.x = x;
         this.y = y;
         this.textureName = str;
+        this.height = height;
+        this.width = width;
     }
     
     public float getX(){
@@ -32,5 +34,15 @@ public class DeadlyObsticles implements DrawableWorldObjects{
     
     public String getTextureName(){
         return textureName;
+    }
+
+    @Override
+    public float getHeight() {
+        return height;
+    }
+
+    @Override
+    public float getWidth() {
+        return width;
     }
 }
