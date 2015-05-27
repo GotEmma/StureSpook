@@ -10,20 +10,20 @@ testBackground
   orig: 1000, 600
   offset: 0, 0
   index: -1
-playerCrouch1
+playerCrouch
   rotate: false
   xy: 1, 308
   size: 64, 77
   orig: 64, 77
   offset: 0, 0
-  index: -1
-playerCrouch2
+  index: 1
+playerCrouch
   rotate: false
   xy: 1, 229
   size: 64, 77
   orig: 64, 77
   offset: 0, 0
-  index: -1
+  index: 2
 playerJump
   rotate: false
   xy: 67, 308
