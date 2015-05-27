@@ -135,14 +135,17 @@ public class Player {
     
     public void setCrouch(boolean t){
        crouch = t;
+       System.out.println(crouch);
     }
     
     public boolean getCrouch(){
+        
         return crouch;
     }
     
     public void toggleCrouch(){
         this.crouch = !crouch;
+        System.out.println("togglat" + crouch);
     }
     public String getTextureNameStandStill(){
         return this.textureNameStandStill;

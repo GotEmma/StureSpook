@@ -19,7 +19,7 @@ public class Options {
     private int walkRightKey;
     private int jumpKey;
     private int crouchKey;
-    private boolean crouchToggle;
+    private boolean crouchToggle = true;
     
     public static Options getInstance(){
         if(instance == null){

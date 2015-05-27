@@ -142,9 +142,9 @@ public class World implements GameModel {
     public void setCrouch(boolean t) {
         if(options.getCrouchToggle() && t){
             player.toggleCrouch();
-        } else {
-            player.setCrouch(t);
-        }
+        } else if(!options.getCrouchToggle()){
+            player.setCrouch(t);         
+        } 
     }
     
     private void applyCollision(Player player, Level l) {

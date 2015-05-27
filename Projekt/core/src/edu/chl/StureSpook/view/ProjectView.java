@@ -16,8 +16,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
+
 import edu.chl.StureSpook.model.DeadlyObsticles;
 import edu.chl.StureSpook.model.DrawableWorldObjects;
+
+import edu.chl.StureSpook.Options;
+
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
 import java.beans.PropertyChangeEvent;
@@ -42,6 +46,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private TextureRegion[] animationKeyFrames;
     private float animationState = 0;
     private TextureRegion playerFrame;
+    private Options options;
     
     private GUIDrawable[] visibleGUIElements;
     private GUIClickable[] clickableGUIElements;
@@ -150,6 +155,9 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         } 
         else if(player.isJumping()) {
             batch.draw(textureAtlas.findRegion("playerJump"), player.getX(), player.getY());
+        }
+        else if(player.getCrouch()){
+            batch.draw(textureAtlas.findRegion("playerCrouch1"), player.getX(), player.getY());
         }
         else {
             batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()),player.getX() ,player.getY());
