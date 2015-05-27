@@ -72,6 +72,7 @@ public class Level {
         return backgroundImageName;
     }
 
+    //Creates enemies and adds them to an arraylist 
     public void createEnemy(String enemy, float x, float y) {
         if (enemy == "spider") {
             DrawableObjects.add(createSpider(x, y, enemy));

@@ -79,8 +79,8 @@ public class World implements GameModel {
     
     public boolean collide(Player player, DrawableWorldObjects object){
         
-       // collideX(player, object);
-        //collideY(player,object);
+        collideX(player, object);
+        collideY(player,object);
         
         if(collideX(player, object) && collideY(player, object)){
             return true;
