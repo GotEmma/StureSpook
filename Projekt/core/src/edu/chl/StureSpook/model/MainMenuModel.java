@@ -28,8 +28,8 @@ public class MainMenuModel implements GameModel{
 
     @Override
     public void init() {
-        menuItems = new MenuItem [] {new MenuItem("New Game"), new MenuItem("Load Game"), 
-            new MenuItem("Options"), new MenuItem("Quit")};
+        menuItems = new MenuItem [] {new MenuItem("New Game", "newGame"), new MenuItem("Load Game", "loadGame"), 
+            new MenuItem("Options", "options"), new MenuItem("Quit", "quit")};
         
     }
     
@@ -57,6 +57,10 @@ public class MainMenuModel implements GameModel{
     
     public MenuItem getSelectedItem(){
         return menuItems[selectedIndex];
+    }
+    
+    public MenuItem [] getMenuItems(){
+        return menuItems;
     }
 
     @Override
