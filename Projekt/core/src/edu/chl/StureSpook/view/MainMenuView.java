@@ -27,6 +27,13 @@ public class MainMenuView implements GameView{
     private List<DesktopInputListener> listeners;
     private SpriteBatch batch;
     private TextureAtlas mainMenuTextureAtlas;
+    private float listFrameBezel = 3;
+    private float listFrameX = 150 - listFrameBezel;
+    private float listFrameY = 45 - listFrameBezel;
+    private float listFrameHeight = 245;
+    private float listFrameWidth = 500;
+    private float menuItemHeight = 35;
+    
     
     
     
@@ -54,19 +61,32 @@ public class MainMenuView implements GameView{
         batch.begin();
         
         //Draw menu background
-        batch.draw(mainMenuTextureAtlas.findRegion("skyBackground"), 0, 0);
+        batch.draw(mainMenuTextureAtlas.findRegion("mainMenuBackground"), 0, 0);
+        
+        //Draw list frame
+        batch.draw(mainMenuTextureAtlas.findRegion("mainMenuListFrame"), 
+                listFrameX, listFrameY);
         
         //Draw menu items
-        /*
         for(int i = 0; i < model.getMenuItems().length; i++) {
             batch.draw(mainMenuTextureAtlas.findRegion(model.getMenuItems()[i].getTextureName()),
-                    0, 0); //add positions
-        }*/
+                    getMenuX(), getMenuY(i)); //add positions
+        }
         
         //Draw frame around selected item
         //batch.draw(mainMenuTextureAtlas.findRegion(model.getSelectedItem().getSelectedTextureName()), 0, 0);
         
         batch.end();
+    }
+    
+    public float getMenuX(){
+        return listFrameX + listFrameBezel;
+    }
+    
+    
+    public float getMenuY(int i){
+        float y1 = listFrameY + listFrameHeight + listFrameBezel;
+        return y1 - (menuItemHeight*(i + 1));
     }
 
     @Override

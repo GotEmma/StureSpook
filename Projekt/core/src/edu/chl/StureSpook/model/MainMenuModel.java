@@ -50,7 +50,6 @@ public class MainMenuModel implements GameModel{
     
     public void moveDown(){
         selectedIndex = (selectedIndex + 1) % this.menuItems.length;
-        System.out.println(selectedIndex);
     }
     public void moveUp(){
         selectedIndex = (selectedIndex-1 >= 0) ? (selectedIndex-1) : (menuItems.length-1);
@@ -58,6 +57,10 @@ public class MainMenuModel implements GameModel{
     
     public MenuItem getSelectedItem(){
         return menuItems[selectedIndex];
+    }
+    
+    public int getSelectedIndex(){
+        return selectedIndex;
     }
     
     public MenuItem [] getMenuItems(){
