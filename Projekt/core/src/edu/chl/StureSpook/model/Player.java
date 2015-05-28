@@ -60,7 +60,7 @@ public class Player {
     }
     
     public boolean isDead(){
-        if(deathCount > 5){
+        if(deathCount > 4){
             return true;
         }
         return false;
@@ -170,6 +170,10 @@ public class Player {
     
     public void setDY(float dy) {
         this.dy = dy;
+    }
+    
+    public void setDX(float dx) {
+        this.dx = dx;
     }
 
 }

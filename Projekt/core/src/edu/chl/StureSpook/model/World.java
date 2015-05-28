@@ -40,6 +40,7 @@ public class World implements GameModel {
         this.initLevels();
     }
     
+    //If player collides with enemy, increase death count by one
     public void playerTakesHarm(){
         for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
             if(collide(player, dwo)){
@@ -49,15 +50,20 @@ public class World implements GameModel {
             }
         }
     }
+    //Pushes player from enemy when they have collided
     public void playerFromEnemy(Player player, DrawableWorldObjects object){
         if (player.getX()>object.getX()){
-            player.setX(player.getX() + 2);
+            player.setDX(0);
+            player.setX(player.getX() + 4);
         }
         else if (player.getX()<object.getX()){
-            player.setX(player.getX() - 2);
+            player.setDX(0);
+            player.setX(player.getX() - 4);
         }
     }
-    
+    public void die(){
+        System.out.println("Player is DEAD");
+    }
     
     @Override
     public void update(){
@@ -66,7 +72,7 @@ public class World implements GameModel {
         System.out.println(player.getDeathCount());
         
         if (player.isDead()){
-            System.out.println("Player is DEAD");
+            die();
         }
         
         player.updateMotion();
