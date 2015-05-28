@@ -17,6 +17,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -33,9 +34,10 @@ public class MainMenuView implements GameView{
     private float listFrameHeight = 245;
     private float listFrameWidth = 500;
     private float menuItemHeight = 35;
+    private int flickerRate = 150; //Lower = more frequent
     
-    
-    
+    private float selectionPositionY;
+    private float backgroundAnimationState = 0;
     
     public MainMenuView(MainMenuModel model) {
         this.model = model;
@@ -46,6 +48,7 @@ public class MainMenuView implements GameView{
     public void init() {
         batch = new SpriteBatch();
         mainMenuTextureAtlas = new TextureAtlas("packed/mainMenu.pack") ; 
+        selectionPositionY = this.getMenuY(model.getSelectedIndex());
     }
 
     @Override
@@ -61,16 +64,29 @@ public class MainMenuView implements GameView{
         batch.begin();
         
         //Draw menu background
-        batch.draw(mainMenuTextureAtlas.findRegion("mainMenuBackground"), 0, 0);
+        if (this.backgroundAnimationState < (flickerRate-7)) {
+            batch.draw(mainMenuTextureAtlas.findRegion("mainMenuBackground"), 0, 0);
+            if (this.backgroundAnimationState == 0) {
+                this.flickerRate = 120 + (int)(Math.random()*100);
+            }
+        } else {
+            batch.draw( (backgroundAnimationState%2 == 0)
+                    ? mainMenuTextureAtlas.findRegion("mainMenuBackground") : 
+                    mainMenuTextureAtlas.findRegion("mainMenuBackground2")
+                    , 0, 0);
+        }
+        backgroundAnimationState = (backgroundAnimationState+1) % flickerRate;
         
         //Draw list frame
         batch.draw(mainMenuTextureAtlas.findRegion("mainMenuListFrame"), 
                 listFrameX, listFrameY);
         
         
+        updateSelectorPosition();
+        
         //Draw frame around (behind) selected item
         batch.draw(mainMenuTextureAtlas.findRegion("menuSelection"), 
-                getMenuX(), getMenuY(model.getSelectedIndex()));
+                getMenuX(), selectionPositionY);
         
         //Draw menu items
         for(int i = 0; i < model.getMenuItems().length; i++) {
@@ -79,6 +95,16 @@ public class MainMenuView implements GameView{
         
         }  
         batch.end();
+    }
+    
+    private void updateSelectorPosition() {
+        float threshold = 5;
+        float delta = getMenuY(model.getSelectedIndex()) - selectionPositionY;
+        if (Math.abs(delta) <= threshold) {
+            selectionPositionY = getMenuY(model.getSelectedIndex());
+        } else {
+            selectionPositionY += 0.45*delta;
+        }
     }
     
     public float getMenuX(){
