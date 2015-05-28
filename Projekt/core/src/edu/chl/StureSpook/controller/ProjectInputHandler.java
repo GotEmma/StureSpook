@@ -7,7 +7,7 @@ package edu.chl.StureSpook.controller;
 
 import edu.chl.StureSpook.Options;
 import edu.chl.StureSpook.model.GameModel;
-import edu.chl.StureSpook.view.DesktopInputListener;
+import edu.chl.StureSpook.model.World;
 
 /**
  *
@@ -16,9 +16,9 @@ import edu.chl.StureSpook.view.DesktopInputListener;
 public class ProjectInputHandler implements DesktopInputListener {
     
     private Options options = Options.getInstance();
-    private GameModel model;
+    private World model;
     
-    public ProjectInputHandler(GameModel model){
+    public ProjectInputHandler(World model){
         this.model = model;
     }
     
