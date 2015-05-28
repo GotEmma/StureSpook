@@ -31,8 +31,8 @@ public class Player {
     private boolean jump;
     private boolean crouch;
     private boolean onGround;
-    private float height = 60;
-    private float width = 30;
+    private float height = 30;
+    private float width = 20;
     private int deathCount;
     
     public Player(){
@@ -60,7 +60,7 @@ public class Player {
     }
     
     public boolean isDead(){
-        if(deathCount > 1){
+        if(deathCount > 5){
             return true;
         }
         return false;
