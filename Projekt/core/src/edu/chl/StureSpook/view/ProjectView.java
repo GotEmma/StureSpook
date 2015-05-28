@@ -122,6 +122,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         }
     }
     
+    public void soundEffects(){
+        walking = Gdx.audio.newSound(Gdx.files.internal("walk.wav"));
+        running = Gdx.audio.newSound(Gdx.files.internal("run.wav"));
+    }
+    
     private void render(){
         
         Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -129,8 +134,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         Player player = this.model.getPlayer();
         
-        walking = Gdx.audio.newSound(Gdx.files.internal("walk.wav"));
-        running = Gdx.audio.newSound(Gdx.files.internal("run.wav"));
+        soundEffects();
 
        
         float cameraX = Math.max(player.getX(),camera.viewportWidth/2); //left limit

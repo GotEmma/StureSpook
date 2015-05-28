@@ -94,5 +94,4 @@ public class ProjectController extends ApplicationAdapter implements PropertyCha
             quitGame();
         }
     }
-
 }
