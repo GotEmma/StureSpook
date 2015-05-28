@@ -175,5 +175,4 @@ public class Player {
     public void setDX(float dx) {
         this.dx = dx;
     }
-
 }

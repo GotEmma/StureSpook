@@ -12,7 +12,6 @@ package edu.chl.StureSpook.model;
 class ActiveEnemies implements DrawableWorldObjects {
 
     private float x,y,height, width, startX, endX;
-    private float count = 0;
     private String textureName;
     private boolean goingRight;
     
@@ -58,8 +57,6 @@ class ActiveEnemies implements DrawableWorldObjects {
     
     
     public void act(){
-        //System.out.println("x = " + x);
-           // System.out.println("count = " + count);
         if(goingRight){
             x++;
             if (x >= endX) {

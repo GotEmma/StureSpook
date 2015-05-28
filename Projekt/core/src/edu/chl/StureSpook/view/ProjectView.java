@@ -60,6 +60,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private Sound walking;
     private Sound running;
     
+    
 
     public ProjectView(World model) {
         this.model = model;
@@ -80,6 +81,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         GUIButton menuButton = new GUIButton("menu","menuButton","menuButtonMouseover",camera.viewportWidth-64,0,32,16);
         GUIVolumeControl volumeControl = new GUIVolumeControl(0.5f,camera.viewportWidth-32,0);
         GUIInventory inventory = new GUIInventory(model.getInventory());
+        //GUIPlayerHealth playerHealth = new GUIPlayerHealth(player, 160, 0, 38, 160);
         this.clickableGUIElements = new GUIClickable[]{menuButton,volumeControl};
         this.visibleGUIElements = new GUIDrawable[]{menuButton,volumeControl,inventory};
         
@@ -108,12 +110,22 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         lightMapTexture = lightMap.getColorBufferTexture();
     }
     
+    //Draws all the DrawableWorldObjects on the current level
+    public void drawDrawableObjects(){
+        for(DrawableWorldObjects dwo : model.getCurrentLevel().getDrawableObjects()){
+                    batch.draw(textureAtlas.findRegion(dwo.getTextureName()), 
+                    dwo.getX(),
+                    dwo.getY());
+        }
+    }
+    
     private void render(){
         
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         Player player = this.model.getPlayer();
+        
         walking = Gdx.audio.newSound(Gdx.files.internal("walk.wav"));
         running = Gdx.audio.newSound(Gdx.files.internal("run.wav"));
 
@@ -171,13 +183,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
             //walking.pause();
         }
         
-        //Draws all the DrawableWorldObjects on the current level
-        for(DrawableWorldObjects dwo : model.getCurrentLevel().getDrawableObjects()){
-                    //System.out.println(dwo.getTextureName());
-                    batch.draw(textureAtlas.findRegion(dwo.getTextureName()), 
-                    dwo.getX(),
-                    dwo.getY());
-        }
+        drawDrawableObjects();
         
        // batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill(), drawableObjects.get(1).getX(), ));
         //batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
