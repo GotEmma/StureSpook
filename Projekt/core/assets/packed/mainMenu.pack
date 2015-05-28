@@ -5,22 +5,36 @@ filter: Nearest,Nearest
 repeat: none
 mainMenuBackground
   rotate: false
-  xy: 1, 736
+  xy: 1, 810
   size: 800, 480
   orig: 800, 480
   offset: 0, 0
   index: -1
 mainMenuBackground2
   rotate: false
-  xy: 1, 254
+  xy: 1, 328
   size: 800, 480
   orig: 800, 480
   offset: 0, 0
   index: -1
 mainMenuListFrame
   rotate: false
-  xy: 1, 1
+  xy: 1, 75
   size: 506, 251
   orig: 506, 251
+  offset: 0, 0
+  index: -1
+menuSelection
+  rotate: false
+  xy: 1, 38
+  size: 500, 35
+  orig: 500, 35
+  offset: 0, 0
+  index: -1
+newGameMenuItem
+  rotate: false
+  xy: 1, 1
+  size: 500, 35
+  orig: 500, 35
   offset: 0, 0
   index: -1

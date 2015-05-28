@@ -8,6 +8,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -54,6 +55,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private GUIClickable[] clickableGUIElements;
     
     private FrameBuffer lightMap;
+    private Texture lightMapTexture;
     
     private Sound walking;
     private Sound running;
@@ -273,10 +275,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         //stop drawing to frame buffer
         lightMap.end();
         
+        lightMapTexture = lightMap.getColorBufferTexture();
         //draw to GUI batch to make sure texture always covers screen
         guiBatch.begin();
         //fetch frame buffer as texture and draw to screen
-        guiBatch.draw(lightMap.getColorBufferTexture(), //texture
+        guiBatch.draw(lightMapTexture, //texture
                 0, //x
                 0, //y
                 camera.viewportWidth, //width
