@@ -28,8 +28,8 @@ public class MainMenuModel implements GameModel{
 
     @Override
     public void init() {
-        menuItems = new MenuItem [] {new MenuItem("New Game", "newGame"), new MenuItem("Load Game", "loadGame"), 
-            new MenuItem("Options", "options"), new MenuItem("Quit", "quit")};
+        menuItems = new MenuItem [] {new MenuItem("New Game", "newGameMenuItem"), new MenuItem("Load Game", "newGameMenuItem"), 
+            new MenuItem("Options", "newGameMenuItem"), new MenuItem("Quit", "newGameMenuItem")};
         
     }
     

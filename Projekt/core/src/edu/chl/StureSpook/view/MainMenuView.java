@@ -45,7 +45,7 @@ public class MainMenuView implements GameView{
     @Override
     public void init() {
         batch = new SpriteBatch();
-        mainMenuTextureAtlas = new TextureAtlas("packed/testLevel.pack") ; 
+        mainMenuTextureAtlas = new TextureAtlas("packed/mainMenu.pack") ; 
     }
 
     @Override
@@ -67,15 +67,17 @@ public class MainMenuView implements GameView{
         batch.draw(mainMenuTextureAtlas.findRegion("mainMenuListFrame"), 
                 listFrameX, listFrameY);
         
+        
+        //Draw frame around (behind) selected item
+        batch.draw(mainMenuTextureAtlas.findRegion("menuSelection"), 
+                getMenuX(), getMenuY(model.getSelectedIndex()));
+        
         //Draw menu items
         for(int i = 0; i < model.getMenuItems().length; i++) {
             batch.draw(mainMenuTextureAtlas.findRegion(model.getMenuItems()[i].getTextureName()),
                     getMenuX(), getMenuY(i)); //add positions
-        }
         
-        //Draw frame around selected item
-        //batch.draw(mainMenuTextureAtlas.findRegion(model.getSelectedItem().getSelectedTextureName()), 0, 0);
-        
+        }  
         batch.end();
     }
     
