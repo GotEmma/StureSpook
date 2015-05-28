@@ -12,22 +12,10 @@ import java.beans.PropertyChangeListener;
  * @author Née
  */
 public interface GameModel {
+    public void update();
+    public void init();
     
-    /**
-    * Updates the game logic 
-    *
-    * @param  delta  the time elapsed since last update
-    */
-    public void update(float delta);
-    public void setMoveLeft(boolean t);
-    public void setMoveRight(boolean t);
-    public void setJump();
-    public void setCrouch(boolean t);
-    public void setFlashlightPosition(int x, int y);
-    public float[] getFlashlightPolygon();
-    public Level getCurrentLevel();
-    public Player getPlayer();
     public void addPropertyChangeListener(PropertyChangeListener l);
     public void removePropertyChangeListener(PropertyChangeListener l);
-    public void initLevels();
+    
 }
