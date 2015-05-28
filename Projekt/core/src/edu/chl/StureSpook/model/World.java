@@ -50,6 +50,17 @@ public class World implements GameModel {
             }
         }
     }
+    
+    public void enemyAction(){
+        for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
+            if(dwo.getClass() == ActiveEnemies.class){
+                ActiveEnemies ae = (ActiveEnemies) dwo;
+                ae.act();
+                System.out.println(ae.getY());
+            }
+        }
+    }
+    
     //Pushes player from enemy when they have collided
     public void playerFromEnemy(Player player, DrawableWorldObjects object){
         if (player.getX()>object.getX()){
@@ -71,9 +82,13 @@ public class World implements GameModel {
         playerTakesHarm();
         System.out.println(player.getDeathCount());
         
+        enemyAction();
+        
         if (player.isDead()){
             die();
         }
+        
+        
         
         player.updateMotion();
         

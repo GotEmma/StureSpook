@@ -32,10 +32,15 @@ public class Level {
     private int[] collisionValues;
     private boolean[][] collidableMap;
     private List<DrawableWorldObjects> DrawableObjects;
+    //private List<ActiveEnemies> ActiveEnemies;
 
     public List<DrawableWorldObjects> getDrawableObjects(){
         return DrawableObjects;
     }
+    
+    //public List<ActiveEnemies> getActiveEnemies(){
+    //    return ActiveEnemies;
+    //}
     
     public DeadlyObsticles getSpikes(){
         return spikes;
@@ -73,22 +78,23 @@ public class Level {
     }
 
     //Creates enemies and adds them to an arraylist 
-    public void createEnemy(String enemy, float x, float y, float height, float width) {
+    public void createEnemy(String enemy, float x, float y, float height, float width, float endX) {
         if (enemy == "spider") {
-            DrawableObjects.add(createSpider(x, y, enemy, height, width));
+            DrawableObjects.add(createSpikes(enemy, x, y, height, width, endX));
+            //ActiveEnemies.add(createSpider(x, y, enemy, height, width));
         }
         if (enemy == "spikes") {
-            DrawableObjects.add(createSpikes(x, y, enemy, height, width));
+            DrawableObjects.add(createSpikes(enemy, x, y, height, width, endX));
         }
     }
-
-    public ActiveEnemies createSpider(float x, float y, String str, float height, float width) {
-        return spider = new ActiveEnemies(str, x, y, height, width);
+    //SKA VARA SPIDER!!!!!!
+    public ActiveEnemies createSpikes(String str, float x, float y, float height, float width, float endX) {
+        return spider = new ActiveEnemies(str, x, y, height, width, endX);
     }
 
-    public DeadlyObsticles createSpikes(float x, float y, String str, float height, float width) {
-        return spikes = new DeadlyObsticles(str, x, y, height, width);
-    }
+    //public DeadlyObsticles createSpikes(float x, float y, String str, float height, float width) {
+    //    return spikes = new DeadlyObsticles(str, x, y, height, width);
+    //}
 
     public String getMapTextureName() {
         return mapTextureName;
@@ -96,8 +102,10 @@ public class Level {
 
     public void init() {
         DrawableObjects = new ArrayList<DrawableWorldObjects>();
-        //createEnemy("spider", 32, 32, 60, 30);
-        createEnemy("spikes", 100, 64, 30, 30);
+        //ActiveEnemies = new ArrayList<ActiveEnemies>();
+        //createEnemy("spikes", 200, 64, 30, 30);
+        createEnemy("spikes", 100, 64, 30, 30, 200);
+        
         
         try {
             BufferedReader br = new BufferedReader(new FileReader(mapFileName));

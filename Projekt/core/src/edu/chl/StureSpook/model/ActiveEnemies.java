@@ -11,15 +11,19 @@ package edu.chl.StureSpook.model;
  */
 class ActiveEnemies implements DrawableWorldObjects {
 
-    private float x,y,height, width;
+    private float x,y,height, width, startX, endX;
+    private float count = 0;
     private String textureName;
+    private boolean goingRight;
     
-    public ActiveEnemies(String str, float height, float width, float x, float y) {
+    public ActiveEnemies(String str, float x, float y, float height, float width, float endX) {
         this.x = x;
         this.y = y;
         this.textureName = str;
         this.height = height;
         this.width = width;
+        this.startX = x;
+        this.endX = endX;
     }
 
     @Override
@@ -29,7 +33,11 @@ class ActiveEnemies implements DrawableWorldObjects {
 
     @Override
     public float getY() {
-        return x;
+        return y;
+    }
+    
+    public float getEndX(){
+        return endX;
     }
 
     @Override
@@ -47,8 +55,21 @@ class ActiveEnemies implements DrawableWorldObjects {
         return width;
     }
     
-    public void act(){
-        
-    }
     
+    
+    public void act(){
+        //System.out.println("x = " + x);
+           // System.out.println("count = " + count);
+        if(goingRight){
+            x++;
+            if (x >= endX) {
+                goingRight = false;
+            }
+        } else {
+            x--;
+            if (x <= startX) {
+                goingRight = true;
+            }
+        }
+    }
 }
