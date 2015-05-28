@@ -20,6 +20,7 @@ public class Options {
     private int jumpKey;
     private int crouchKey;
     private boolean crouchToggle = true;
+    private int interactKey;
     
     public static Options getInstance(){
         if(instance == null){
@@ -49,4 +50,8 @@ public class Options {
     public boolean getCrouchToggle(){
         return crouchToggle;
     }
+
+    public int getInteractKey() {return interactKey; }
+    public void setInteractKey(int k){ interactKey = k; }
+    
 }

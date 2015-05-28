@@ -22,6 +22,7 @@ public class ProjectInputHandler implements DesktopInputListener {
         this.model = model;
     }
     
+    @Override
     public void keyDown(int input) {
         if(input == options.getWalkLeftKey()){
             model.setMoveLeft(true);
@@ -32,6 +33,9 @@ public class ProjectInputHandler implements DesktopInputListener {
         }
         else if(input==options.getCrouchKey()){
             model.setCrouch(true);
+        }
+        else if(input==options.getInteractKey()){
+            model.setInteract();
         }
     }
 

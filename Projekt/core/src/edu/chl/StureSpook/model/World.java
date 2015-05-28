@@ -244,5 +244,9 @@ public class World implements GameModel {
         deinitLevel(lastLevel);
     }
     
+    public void setInteract(){
+        
+    }
+    
 
 }

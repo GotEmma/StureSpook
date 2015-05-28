@@ -49,6 +49,7 @@ public class ProjectController extends ApplicationAdapter implements PropertyCha
         options.setWalkRightKey(Keys.D);
         options.setJumpKey(Keys.W);
         options.setCrouchKey(Keys.S);
+        options.setInteractKey(Keys.E);
         //options.setCrouchToggle(true);
         created = false;
     }
