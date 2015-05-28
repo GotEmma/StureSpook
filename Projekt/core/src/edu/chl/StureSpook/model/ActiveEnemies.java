@@ -47,4 +47,8 @@ class ActiveEnemies implements DrawableWorldObjects {
         return width;
     }
     
+    public void act(){
+        
+    }
+    
 }

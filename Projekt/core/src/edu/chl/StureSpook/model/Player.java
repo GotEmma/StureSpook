@@ -33,6 +33,7 @@ public class Player {
     private boolean onGround;
     private float height = 60;
     private float width = 30;
+    private int deathCount;
     
     public Player(){
         x = 0; y = 0; ddy = 1;
@@ -53,6 +54,22 @@ public class Player {
     public float getY(){ return this.y; }
     public float getHeight(){ return this.height; }
     public float getWidth(){ return this.width; }
+    
+    public int getDeathCount(){
+        return this.deathCount;
+    }
+    
+    public boolean isDead(){
+        if(deathCount > 1){
+            return true;
+        }
+        return false;
+    }
+    
+    
+    public void deathCounter(int i){
+        deathCount = deathCount + i;
+    }
     
     public void setOnGround(boolean onGround){ this.onGround = onGround; } 
     

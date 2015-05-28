@@ -40,14 +40,25 @@ public class World implements GameModel {
         this.initLevels();
     }
     
+    public void playerTakesHarm(){
+        for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
+            if(collide(player, dwo)){
+                player.deathCounter(1);
+                System.out.println("DeathCount + 1");
+            }
+        }
+    }
+    
+    
+    
     @Override
     public void update(){
         
-        for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
-            if(collide(player, dwo)){
-                System.out.println("DEAD");
-            }
-        } 
+        playerTakesHarm();
+        
+        if (player.isDead()){
+            System.out.println("Player is DEAD");
+        }
         
         player.updateMotion();
         
