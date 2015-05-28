@@ -5,154 +5,154 @@ filter: Nearest,Nearest
 repeat: none
 testBackground
   rotate: false
-  xy: 1, 294
+  xy: 1, 195
   size: 1000, 600
   orig: 1000, 600
   offset: 0, 0
   index: -1
-spikes
-  rotate: false
-  xy: 1, 150
-  size: 142, 142
-  orig: 142, 142
-  offset: 0, 0
-  index: -1
 soundButtonExpansion
   rotate: false
-  xy: 1, 84
+  xy: 1, 129
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 soundButtonMuted
   rotate: false
-  xy: 145, 260
+  xy: 1, 95
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 soundButtonUnmuted
   rotate: false
-  xy: 1, 50
+  xy: 35, 161
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player
   rotate: false
-  xy: 1003, 874
+  xy: 1003, 775
   size: 20, 20
   orig: 20, 20
   offset: 0, 0
   index: -1
+spikes
+  rotate: false
+  xy: 1, 63
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
 blankButton
   rotate: false
-  xy: 35, 132
+  xy: 35, 143
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 menuButton
   rotate: false
-  xy: 145, 242
+  xy: 69, 177
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 menuButtonMouseover
   rotate: false
-  xy: 179, 276
+  xy: 35, 125
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 soundButton
   rotate: false
-  xy: 1, 32
+  xy: 69, 159
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 soundButtonSlider
   rotate: false
-  xy: 35, 114
+  xy: 103, 177
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 playerWalk
   rotate: false
-  xy: 1003, 844
+  xy: 1003, 745
   size: 17, 28
   orig: 17, 28
   offset: 0, 0
   index: 4
 playerWalk
   rotate: false
-  xy: 69, 120
+  xy: 1, 33
   size: 16, 28
   orig: 16, 28
   offset: 0, 0
   index: 1
 playerWalk
   rotate: false
-  xy: 145, 212
+  xy: 35, 95
   size: 15, 28
   orig: 15, 28
   offset: 0, 0
   index: 2
 playerWalk
   rotate: false
-  xy: 179, 246
+  xy: 33, 65
   size: 15, 28
   orig: 15, 28
   offset: 0, 0
   index: 5
 playerWalk
   rotate: false
-  xy: 1, 1
+  xy: 69, 128
   size: 14, 29
   orig: 14, 29
   offset: 0, 0
   index: 6
 playerJump
   rotate: false
-  xy: 35, 84
+  xy: 1003, 715
   size: 14, 28
   orig: 14, 28
   offset: 0, 0
   index: -1
 playerStanding
   rotate: false
-  xy: 1003, 812
+  xy: 1, 1
   size: 12, 30
   orig: 12, 30
   offset: 0, 0
   index: -1
 playerWalk
   rotate: false
-  xy: 145, 181
+  xy: 85, 128
   size: 12, 29
   orig: 12, 29
   offset: 0, 0
   index: 3
 playerCrouch
   rotate: false
-  xy: 87, 122
+  xy: 52, 97
   size: 14, 26
   orig: 14, 26
   offset: 0, 0
   index: 1
 playerCrouch
   rotate: false
-  xy: 162, 215
+  xy: 1003, 688
   size: 13, 25
   orig: 13, 25
   offset: 0, 0
   index: 2
 testSpider
   rotate: false
-  xy: 213, 276
+  xy: 103, 159
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
