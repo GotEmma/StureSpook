@@ -154,12 +154,14 @@ public class World implements GameModel {
     }
     
     public void initLevels(){
-        for(Level l:levels){
-            l.init();
-        }
+        levels[currentLevel].init();
         
         //As of now you only need to update this once 
         flashlight.updateCollidableMap(levels[currentLevel].getCollidableMap());
+    }
+    
+    public void deinitLevel(int level){
+        levels[level].deinit();
     }
 
     public void setCrouch(boolean t) {
@@ -233,6 +235,13 @@ public class World implements GameModel {
             player.setOnGround(false);
         }
         
+    }
+    
+    private void changeLevel(int newLevel){ 
+        int lastLevel = currentLevel;
+        currentLevel = newLevel;
+        initLevels();
+        deinitLevel(lastLevel);
     }
     
 

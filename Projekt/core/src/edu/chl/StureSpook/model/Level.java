@@ -194,4 +194,12 @@ public class Level {
         }
         return collidableMap;
     }
+
+    //Makes a maps values ready for garbage disposal
+    //Needs to be updated when more arrays of objects are added to the level.
+    void deinit() {
+        tileMap = null;
+        collisionValues = null;
+        collidableMap = null;
+    }
 }
