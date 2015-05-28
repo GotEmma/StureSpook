@@ -79,8 +79,10 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private void buildGUI() {
         GUIButton menuButton = new GUIButton("menu","menuButton","menuButtonMouseover",camera.viewportWidth-64,0,32,16);
         GUIVolumeControl volumeControl = new GUIVolumeControl(0.5f,camera.viewportWidth-32,0);
+        GUIInventory inventory = new GUIInventory(model.getInventory());
         this.clickableGUIElements = new GUIClickable[]{menuButton,volumeControl};
-        this.visibleGUIElements = new GUIDrawable[]{menuButton,volumeControl};
+        this.visibleGUIElements = new GUIDrawable[]{menuButton,volumeControl,inventory};
+        
         
     }
     
@@ -102,7 +104,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         buildGUI();
         
-        lightMap = new FrameBuffer(Format.RGBA8888, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
+        lightMap = new FrameBuffer(Format.RGBA4444, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
+        lightMapTexture = lightMap.getColorBufferTexture();
     }
     
     private void render(){
@@ -183,7 +186,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         batch.end();
 
         //DRAW FLASHLIGHTCONE
-        
         this.drawLightFrameBuffer();
         
         //DRAW USER INTERFACE HERE
@@ -275,11 +277,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         //stop drawing to frame buffer
         lightMap.end();
         
-        lightMapTexture = lightMap.getColorBufferTexture();
+        
         //draw to GUI batch to make sure texture always covers screen
         guiBatch.begin();
         //fetch frame buffer as texture and draw to screen
-        guiBatch.draw(lightMapTexture, //texture
+        guiBatch.draw(lightMap.getColorBufferTexture(), //texture
                 0, //x
                 0, //y
                 camera.viewportWidth, //width
@@ -291,7 +293,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
                 false, //flipX
                 true);//flipY
         guiBatch.end();
-        
+        lightMap.dispose();
     }
     
 

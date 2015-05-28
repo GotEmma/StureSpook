@@ -24,6 +24,7 @@ public class World implements GameModel {
     private Flashlight flashlight;
     private int currentLevel;
     private Options options;
+    private Inventory inventory;
     
     public World(){
         currentLevel = 0;
@@ -33,6 +34,7 @@ public class World implements GameModel {
         player.setY(50);
         flashlight = new Flashlight();
         options = Options.getInstance();
+        inventory = new Inventory();
     }
     
     @Override
@@ -261,6 +263,10 @@ public class World implements GameModel {
     
     public void setInteract(){
         
+    }
+    
+    public Inventory getInventory() {
+        return this.inventory;
     }
     
 

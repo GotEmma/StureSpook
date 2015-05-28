@@ -48,11 +48,13 @@ public class GUIInventory implements GUIDrawable{
         this.posX = 0;
         this.posY = 0;
         
-        this.bezelTextureLeft = "inventoryBezelTexture";
+        this.bezelTextureLeft = "inventoryBezel";
         this.bezelTextureRight = this.bezelTextureLeft;
-        this.inventorySlotTexture = "inventorySlotTexture";
+        this.inventorySlotTexture = "inventorySlot";
         
         this.tooltipFont = new BitmapFont();
+        this.tooltipFont.setColor(0, 0, 1, 1);
+        this.tooltipCache = new BitmapFontCache(tooltipFont);
         
     }
     
@@ -86,21 +88,31 @@ public class GUIInventory implements GUIDrawable{
         }
     }
     
-    private void drawTooltip(SpriteBatch batch, TextureAtlas atlas, int itemIndex) {
+    private void drawTooltip(SpriteBatch batch, int itemIndex) {
         this.mouseOverIndex = itemIndex;
         
+        if (this.mouseOverIndex != this.mouseOverIndexCached) {
+            this.tooltipCache.setText(this.inventory.getItem(itemIndex).getTextureName(),
+                    posX + bezelThickness + itemIndex*itemWidth,
+                    posY + bezelThickness*2);
+        }
+        
+        this.tooltipCache.draw(batch);
         
         
     }
     
-    private void drawTooltip(SpriteBatch batch, TextureAtlas atlas, float mouseX, float mouseY) {
+    private void drawTooltip(SpriteBatch batch, float mouseX, float mouseY) {
         mouseX -= (posX+bezelThickness);
         mouseY -= (posY+bezelThickness);
         
         if ((mouseX > 0) && (mouseY > 0)) {
             if ((mouseX < itemWidth*numItems) && (mouseY < itemHeight)) {
                 mouseX = mouseX / itemWidth;
-                drawTooltip(batch,atlas,(int)mouseX);
+                if (this.inventory.getItem((int)mouseX) != null ) {
+                    drawTooltip(batch,(int)mouseX);
+                }
+                
             }
         } else {
             this.mouseOverIndex = -1;
@@ -118,7 +130,7 @@ public class GUIInventory implements GUIDrawable{
         this.drawBezels(batch, atlas);
         this.drawItemSlots(batch, atlas);
         this.drawItems(batch, atlas);
-        this.drawTooltip(batch, atlas, mouseX, mouseY);
+        this.drawTooltip(batch, mouseX, mouseY);
     }
     
 }
