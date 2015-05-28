@@ -10,7 +10,20 @@ package edu.chl.StureSpook.model;
  * @author emmafahlen
  */
 public class Inventory {
+    private static final int DEFAULT_INVENTORY_SIZE = 5;
     private Item[] items;
+    
+    public Inventory() {
+        this(Inventory.DEFAULT_INVENTORY_SIZE);
+    }
+    
+    public Inventory(int inventorySize) {
+        items = new Item[inventorySize];
+    }
+    
+    public int getInventorySize() {
+        return Inventory.DEFAULT_INVENTORY_SIZE;
+    }
   
     /**
      * Returns an item from the inventory
@@ -18,8 +31,7 @@ public class Inventory {
      * @return the specified item, null if slot is empty
      */
     public Item getItem(int index) {
-        // TODO: Add method body
-        return null;
+        return this.items[index];
     }
     
     /**
@@ -27,8 +39,7 @@ public class Inventory {
      * @return an array of items in the inventory
      */
     public Item[] getItems() {
-        // TODO: Add method body
-        return null; // maybe we shouldn't return the items array, it would make it mutable
+        return this.items.clone();
     }
     
     /**
@@ -37,8 +48,14 @@ public class Inventory {
      * @return true if item was added, false if inventory was full
      */
     public boolean addItem(Item item) {
-        // TODO: Add method body
-        return true;
+        for (int i=0; i< this.items.length; i++) {
+            if (this.items[i] == null) {
+                this.items[i] = item;
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     /**
@@ -47,8 +64,9 @@ public class Inventory {
      * @return the removed item, null if slot was empty
      */
     public Item removeItem(int index) {
-        // TODO: Add method body
-        return null;
+        Item i = this.items[index];
+        this.items[index] = null;
+        return i;
     }
     
     /**
@@ -57,8 +75,14 @@ public class Inventory {
      * @return  true if the item was in the inventory, else false
      */
     public boolean removeItem(Item item) {
-        // TODO: Add method body
-        return true;
+        for (int i=0; i< this.items.length; i++) {
+            if (this.items[i].equals(item)) {
+                this.items[i] = null;
+                return true;
+            }
+        }
+        
+        return false;
     }
     
 }
