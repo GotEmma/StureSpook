@@ -15,16 +15,27 @@ import edu.chl.StureSpook.model.Player;
  */
 public class GUIPlayerHealth implements GUIDrawable{
     public float x, y, width, height;
-    public String texturenameFullHeart, texturenameHeart1, texturenameHeart2, texturenameHeart3, texturenameHeart4, texturenameEmptyHeart,activeTexture;
+    public String texturenameFullHeart, activeTexture;
     private Player player;
+    private final String inventorySlotTexture;
+    private final float bezelThickness;
+    private int itemWidth;
+    private final String bezelTextureLeft;
+    private final String bezelTextureRight;
     
     public GUIPlayerHealth(Player player, float x, float y, float width, float height){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.player = player;
+        this.bezelThickness = 3;
+        this.inventorySlotTexture = "inventorySlot";
+        this.bezelTextureLeft = "inventoryBezel";
+        this.bezelTextureRight = this.bezelTextureLeft;
+
     }
-    
+
     public String getActiveTexture(){
         return activeTexture;
     }
@@ -37,37 +48,38 @@ public class GUIPlayerHealth implements GUIDrawable{
         return y;
     }   
 
+    private void drawItemSlots(SpriteBatch batch, TextureAtlas atlas) {
+        for (int i = 0; i < 5 -player.getDeathCount(); i++) {
+            batch.draw(atlas.findRegion(this.inventorySlotTexture),
+                    x + this.bezelThickness + i*this.itemWidth,
+                    y);
+        }
+    }
+    private void drawBezels(SpriteBatch batch, TextureAtlas atlas) {
+        //Draw left bezel
+        batch.draw(atlas.findRegion(bezelTextureLeft),
+                x, y);
+        
+        //Draw right bezel
+        batch.draw(atlas.findRegion(bezelTextureRight),
+                x + bezelThickness + (5 - player.getDeathCount())*itemWidth, 
+                y);
+    }
+    
+    private void drawHearts(SpriteBatch batch, TextureAtlas atlas) {
+        for (int i = 0; i < 5-this.player.getDeathCount(); i++) {
+            batch.draw(atlas.findRegion(texturenameFullHeart),
+                        x+this.bezelThickness + i*this.itemWidth,
+                        y + this.bezelThickness);
+            
+        }
+    }
+    
     @Override
     public void draw(SpriteBatch batch, TextureAtlas atlas, float mouseX, float mouseY) {
-        if(player.getDeathCount() == 0){
-            //draw full heart
-            batch.draw(atlas.findRegion(texturenameFullHeart),this.x,this.y);
-            activeTexture = texturenameFullHeart;   
-        }
-        else if(player.getDeathCount() == 1){
-            //draw heart 1
-            batch.draw(atlas.findRegion(texturenameHeart1),this.x,this.y);
-            activeTexture = texturenameHeart1;
-        }
-        else if(player.getDeathCount() == 2){
-            //draw heart 2
-            batch.draw(atlas.findRegion(texturenameHeart2),this.x,this.y);
-            activeTexture = texturenameHeart2;
-        }
-        else if(player.getDeathCount() == 3){
-            //draw heart 3
-            batch.draw(atlas.findRegion(texturenameHeart3),this.x,this.y);
-            activeTexture = texturenameHeart3;
-        }
-        else if(player.getDeathCount() == 4){
-            //draw heart 4
-            batch.draw(atlas.findRegion(texturenameHeart4),this.x,this.y);
-            activeTexture = texturenameHeart4;
-        }
-        else {
-            //draw empty heart
-            batch.draw(atlas.findRegion(texturenameEmptyHeart),this.x,this.y);
-            activeTexture = texturenameEmptyHeart;
-        }    
+        drawItemSlots(batch, atlas);
+        drawBezels(batch, atlas);
+        drawHearts(batch, atlas);
+        
     }
 }

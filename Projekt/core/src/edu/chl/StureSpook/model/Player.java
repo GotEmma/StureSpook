@@ -33,7 +33,7 @@ public class Player {
     private boolean onGround;
     private float height = 30;
     private float width = 20;
-    private int deathCount;
+    private int deathCount = 0;
     
     public Player(){
         x = 0; y = 0; ddy = 1;
