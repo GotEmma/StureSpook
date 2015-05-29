@@ -312,6 +312,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         shapeRenderer.flush();
         shapeRenderer.set(ShapeType.Filled);
         
+        shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.setColor(0, 0, 1, 0);
         float[] polygon = model.getFlashlightPolygon();
         //Must paint it as several triangles instead of a single polygon
