@@ -45,11 +45,29 @@ public class World implements GameModel {
     //If player collides with enemy, increase death count by one
     public void playerTakesHarm(){
         for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
-            if(collide(player, dwo)){
-                player.deathCounter(1);
-                playerFromEnemy(player, dwo);
-                System.out.println("DeathCount + 1");
+            if(dwo.getClass() != HeartItem.class){
+                if(collide(player, dwo)){
+                    player.deathCounter(1);
+                    playerFromEnemy(player, dwo);
+                    System.out.println("DeathCount + 1");
+                }
             }
+        }
+    }
+    
+    public void playerGetsLife(){
+        HeartItem itemToRemove = null;
+        for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
+            if(dwo.getClass() == HeartItem.class){
+                HeartItem he = (HeartItem) dwo;
+                if(collide(player, he)){
+                    player.deathCounterMinus();
+                    itemToRemove = he;
+                }
+            }
+        }
+        if (itemToRemove != null) {
+            getCurrentLevel().removeItem(itemToRemove);
         }
     }
     
@@ -65,13 +83,17 @@ public class World implements GameModel {
     
     //Pushes player from enemy when they have collided
     public void playerFromEnemy(Player player, DrawableWorldObjects object){
-        if (player.getX()>object.getX()){
-            player.setDX(0);
-            player.setX(player.getX() + 4);
-        }
-        else if (player.getX()<object.getX()){
-            player.setDX(0);
-            player.setX(player.getX() - 4);
+        for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
+            if(dwo.getClass() != HeartItem.class){
+                if (player.getX()>object.getX()){
+                    player.setDX(0);
+                    player.setX(player.getX() + 4);
+                }
+                else if (player.getX()<object.getX()){
+                    player.setDX(0);
+                    player.setX(player.getX() - 4);
+                }
+            }
         }
     }
     public void die(){
@@ -85,6 +107,7 @@ public class World implements GameModel {
         System.out.println(player.getDeathCount());
         
         enemyAction();
+        playerGetsLife();
         
         if (player.isDead()){
             die();

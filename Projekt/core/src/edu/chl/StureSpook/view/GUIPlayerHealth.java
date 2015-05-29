@@ -33,6 +33,7 @@ public class GUIPlayerHealth implements GUIDrawable{
         this.inventorySlotTexture = "inventorySlot";
         this.bezelTextureLeft = "inventoryBezel";
         this.bezelTextureRight = this.bezelTextureLeft;
+        this.texturenameFullHeart = "texturenameFullHeart";
 
     }
 
@@ -69,8 +70,8 @@ public class GUIPlayerHealth implements GUIDrawable{
     private void drawHearts(SpriteBatch batch, TextureAtlas atlas) {
         for (int i = 0; i < 3-this.player.getDeathCount(); i++) {
             batch.draw(atlas.findRegion(texturenameFullHeart),
-                        x+this.bezelThickness + i*this.itemWidth,
-                        y + this.bezelThickness);
+                        x+ i*this.width,
+                        y);
             
         }
     }
@@ -79,7 +80,7 @@ public class GUIPlayerHealth implements GUIDrawable{
     public void draw(SpriteBatch batch, TextureAtlas atlas, float mouseX, float mouseY) {
         drawItemSlots(batch, atlas);
         drawBezels(batch, atlas);
-       // drawHearts(batch, atlas);
+        drawHearts(batch, atlas);
         
     }
 }

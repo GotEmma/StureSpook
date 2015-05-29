@@ -26,6 +26,7 @@ import edu.chl.StureSpook.Options;
 import edu.chl.StureSpook.model.ActiveEnemies;
 
 import edu.chl.StureSpook.model.GameModel;
+import edu.chl.StureSpook.model.HeartItem;
 import edu.chl.StureSpook.model.Player;
 import edu.chl.StureSpook.model.World;
 import java.beans.PropertyChangeEvent;
@@ -133,6 +134,13 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
                 batch.draw(textureAtlas.findRegion(deo.getTextureName()), 
                 deo.getX(),
                 deo.getY());
+            }
+            if(dwo.getClass() == HeartItem.class){
+                HeartItem he = (HeartItem) dwo;
+                //System.out.println("Draw heart");
+                batch.draw(textureAtlas.findRegion(he.getTextureName()), 
+                    he.getX(),
+                    he.getY());
             }
         }
                 

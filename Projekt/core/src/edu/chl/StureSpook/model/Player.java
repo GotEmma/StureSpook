@@ -68,7 +68,16 @@ public class Player {
     
     
     public void deathCounter(int i){
-        deathCount = deathCount + i;
+        if(this.deathCount <=3){
+            this.deathCount = deathCount + i;
+        }
+    }
+    
+    
+    public void deathCounterMinus(){
+        if(this.deathCount>=1){
+            this.deathCount --;
+        }
     }
     
     public void setOnGround(boolean onGround){ this.onGround = onGround; } 

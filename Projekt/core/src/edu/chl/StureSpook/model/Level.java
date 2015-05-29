@@ -29,6 +29,7 @@ public class Level {
     private final String backgroundImageName;
     private DeadlyObsticles spikes;
     private ActiveEnemies spider;
+    private HeartItem heart;
     private int[] collisionValues;
     private boolean[][] collidableMap;
     private List<DrawableWorldObjects> DrawableObjects;
@@ -37,6 +38,14 @@ public class Level {
     public List<DrawableWorldObjects> getDrawableObjects(){
         return DrawableObjects;
     }
+    
+    public void removeItem(DrawableWorldObjects dwo) {
+        if (this.DrawableObjects.contains(dwo)){
+            this.DrawableObjects.remove(dwo);
+        }
+    }
+    
+    
     
     //public List<ActiveEnemies> getActiveEnemies(){
     //    return ActiveEnemies;
@@ -81,19 +90,22 @@ public class Level {
     public void createEnemy(String enemy, float x, float y, float height, float width, float endX) {
         if (enemy == "spider") {
             DrawableObjects.add(createSpider(enemy, x, y, height, width, endX));
-            //ActiveEnemies.add(createSpider(x, y, enemy, height, width));
         }
         if (enemy == "spikes") {
             DrawableObjects.add(createSpikes(enemy, x, y, height, width));
         }
     }
-    //SKA VARA SPIDER!!!!!!
+    
     public ActiveEnemies createSpider(String str, float x, float y, float height, float width, float endX) {
         return spider = new ActiveEnemies(str, x, y, height, width, endX);
     }
 
     public DeadlyObsticles createSpikes(String str, float x, float y, float height, float width) {
         return spikes = new DeadlyObsticles(str, x, y, height, width);
+    }
+    
+    public void createHeart(float x, float y, float width, float height){
+        DrawableObjects.add(heart = new HeartItem(x,y,width,height));
     }
 
     public String getMapTextureName() {
@@ -105,6 +117,8 @@ public class Level {
         //ActiveEnemies = new ArrayList<ActiveEnemies>();
         createEnemy("spikes", 200, 64, 30, 30, 250);
         createEnemy("spider", 100, 64, 30, 30, 200);
+        createHeart(300,64,32,32);
+        
         
         
         try {
