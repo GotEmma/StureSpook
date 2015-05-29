@@ -54,8 +54,8 @@ public class MainMenuView implements GameView{
         batch = new SpriteBatch();
         mainMenuTextureAtlas = new TextureAtlas("packed/mainMenu.pack") ; 
         selectionPositionY = this.getMenuY(model.getSelectedIndex());
-        flashlightOn = Gdx.audio.newSound(Gdx.files.internal("flashlight.mp3"));
-        tone = Gdx.audio.newMusic(Gdx.files.internal("tone.wav"));
+        //flashlightOn = Gdx.audio.newSound(Gdx.files.internal("flashlight 1.wav"));
+        //tone = Gdx.audio.newMusic(Gdx.files.internal("tone.wav"));
     }
 
     @Override
