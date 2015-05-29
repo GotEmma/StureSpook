@@ -5,19 +5,25 @@
  */
 package edu.chl.StureSpook.model;
 
+import java.awt.Point;
+
 /**
  *
  * @author Olof
  */
-public class Door{
+public class Door implements DrawableWorldObjects{
     float x,y,width,height;
     String textureName;
     int connectedLevel;
+    Point nextLvlStartPoint;
     
-    public Door(float x, float y, int connectedLevel, String textureName){
+    public Door(float x, float y, int connectedLevel, Point nextLvlStartPoint){
         this.x=x; this.y=y;
+        this.width = 32;
+        this.height = 32;
         this.connectedLevel=connectedLevel;
-        this.textureName=textureName;
+        this.textureName="door";
+        this.nextLvlStartPoint=nextLvlStartPoint;
     }
     
     
@@ -27,5 +33,34 @@ public class Door{
     
     public int getConnectedLevelNumber(){
         return connectedLevel;
+    }
+    
+    public Point getNextLvlStartPoint(){
+        return nextLvlStartPoint;
+    }
+
+    @Override
+    public float getX() {
+        return x;
+    }
+
+    @Override
+    public float getY() {
+        return y;
+    }
+
+    @Override
+    public float getHeight() {
+        return height;
+    }
+
+    @Override
+    public float getWidth() {
+        return width;
+    }
+
+    @Override
+    public String getTextureName() {
+        return textureName;
     }
 }
