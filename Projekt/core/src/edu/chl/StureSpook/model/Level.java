@@ -80,21 +80,21 @@ public class Level {
     //Creates enemies and adds them to an arraylist 
     public void createEnemy(String enemy, float x, float y, float height, float width, float endX) {
         if (enemy == "spider") {
-            DrawableObjects.add(createSpikes(enemy, x, y, height, width, endX));
+            DrawableObjects.add(createSpider(enemy, x, y, height, width, endX));
             //ActiveEnemies.add(createSpider(x, y, enemy, height, width));
         }
         if (enemy == "spikes") {
-            DrawableObjects.add(createSpikes(enemy, x, y, height, width, endX));
+            DrawableObjects.add(createSpikes(enemy, x, y, height, width));
         }
     }
     //SKA VARA SPIDER!!!!!!
-    public ActiveEnemies createSpikes(String str, float x, float y, float height, float width, float endX) {
+    public ActiveEnemies createSpider(String str, float x, float y, float height, float width, float endX) {
         return spider = new ActiveEnemies(str, x, y, height, width, endX);
     }
 
-    //public DeadlyObsticles createSpikes(float x, float y, String str, float height, float width) {
-    //    return spikes = new DeadlyObsticles(str, x, y, height, width);
-    //}
+    public DeadlyObsticles createSpikes(String str, float x, float y, float height, float width) {
+        return spikes = new DeadlyObsticles(str, x, y, height, width);
+    }
 
     public String getMapTextureName() {
         return mapTextureName;
@@ -104,7 +104,7 @@ public class Level {
         DrawableObjects = new ArrayList<DrawableWorldObjects>();
         //ActiveEnemies = new ArrayList<ActiveEnemies>();
         createEnemy("spikes", 200, 64, 30, 30, 250);
-        createEnemy("spikes", 100, 64, 30, 30, 200);
+        createEnemy("spider", 100, 64, 30, 30, 200);
         
         
         try {

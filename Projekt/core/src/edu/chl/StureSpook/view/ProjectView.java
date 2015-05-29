@@ -103,7 +103,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         guiBatch = new SpriteBatch();
        // animationKeyFrames = new TextureRegion [] {new TextureRegion(new Texture(""))}; 
         playerWalking = new Animation(4, textureAtlas.findRegions("playerWalk"));
-        spiderWalking = new Animation(4, textureAtlas.findRegion("spider"));
+        spiderWalking = new Animation(4, textureAtlas.findRegions("spider"));
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setAutoShapeType(true);
         camera = new OrthographicCamera();
@@ -117,33 +117,34 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     //Draws all the DrawableWorldObjects on the current level
     public void drawDrawableObjects(){
-        //for(DrawableWorldObjects dwo : model.getCurrentLevel().getDrawableObjects()){
-          //  if(dwo.getClass() == ActiveEnemies.class){
-            //    ActiveEnemies ae = (ActiveEnemies) dwo;
-              //  spiderFrame = spiderWalking.getKeyFrame(this.spiderAnimationState);
-                //spiderFrame.flip((ae.goingRight() ^ spiderFrame.isFlipX()), true);
-                
-               /// batch.draw(spiderFrame, ae.getX(), ae.getY());
-                //spiderWalking.setPlayMode(Animation.PlayMode.LOOP);
-                //this.spiderAnimationState +=1;
-            //}
-            //if(dwo.getClass() == DeadlyObsticles.class){
-              //  DeadlyObsticles deo = (DeadlyObsticles) dwo;
-                //batch.draw(textureAtlas.findRegion(deo.getTextureName()), 
-                //deo.getX(),
-                //deo.getY());
-           // }
-       // }
-                
-        
-        
         for(DrawableWorldObjects dwo : model.getCurrentLevel().getDrawableObjects()){
+            if(dwo.getClass() == ActiveEnemies.class){
+                ActiveEnemies ae = (ActiveEnemies) dwo;
+                spiderWalking.setPlayMode(Animation.PlayMode.LOOP);
+                spiderFrame = spiderWalking.getKeyFrame(this.spiderAnimationState);
+                spiderFrame.flip((!ae.goingRight() ^ spiderFrame.isFlipX()), false);
+                
+                batch.draw(spiderFrame, ae.getX(), ae.getY());
+                
+                this.spiderAnimationState +=1;
+            }
+            if(dwo.getClass() == DeadlyObsticles.class){
+                DeadlyObsticles deo = (DeadlyObsticles) dwo;
+                batch.draw(textureAtlas.findRegion(deo.getTextureName()), 
+                deo.getX(),
+                deo.getY());
+            }
+        }
+                
+        
+        
+        /*for(DrawableWorldObjects dwo : model.getCurrentLevel().getDrawableObjects()){
                     
             
                     batch.draw(textureAtlas.findRegion(dwo.getTextureName()), 
                     dwo.getX(),
                     dwo.getY());
-         }
+         }*/
     }
     
     public void soundEffects(){
