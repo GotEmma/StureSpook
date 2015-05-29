@@ -43,7 +43,7 @@ public class GUIInventory implements GUIDrawable{
         this.itemHeight = 32;
         this.itemWidth = 32;
         this.numItems = this.inventory.getInventorySize();
-        this.bezelThickness = 3;
+        this.bezelThickness = 4;
         this.width = itemWidth*numItems;
         this.posX = 0;
         this.posY = 0;
@@ -131,6 +131,10 @@ public class GUIInventory implements GUIDrawable{
         this.drawItemSlots(batch, atlas);
         this.drawItems(batch, atlas);
         this.drawTooltip(batch, mouseX, mouseY);
+    }
+    
+    public float getWidth() {
+        return this.bezelThickness*2 + this.itemWidth*this.numItems;
     }
     
 }

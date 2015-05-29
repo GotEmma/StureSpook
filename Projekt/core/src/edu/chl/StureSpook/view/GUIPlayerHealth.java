@@ -29,7 +29,7 @@ public class GUIPlayerHealth implements GUIDrawable{
         this.width = width;
         this.height = height;
         this.player = player;
-        this.bezelThickness = 3;
+        this.bezelThickness = 4;
         this.inventorySlotTexture = "inventorySlot";
         this.bezelTextureLeft = "inventoryBezel";
         this.bezelTextureRight = this.bezelTextureLeft;
@@ -49,25 +49,25 @@ public class GUIPlayerHealth implements GUIDrawable{
     }   
 
     private void drawItemSlots(SpriteBatch batch, TextureAtlas atlas) {
-        for (int i = 0; i < 5 -player.getDeathCount(); i++) {
+        for (int i = 0; i < 3; i++) {
             batch.draw(atlas.findRegion(this.inventorySlotTexture),
-                    x + this.bezelThickness + i*this.itemWidth,
+                    x + i*this.width,
                     y);
         }
     }
     private void drawBezels(SpriteBatch batch, TextureAtlas atlas) {
         //Draw left bezel
-        batch.draw(atlas.findRegion(bezelTextureLeft),
-                x, y);
+        //batch.draw(atlas.findRegion(bezelTextureLeft),
+          //      x, y);
         
         //Draw right bezel
         batch.draw(atlas.findRegion(bezelTextureRight),
-                x + bezelThickness + (5 - player.getDeathCount())*itemWidth, 
+                x + 3*width, 
                 y);
     }
     
     private void drawHearts(SpriteBatch batch, TextureAtlas atlas) {
-        for (int i = 0; i < 5-this.player.getDeathCount(); i++) {
+        for (int i = 0; i < 3-this.player.getDeathCount(); i++) {
             batch.draw(atlas.findRegion(texturenameFullHeart),
                         x+this.bezelThickness + i*this.itemWidth,
                         y + this.bezelThickness);
@@ -79,7 +79,7 @@ public class GUIPlayerHealth implements GUIDrawable{
     public void draw(SpriteBatch batch, TextureAtlas atlas, float mouseX, float mouseY) {
         drawItemSlots(batch, atlas);
         drawBezels(batch, atlas);
-        drawHearts(batch, atlas);
+       // drawHearts(batch, atlas);
         
     }
 }

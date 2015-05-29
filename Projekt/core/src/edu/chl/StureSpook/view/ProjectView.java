@@ -59,7 +59,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     private Sound walking;
     private Sound running;
-    //private Player player;
     
     
 
@@ -82,11 +81,9 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         GUIButton menuButton = new GUIButton("menu","menuButton","menuButtonMouseover",camera.viewportWidth-64,0,32,16);
         GUIVolumeControl volumeControl = new GUIVolumeControl(0.5f,camera.viewportWidth-32,0);
         GUIInventory inventory = new GUIInventory(model.getInventory());
-        //GUIPlayerHealth playerHealth = new GUIPlayerHealth(player, 160, 0, 38, 160);
+        GUIPlayerHealth playerHealth = new GUIPlayerHealth(model.getPlayer(), inventory.getWidth(), 0, 32, 160);
         this.clickableGUIElements = new GUIClickable[]{menuButton,volumeControl};
-        this.visibleGUIElements = new GUIDrawable[]{menuButton,volumeControl,inventory, 
-            //playerHealth
-        };
+        this.visibleGUIElements = new GUIDrawable[]{menuButton,volumeControl,inventory,playerHealth};
         
         
     }

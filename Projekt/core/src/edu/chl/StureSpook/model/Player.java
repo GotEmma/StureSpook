@@ -60,7 +60,7 @@ public class Player {
     }
     
     public boolean isDead(){
-        if(deathCount > 4){
+        if(deathCount > 3){
             return true;
         }
         return false;
