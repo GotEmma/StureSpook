@@ -11,14 +11,14 @@ package edu.chl.StureSpook.model;
  */
 public class HeartItem implements DrawableWorldObjects{
     private float x, y, width, height;
-    private String textureName = "texturenameFullHeart";
+    private String textureName = "smallHeart";
     
     public HeartItem(float x, float y, float width, float height){
         this.x=x;
         this.y=y;
         this.height=height;
         this.width=width;
-        this.textureName = "texturenameFullHeart";
+        this.textureName = "smallHeart";
     }
     
     

@@ -117,7 +117,7 @@ public class Level {
         //ActiveEnemies = new ArrayList<ActiveEnemies>();
         createEnemy("spikes", 200, 64, 30, 30, 250);
         createEnemy("spider", 100, 64, 30, 30, 200);
-        createHeart(300,64,32,32);
+        createHeart(300,64,10,10);
         
         
         
