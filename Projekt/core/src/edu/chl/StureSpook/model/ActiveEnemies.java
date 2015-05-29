@@ -58,8 +58,6 @@ public class ActiveEnemies implements DrawableWorldObjects {
         return goingRight;
     }
     
-    
-    
     public void act(){
         if(goingRight){
             x++;
@@ -74,3 +72,4 @@ public class ActiveEnemies implements DrawableWorldObjects {
         }
     }
 }
+ 

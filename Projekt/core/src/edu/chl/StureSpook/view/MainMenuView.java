@@ -7,6 +7,8 @@
 package edu.chl.StureSpook.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -39,6 +41,9 @@ public class MainMenuView implements GameView{
     private float selectionPositionY;
     private float backgroundAnimationState = 0;
     
+    public Sound flashlightOn;
+    public Music tone;
+    
     public MainMenuView(MainMenuModel model) {
         this.model = model;
         listeners = new ArrayList<DesktopInputListener>();
@@ -49,6 +54,8 @@ public class MainMenuView implements GameView{
         batch = new SpriteBatch();
         mainMenuTextureAtlas = new TextureAtlas("packed/mainMenu.pack") ; 
         selectionPositionY = this.getMenuY(model.getSelectedIndex());
+        flashlightOn = Gdx.audio.newSound(Gdx.files.internal("flashlight.mp3"));
+        tone = Gdx.audio.newMusic(Gdx.files.internal("tone.wav"));
     }
 
     @Override
@@ -60,7 +67,8 @@ public class MainMenuView implements GameView{
         //DRAW VIEW
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+                        //tone.play();
+
         batch.begin();
         
         //Draw menu background
@@ -104,6 +112,8 @@ public class MainMenuView implements GameView{
             selectionPositionY = getMenuY(model.getSelectedIndex());
         } else {
             selectionPositionY += 0.45*delta;
+            //flashlightOn.play();
+            //tone.play();
         }
     }
     
