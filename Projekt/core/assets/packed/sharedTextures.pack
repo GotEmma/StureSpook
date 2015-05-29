@@ -206,3 +206,10 @@ testSpider
   orig: 16, 16
   offset: 0, 0
   index: -1
+smallHeart
+  rotate: false
+  xy: 171, 244
+  size: 11, 10
+  orig: 11, 10
+  offset: 0, 0
+  index: -1
