@@ -9,7 +9,7 @@ package edu.chl.StureSpook.model;
  *
  * @author emmafahlen
  */
-class ActiveEnemies implements DrawableWorldObjects {
+public class ActiveEnemies implements DrawableWorldObjects {
 
     private float x,y,height, width, startX, endX;
     private String textureName;
@@ -52,6 +52,10 @@ class ActiveEnemies implements DrawableWorldObjects {
     @Override
     public float getWidth() {
         return width;
+    }
+    
+    public boolean goingRight(){
+        return goingRight;
     }
     
     

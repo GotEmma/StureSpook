@@ -23,6 +23,7 @@ import edu.chl.StureSpook.model.DeadlyObsticles;
 import edu.chl.StureSpook.model.DrawableWorldObjects;
 
 import edu.chl.StureSpook.Options;
+import edu.chl.StureSpook.model.ActiveEnemies;
 
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.Player;
@@ -45,10 +46,13 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private String currentLvlTextureName;
     private TextureAtlas currentLvlTextureAtlas;
     private Animation playerWalking;
+    private Animation spiderWalking;
     private Animation playerWalkingLeft;
     private TextureRegion[] animationKeyFrames;
     private float animationState = 0;
+    private float spiderAnimationState = 0;
     private TextureRegion playerFrame;
+    private TextureRegion spiderFrame;
     private Options options;
     
     private GUIDrawable[] visibleGUIElements;
@@ -99,6 +103,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         guiBatch = new SpriteBatch();
        // animationKeyFrames = new TextureRegion [] {new TextureRegion(new Texture(""))}; 
         playerWalking = new Animation(4, textureAtlas.findRegions("playerWalk"));
+        spiderWalking = new Animation(4, textureAtlas.findRegion("spider"));
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setAutoShapeType(true);
         camera = new OrthographicCamera();
@@ -112,11 +117,33 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     //Draws all the DrawableWorldObjects on the current level
     public void drawDrawableObjects(){
+        //for(DrawableWorldObjects dwo : model.getCurrentLevel().getDrawableObjects()){
+          //  if(dwo.getClass() == ActiveEnemies.class){
+            //    ActiveEnemies ae = (ActiveEnemies) dwo;
+              //  spiderFrame = spiderWalking.getKeyFrame(this.spiderAnimationState);
+                //spiderFrame.flip((ae.goingRight() ^ spiderFrame.isFlipX()), true);
+                
+               /// batch.draw(spiderFrame, ae.getX(), ae.getY());
+                //spiderWalking.setPlayMode(Animation.PlayMode.LOOP);
+                //this.spiderAnimationState +=1;
+            //}
+            //if(dwo.getClass() == DeadlyObsticles.class){
+              //  DeadlyObsticles deo = (DeadlyObsticles) dwo;
+                //batch.draw(textureAtlas.findRegion(deo.getTextureName()), 
+                //deo.getX(),
+                //deo.getY());
+           // }
+       // }
+                
+        
+        
         for(DrawableWorldObjects dwo : model.getCurrentLevel().getDrawableObjects()){
+                    
+            
                     batch.draw(textureAtlas.findRegion(dwo.getTextureName()), 
                     dwo.getX(),
                     dwo.getY());
-        }
+         }
     }
     
     public void soundEffects(){
@@ -186,6 +213,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
             batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()),player.getX() ,player.getY());
             //walking.pause();
         }
+        
+        
         
         drawDrawableObjects();
         
