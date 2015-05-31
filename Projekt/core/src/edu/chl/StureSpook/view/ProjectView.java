@@ -80,7 +80,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         // Load first level
         currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
-        currentLvlTextureAtlas = new TextureAtlas("packed/testLevel.pack");
+        currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
         
     }
     
@@ -145,11 +145,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         // draw level background
 	projectedBatch.begin();
         projectedBatch.setProjectionMatrix(camera.combined);
-        projectedBatch.draw(currentLvlTextureAtlas.findRegion(this.model.getCurrentLevel().getBackgroundImageName()), 0, 0);
+        projectedBatch.draw(currentLvlTextureAtlas.findRegion("levelBackground"), 0, 0);
         projectedBatch.end();
         
         // DRAWS TILEMAP
-        this.tileRenderer.draw(model, unprojectedBatch, currentLvlTextureAtlas, camera);
+        //this.tileRenderer.draw(model, unprojectedBatch, currentLvlTextureAtlas, camera);
         
         
         projectedBatch.begin();
@@ -274,8 +274,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     @Override
     public boolean keyDown(int i) {
+        //debug cheats and commands
         if (i == Input.Keys.L) {
             this.darknessEnabled = !darknessEnabled;
+        } else if (i == Input.Keys.P) {
+            System.out.println("Player position: ("+ model.getPlayer().getX() + ", " + model.getPlayer().getY()+")");
         }
         
         for(DesktopInputListener l:listeners){

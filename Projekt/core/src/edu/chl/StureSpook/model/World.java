@@ -27,13 +27,13 @@ public class World implements GameModel {
     private Inventory inventory;
     
     public World(){
-        currentLevel = 1;
+        currentLevel = 2;
         levels = new Level[5];
-        levels[0] = new Level("testTileMap.csv");
-        levels[1] = new Level("overworld.csv");
-        levels[2] = new Level("woodenHouse.csv");
-        levels[3] = new Level("brickHouse.csv");
-        levels[4] = new Level("brickHouseLevel2.csv");
+        levels[0] = new Level("testTileMap");
+        levels[1] = new Level("overworld");
+        levels[2] = new Level("woodenHouse");
+        levels[3] = new Level("brickHouse");
+        levels[4] = new Level("brickHouseLevel2");
         
         player = new Player();
         player.setX(50);
@@ -55,7 +55,6 @@ public class World implements GameModel {
                 if(collide(player, dwo)){
                     player.deathCounter(1);
                     playerFromEnemy(player, dwo);
-                    System.out.println("DeathCount + 1");
                 }
             }
         }
@@ -82,7 +81,6 @@ public class World implements GameModel {
             if(dwo.getClass() == ActiveEnemies.class){
                 ActiveEnemies ae = (ActiveEnemies) dwo;
                 ae.act();
-                System.out.println(ae.getY());
             }
         }
     }
@@ -103,14 +101,13 @@ public class World implements GameModel {
         }
     }
     public void die(){
-        System.out.println("Player is DEAD");
+        //System.out.println("Player is DEAD");
     }
     
     @Override
     public void update(){
         
         playerTakesHarm();
-        System.out.println(player.getDeathCount());
         
         enemyAction();
         playerGetsLife();
@@ -118,8 +115,6 @@ public class World implements GameModel {
         if (player.isDead()){
             die();
         }
-        
-        
         
         player.updateMotion();
         
@@ -132,7 +127,6 @@ public class World implements GameModel {
     public boolean collideX(Player player, DrawableWorldObjects object){
         if (player.getX()>object.getX()-player.getWidth()) { //inte för litet
             if (player.getX()<object.getX()+object.getWidth()) { //inte heller för stort
-                System.out.println("X true");
                 return true;
                 
             }
@@ -146,12 +140,12 @@ public class World implements GameModel {
     public boolean collideY(Player player, DrawableWorldObjects object){
         if (player.getY()>object.getHeight()-player.getHeight()) { //inte för litet
             if (player.getY()<object.getY()+object.getHeight()) { //inte heller för stort
-                System.out.println("Y true");
                 return true;   
             } 
         }
         return false;
     }
+    
     //Checks if player collides with any DrawableWorldObjects on both
     //the X-axis and the Y-axis, and returns true if it does
     public boolean collide(Player player, DrawableWorldObjects object){
@@ -311,6 +305,14 @@ public class World implements GameModel {
         currentLevel = newLevel;
         initLevels();
         deinitLevel(lastLevel);
+    }
+    
+    public void changeLevel(String levelName) {
+        for (int i = 0;i<levels.length;i++) {
+            if (levelName.equals(levels[i].getMapName())) {
+                changeLevel(i);
+            }
+        }
     }
     
     public void setInteract(){

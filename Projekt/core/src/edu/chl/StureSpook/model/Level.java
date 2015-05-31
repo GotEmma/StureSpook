@@ -21,6 +21,7 @@ public class Level {
 
     private int tileWidth;
     private int tileHeight;
+    private String mapName;
     private String mapFileName;
     private String mapTextureName;
     private int[][] tileMap;
@@ -34,6 +35,14 @@ public class Level {
     private List<DrawableWorldObjects> DrawableObjects;
     //private List<ActiveEnemies> ActiveEnemies;
 
+    
+    public Level(String mapName) {
+        this.skyBackgroundTextureName = "skyBackground";
+        this.backgroundTextureName = "levelBackground";
+        this.mapName = mapName;
+        this.mapFileName = mapName + ".csv";
+    }
+    
     public List<DrawableWorldObjects> getDrawableObjects(){
         return DrawableObjects;
     }
@@ -42,6 +51,10 @@ public class Level {
         if (this.DrawableObjects.contains(dwo)){
             this.DrawableObjects.remove(dwo);
         }
+    }
+    
+    public String getMapName(){
+        return this.mapName;
     }
     
     
@@ -74,11 +87,6 @@ public class Level {
         return this.tileHeight;
     }
 
-    public Level(String mapFileName) {
-        this.skyBackgroundTextureName = "skyBackground";
-        this.backgroundTextureName = "background";
-        this.mapFileName = mapFileName;
-    }
 
     public String getBackgroundImageName() {
         return backgroundTextureName;
@@ -119,16 +127,14 @@ public class Level {
         //ActiveEnemies = new ArrayList<ActiveEnemies>();
         createEnemy("spikes", 200, 64, 30, 30, 250);
         createEnemy("spider", 100, 64, 30, 30, 200);
-        createHeart(300,64,10,10);
         parseLevel();
     }
     
     private void parseLevel() {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(mapFileName));
+            BufferedReader br = new BufferedReader(new FileReader("levels/"+mapFileName));
             String[] lineSplit;
             String regex = ",";
-            int lineNbr = 0;
             int tWidth = 0;
             int tHeight = 0;
             
@@ -157,51 +163,33 @@ public class Level {
                     tileMap[x][tHeight - (y+1)] = Integer.parseInt(lineSplit[x]);
                 }
             }
-           
-            /*
-            while ((line = br.readLine()) != null) {
-                if (lineNbr == 0) {
-                    mapTextureName = line;
-                    lineNbr++;
-                } else if (lineNbr == 1) {
-                    StringBuilder builder = new StringBuilder();
-                    for (int i = 0; i < line.length(); i++) {
-                        if (line.charAt(i) != split) {
-                            builder.append(line.charAt(i));
-                        } else {
-                            tWidth = Integer.parseInt(builder.toString());
-                            builder.delete(0, builder.length());
-                        }
-                    }
-                    tHeight = Integer.parseInt(builder.toString());
-                    lineNbr++;
-                    tileMap = new int[tWidth][tHeight];
-                    this.tileWidth = tWidth;
-                    this.tileHeight = tHeight;
-                } else if (lineNbr == 2) {
-                     else if(lineNbr < tileHeight -2){
-                    StringBuilder builder = new StringBuilder();
-                    int tileWidthNbr = 0;
-                    for (int j = 0; j < line.length(); j++) {
-                        if (line.charAt(j) != split) {
-                            builder.append(line.charAt(j));
-                        } else {
-                            tileMap[tileWidthNbr][tileHeight - 1 -(lineNbr - 2)] = Integer.parseInt(builder.toString());
-                            builder.delete(0, builder.length());
-                            tileWidthNbr++;
-                        }
-                    }
-                    lineNbr++;
-                }
-                else{
-                    //Add further data to the level here 
-                    //such as enemies, items or moving platforms
-                }*/
+            
+            //next line is number of objects
+            String objectCount = br.readLine();
+            
+            //exit if no objects
+            if (objectCount == null) { return; }
+            
+            int numObjects = Integer.parseInt(objectCount);
+            
+            //read numObjects lines and parse them as enemies
+            for (int i=0; i< numObjects;i++) {
+                parseEnemy(br.readLine().split(regex));
+            }
+            
+            
+            br.close();
             
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    
+    private void parseEnemy(String[] args) {
+        if (args[0].equals("heart")) {
+            this.createHeart(Integer.parseInt(args[1]), Integer.parseInt(args[2]), 10, 10);
         }
     }
 
