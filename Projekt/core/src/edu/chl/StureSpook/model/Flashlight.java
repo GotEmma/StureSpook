@@ -6,7 +6,6 @@
 package edu.chl.StureSpook.model;
 
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
