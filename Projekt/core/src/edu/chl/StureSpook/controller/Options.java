@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.chl.StureSpook;
+package edu.chl.StureSpook.controller;
 
 import com.badlogic.gdx.Input;
 
@@ -12,9 +12,7 @@ import com.badlogic.gdx.Input;
  * @author emmafahlen
  */
 public class Options {
-    
-    private static Options instance;
-    
+
     private int walkLeftKey;
     private int walkRightKey;
     private int jumpKey;
@@ -22,16 +20,7 @@ public class Options {
     private boolean crouchToggle = true;
     private int interactKey;
     
-    public static Options getInstance(){
-        if(instance == null){
-            instance = new Options();
-        }
-        return instance;
-    }
-    
-    private Options(){
-        
-    }
+
     public int getWalkLeftKey() {return walkLeftKey; }
     public void setWalkLeftKey(int k) { walkLeftKey = k; }
     

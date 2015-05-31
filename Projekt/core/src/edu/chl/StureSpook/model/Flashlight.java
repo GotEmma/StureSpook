@@ -25,7 +25,7 @@ public class Flashlight {
 
     //Vision parameters
     private double visionRadian = Math.PI / 6;
-    private float distanceVisible = 200;
+    private float distanceVisible = 300;
 
     private Point[] points;
     private Edge[] edges;
@@ -207,20 +207,28 @@ public class Flashlight {
         sortEdges();
         //Start point
         polygon.add(startPoint);
+        
+        boolean addedFirstPoint = false;
+        boolean addedLastPoint = false;
 
         //First point
         for (Edge edge : edges) {
             if (insideVisionCone(edge.getPointA()) || insideVisionCone(edge.getPointB())) {
-                Point raytraced = rayTracing(startPoint, visionConePointA, edge);
+                Point raytraced = rayTracing(startPoint, visionConePointB, edge);
                 if (raytraced != null) {
                     polygon.add(raytraced);
+                    addedFirstPoint = true;
                     break;
                 }
             }
         }
+        if(!addedFirstPoint){
+            polygon.add(maxDistance(visionConePointB));
+        }
 
         while (!sortedPoints.isEmpty()) {
             Point point = sortedPoints.poll();
+            boolean addedPoint = false;
             if (insideVisionCone(point)) {
                 for (Edge edge : edges) {
                     Point raytraced = rayTracing(startPoint, point, edge);
@@ -234,9 +242,13 @@ public class Flashlight {
                              System.out.println("raytraced: (" + raytraced.x + ", " + raytraced.y + ")");
                              */
                             polygon.add(raytraced);
+                            addedPoint = true;
                             break;
                         }
                     }
+                }
+                if(!addedPoint){
+                    polygon.add(maxDistance(point));
                 }
             }
         }
@@ -244,12 +256,16 @@ public class Flashlight {
         //Last point
         for (Edge edge : edges) {
             if (insideVisionCone(edge.getPointA()) || insideVisionCone(edge.getPointB())) {
-                Point raytraced = rayTracing(startPoint, visionConePointB, edge);
+                Point raytraced = rayTracing(startPoint, visionConePointA, edge);
                 if (raytraced != null) {
                     polygon.add(raytraced);
+                    addedLastPoint = true;
                     break;
                 }
             }
+        }
+        if(!addedLastPoint){
+            polygon.add(maxDistance(visionConePointA));
         }
         
         /*
@@ -271,6 +287,14 @@ public class Flashlight {
         }
 
         return returned;
+    }
+
+    //creates the point at the max vision distance with the same radian as the given point
+    private Point maxDistance(Point point) {
+        float theta = computeRadian(point);
+        int newX = (int)(startPointX + distanceVisible*Math.cos((double)theta));
+        int newY = (int)(startPointY + distanceVisible*Math.sin((double)theta));
+        return new Point(newX,newY);
     }
 
     private class RadianComparator implements Comparator<Point> {

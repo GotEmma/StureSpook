@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import edu.chl.StureSpook.Options;
 import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.MainMenuModel;
 
@@ -17,7 +16,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class ProjectController extends ApplicationAdapter implements PropertyChangeListener{
-    private final Options options = Options.getInstance();
+    private final Options options = new Options();
     private DesktopInputListener desktopInputHandler;
     
     SpriteBatch batch;
@@ -39,7 +38,9 @@ public class ProjectController extends ApplicationAdapter implements PropertyCha
         World world = new World();
         model = world;
         view = new ProjectView(world);
-        desktopInputHandler = new ProjectInputHandler(world);
+        ProjectInputHandler handler = new ProjectInputHandler(world);
+        desktopInputHandler = handler;
+        handler.setOptions(options);
         view.addInputListener(desktopInputHandler);
         model.addPropertyChangeListener(view);
         model.addPropertyChangeListener(this);
@@ -49,6 +50,11 @@ public class ProjectController extends ApplicationAdapter implements PropertyCha
         options.setJumpKey(Keys.W);
         options.setCrouchKey(Keys.S);
         options.setInteractKey(Keys.E);
+<<<<<<< HEAD
+=======
+        //options.setCrouchToggle(true);
+        
+>>>>>>> 6bcecfff3f7fc0b92b61ad368e1437525ba6e6ae
         created = false;
     }
     

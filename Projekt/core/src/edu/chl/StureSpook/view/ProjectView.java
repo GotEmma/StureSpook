@@ -21,7 +21,6 @@ import com.badlogic.gdx.math.Vector3;
 import edu.chl.StureSpook.model.DeadlyObsticles;
 import edu.chl.StureSpook.model.DrawableWorldObjects;
 
-import edu.chl.StureSpook.Options;
 import edu.chl.StureSpook.model.ActiveEnemies;
 
 import edu.chl.StureSpook.model.HeartItem;
@@ -52,7 +51,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private float spiderAnimationState = 0;
     private TextureRegion playerFrame;
     private TextureRegion spiderFrame;
-    private Options options;
     private TileRenderer tileRenderer;
     
     private GUIDrawable[] visibleGUIElements;
