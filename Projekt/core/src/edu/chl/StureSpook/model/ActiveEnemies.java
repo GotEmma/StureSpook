@@ -23,6 +23,7 @@ public class ActiveEnemies implements DrawableWorldObjects {
         this.width = width;
         this.startX = x;
         this.endX = endX;
+        this.goingRight = true;
     }
 
     @Override
