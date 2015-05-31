@@ -5,8 +5,7 @@
  */
 package edu.chl.StureSpook.model;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import java.awt.Graphics;
+
 
 /**
  *

@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import edu.chl.StureSpook.Options;
 import edu.chl.StureSpook.model.GameModel;
@@ -50,7 +49,6 @@ public class ProjectController extends ApplicationAdapter implements PropertyCha
         options.setJumpKey(Keys.W);
         options.setCrouchKey(Keys.S);
         options.setInteractKey(Keys.E);
-        //options.setCrouchToggle(true);
         created = false;
     }
     
@@ -68,7 +66,7 @@ public class ProjectController extends ApplicationAdapter implements PropertyCha
     }
     
     private void quitGame(){
-        
+        Gdx.app.exit();
     }
     
     public ProjectController() {

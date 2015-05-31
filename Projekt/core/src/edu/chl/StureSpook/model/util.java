@@ -45,5 +45,12 @@ public class util {
         }
         return false;
     }
+    
+    public static ActiveEnemies createSpider(String str, float x, float y, float height, float width, float endX) {
+        return new ActiveEnemies(str, x, y, height, width, endX);
+    }
 
+    public static DeadlyObsticles createSpikes(String str, float x, float y, float height, float width) {
+        return new DeadlyObsticles(str, x, y, height, width);
+    }
 }

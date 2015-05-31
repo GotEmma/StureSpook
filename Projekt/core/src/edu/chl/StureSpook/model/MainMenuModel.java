@@ -22,7 +22,6 @@ public class MainMenuModel implements GameModel{
 
     @Override
     public void update() {
-        //key-events?
         pcs.firePropertyChange("logic updated", 1, 0);
     }
 

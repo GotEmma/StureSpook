@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Matrix4;
 import edu.chl.StureSpook.model.World;
@@ -27,7 +26,7 @@ public class TileRenderer {
     private Texture bufferTexture;
     private FrameBuffer fb;
     
-    private void redrawBufferTexture(World model, TextureAtlas currentLevelTextureAtlas, Camera camera) {
+    private void redrawBufferTexture(World model, TextureAtlas currentLevelTextureAtlas) {
         int [][] tileMap = model.getCurrentLevel().getTileMap();
         fb = new FrameBuffer(Pixmap.Format.RGBA8888, 
                     tileMap.length*16, 
@@ -66,13 +65,12 @@ public class TileRenderer {
         batch.end();
         fb.end();
         batch.dispose();
-        //fb.dispose();
         
     }
     
     public void draw(World model, SpriteBatch unprojectedBatch, TextureAtlas currentLevelTextureAtlas, Camera camera) {
         if (mapHashHasChanged(model)) {
-            redrawBufferTexture(model, currentLevelTextureAtlas, camera);
+            redrawBufferTexture(model, currentLevelTextureAtlas);
         }
         
         

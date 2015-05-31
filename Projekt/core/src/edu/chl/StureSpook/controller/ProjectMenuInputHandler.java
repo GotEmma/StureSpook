@@ -5,7 +5,6 @@
  */
 package edu.chl.StureSpook.controller;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import edu.chl.StureSpook.model.MainMenuModel;
 

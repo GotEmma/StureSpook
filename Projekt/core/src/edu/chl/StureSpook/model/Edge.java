@@ -17,11 +17,13 @@ public class Edge {
         this.b = b;
     }
     
-    //Calculates the distance from the edge to a point
-    //This is calculated as a avarage between the distance for it's start
-    //and endpoint. This method works as long as every edge is the same size.
-    //If edges of different sizes where to be introduced this method must
-    //be updated. 
+    /**
+     * Calculates the distance from the edge to a point
+     * This is calculated as a average between the distance for it's start
+     * and endpoint. This method works as long as every edge is the same size.
+     * If edges of different sizes where to be introduced this method must
+     * be updated. 
+     */
     public float distanceTo(Point point){
         float distanceToA = (float)a.distance(point);
         float distanceToB = (float)b.distance(point);

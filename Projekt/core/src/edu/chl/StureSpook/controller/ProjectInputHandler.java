@@ -6,7 +6,6 @@
 package edu.chl.StureSpook.controller;
 
 import edu.chl.StureSpook.Options;
-import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.World;
 
 /**
