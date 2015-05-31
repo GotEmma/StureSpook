@@ -5,7 +5,6 @@
  */
 package edu.chl.StureSpook.model;
 
-import edu.chl.StureSpook.Options;
 import java.awt.Point;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -23,7 +22,6 @@ public class World implements GameModel {
     private Player player;    
     private Flashlight flashlight;
     private int currentLevel;
-    private Options options;
     private Inventory inventory;
     private boolean interactOnNextUpdate;
     
@@ -40,7 +38,6 @@ public class World implements GameModel {
         player.setX(50);
         player.setY(50);
         flashlight = new Flashlight();
-        options = Options.getInstance();
         inventory = new Inventory();
     }
     
@@ -179,11 +176,7 @@ public class World implements GameModel {
     }
 
     public void setCrouch(boolean t) {
-        if(options.getCrouchToggle() && t){
-            player.toggleCrouch();
-        } else if(!options.getCrouchToggle()){
-            player.setCrouch(t);         
-        } 
+        player.setCrouch(t);         
     }
     
     private void applyCollision(Player player, Level l) {
