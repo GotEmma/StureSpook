@@ -206,16 +206,23 @@ public class Flashlight {
         sortEdges();
         //Start point
         polygon.add(startPoint);
+        
+        boolean addedFirstPoint = false;
+        boolean addedLastPoint = false;
 
         //First point
         for (Edge edge : edges) {
             if (insideVisionCone(edge.getPointA()) || insideVisionCone(edge.getPointB())) {
-                Point raytraced = rayTracing(startPoint, visionConePointA, edge);
+                Point raytraced = rayTracing(startPoint, visionConePointB, edge);
                 if (raytraced != null) {
                     polygon.add(raytraced);
+                    addedFirstPoint = true;
                     break;
                 }
             }
+        }
+        if(!addedFirstPoint){
+            polygon.add(maxDistance(visionConePointB));
         }
 
         while (!sortedPoints.isEmpty()) {
@@ -243,12 +250,16 @@ public class Flashlight {
         //Last point
         for (Edge edge : edges) {
             if (insideVisionCone(edge.getPointA()) || insideVisionCone(edge.getPointB())) {
-                Point raytraced = rayTracing(startPoint, visionConePointB, edge);
+                Point raytraced = rayTracing(startPoint, visionConePointA, edge);
                 if (raytraced != null) {
                     polygon.add(raytraced);
+                    addedLastPoint = true;
                     break;
                 }
             }
+        }
+        if(!addedLastPoint){
+            polygon.add(maxDistance(visionConePointA));
         }
         
         /*
@@ -270,6 +281,14 @@ public class Flashlight {
         }
 
         return returned;
+    }
+
+    //creates the point at the max vision distance with the same radian as the given point
+    private Point maxDistance(Point point) {
+        float theta = computeRadian(point);
+        int newX = (int)(startPointX + distanceVisible*Math.cos((double)theta));
+        int newY = (int)(startPointY + distanceVisible*Math.sin((double)theta));
+        return new Point(newX,newY);
     }
 
     private class RadianComparator implements Comparator<Point> {
