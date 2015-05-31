@@ -72,9 +72,11 @@ public class Flashlight {
 
     }
 
-    //Updates the points and edges used to calculate the raycasting
-    //As of now only needs to be updated when you enter a new level.
-    //If moving collidable object are introduced this needs to be updated.
+    /**
+     * Updates the points and edges used to calculate the raycasting
+     * As of now only needs to be updated when you enter a new level.
+     * If moving collidable object are introduced this needs to be updated.
+     */
     public void updateCollidableMap(boolean[][] map) {
         HashSet<Point> pointSet = new HashSet<Point>();
         HashSet<Edge> edgeSet = new HashSet<Edge>();

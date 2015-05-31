@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.List;
 
 /**
@@ -32,7 +31,6 @@ public class Level {
     private int[] collisionValues;
     private boolean[][] collidableMap;
     private List<DrawableWorldObjects> DrawableObjects;
-    //private List<ActiveEnemies> ActiveEnemies;
 
     
     public Level(String mapName) {
@@ -84,20 +82,14 @@ public class Level {
     //Creates enemies and adds them to an arraylist 
     public void createEnemy(String enemy, float x, float y, float height, float width, float endX) {
         if (enemy.equals("spider")) {
-            DrawableObjects.add(createSpider(enemy, x, y, height, width, endX));
+            DrawableObjects.add(util.createSpider(enemy, x, y, height, width, endX));
         }
         if (enemy.equals("spikes")) {
-            DrawableObjects.add(createSpikes(enemy, x, y, height, width));
+            DrawableObjects.add(util.createSpikes(enemy, x, y, height, width));
         }
     }
     
-    public static ActiveEnemies createSpider(String str, float x, float y, float height, float width, float endX) {
-        return new ActiveEnemies(str, x, y, height, width, endX);
-    }
-
-    public static DeadlyObsticles createSpikes(String str, float x, float y, float height, float width) {
-        return new DeadlyObsticles(str, x, y, height, width);
-    }
+    
     
     public void createHeart(float x, float y, float width, float height){
         DrawableObjects.add(heart = new HeartItem(x,y,width,height));

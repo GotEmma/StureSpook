@@ -13,13 +13,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import edu.chl.StureSpook.controller.DesktopInputListener;
-import edu.chl.StureSpook.controller.ProjectInputHandler;
 import edu.chl.StureSpook.model.MainMenuModel;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  *

@@ -5,7 +5,6 @@
  */
 package edu.chl.StureSpook.view;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,7 +20,6 @@ public class GUIInventory implements GUIDrawable{
     private final float itemHeight;
     private final float itemWidth;
     private final float numItems;
-    private final float width; //excluding bezel
     private final float bezelThickness;
     private final Inventory inventory;
     private float posX;
@@ -44,7 +42,6 @@ public class GUIInventory implements GUIDrawable{
         this.itemWidth = 32;
         this.numItems = this.inventory.getInventorySize();
         this.bezelThickness = 4;
-        this.width = itemWidth*numItems;
         this.posX = 0;
         this.posY = 0;
         

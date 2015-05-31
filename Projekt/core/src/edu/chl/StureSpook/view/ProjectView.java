@@ -8,7 +8,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -24,7 +23,6 @@ import edu.chl.StureSpook.model.DrawableWorldObjects;
 
 import edu.chl.StureSpook.model.ActiveEnemies;
 
-import edu.chl.StureSpook.model.GameModel;
 import edu.chl.StureSpook.model.HeartItem;
 import edu.chl.StureSpook.model.Player;
 import edu.chl.StureSpook.model.World;
@@ -59,7 +57,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private GUIClickable[] clickableGUIElements;
     
     private FrameBuffer lightMap;
-    private Texture lightMapTexture;
     private boolean darknessEnabled = true;
     
     private Sound walking;
@@ -101,8 +98,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     public void init() {
         this.loadAssets();
         projectedBatch = new SpriteBatch();
-        unprojectedBatch = new SpriteBatch();
-       // animationKeyFrames = new TextureRegion [] {new TextureRegion(new Texture(""))}; 
+        unprojectedBatch = new SpriteBatch(); 
         playerWalking = new Animation(4, textureAtlas.findRegions("playerWalk"));
         spiderWalking = new Animation(4, textureAtlas.findRegions("spider"));
         shapeRenderer = new ShapeRenderer();
@@ -115,7 +111,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         buildGUI();
         
         lightMap = new FrameBuffer(Format.RGBA4444, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
-        lightMapTexture = lightMap.getColorBufferTexture();
     }
     
     
@@ -125,7 +120,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         //clear screen
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
         
         //change texture atlas if level has changed
         if(!currentLvlTextureName.equals(model.getCurrentLevel().getMapTextureName())){
@@ -195,7 +189,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
             playerWalking.setPlayMode(Animation.PlayMode.LOOP);
             this.animationState +=1;
             
-            //long id = walking.play();
         } 
         else if(player.isJumping()) {
             projectedBatch.draw(textureAtlas.findRegion("playerJump"), player.getX(), player.getY());
@@ -205,7 +198,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         }
         else {
             projectedBatch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()),player.getX() ,player.getY());
-            //walking.pause();
         }
     }
     
@@ -228,7 +220,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
                 deo.getY());
             } else if (dwo.getClass() == HeartItem.class){
                 HeartItem he = (HeartItem) dwo;
-                //System.out.println("Draw heart");
                 projectedBatch.draw(textureAtlas.findRegion(he.getTextureName()), 
                     he.getX(),
                     he.getY());
@@ -312,13 +303,13 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         Gdx.gl.glClearColor(0, 0, 0, 0.7f); //set alpha of darkness to 70%
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //Gdx.gl.glBlendFuncSeparate(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA, GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
         
         
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.setColor(0, 0, 1, 0);
         float[] polygon = model.getFlashlightPolygon();
+        
         //Must paint it as several triangles instead of a single polygon
         for(int i = 2; i < polygon.length-3; i+=2){
             shapeRenderer.triangle(polygon[0], polygon[1], polygon[i], polygon[i+1], polygon[i+2], polygon[i+3]);
@@ -346,7 +337,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
                 false, //flipX
                 true);//flipY
         unprojectedBatch.end();
-        //lightMap.dispose();
     }
     
 

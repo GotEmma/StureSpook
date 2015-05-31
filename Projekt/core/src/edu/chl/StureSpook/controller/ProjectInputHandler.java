@@ -5,7 +5,11 @@
  */
 package edu.chl.StureSpook.controller;
 
+<<<<<<< HEAD
+import edu.chl.StureSpook.Options;
+=======
 import edu.chl.StureSpook.model.GameModel;
+>>>>>>> 6bcecfff3f7fc0b92b61ad368e1437525ba6e6ae
 import edu.chl.StureSpook.model.World;
 
 /**

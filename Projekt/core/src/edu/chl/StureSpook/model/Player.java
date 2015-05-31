@@ -5,15 +5,6 @@
  */
 package edu.chl.StureSpook.model;
 
-import static com.badlogic.gdx.Gdx.graphics;
-import com.badlogic.gdx.Graphics;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import java.util.HashMap;
-
 
 
 /**
@@ -23,9 +14,6 @@ import java.util.HashMap;
 public class Player {
     private float x,y,dx,dy,ddy;
     private String textureNameStandStill = "playerStanding";
-    private Rectangle shape;
-    private Image image;
-    private Graphics graphics;
     private boolean moveLeft;
     private boolean moveRight;
     private boolean jump;
@@ -38,14 +26,6 @@ public class Player {
     
     public Player(){
         x = 0; y = 0; ddy = 1;
-        //shape = new Rectangle(x,y,20,20);
-        
-        
-        //image = new Image((int)shape.getWidth(),(int)shape.getHeight());
-        //graphics = image.getGraphics();
-        
-        //graphics.setColor(Color.yellow);
-        //graphics.drawRect(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
     }
     
     public void setX(float x){ this.x = x; }
@@ -53,8 +33,8 @@ public class Player {
     
     public float getX(){ return this.x; }
     public float getY(){ return this.y; }
-    //public float getHeight(){ return crouch ? crouchedHeight : this.height; }
-    public float getHeight(){ return this.height; }
+    
+    public float getHeight(){ return crouch ? crouchedHeight : this.height; }
     public float getWidth(){ return this.width; }
     
     public int getDeathCount(){
@@ -176,7 +156,6 @@ public class Player {
     
     public void toggleCrouch(){
         this.crouch = !crouch;
-        System.out.println("togglat" + crouch);
     }
     public String getTextureNameStandStill(){
         return this.textureNameStandStill;

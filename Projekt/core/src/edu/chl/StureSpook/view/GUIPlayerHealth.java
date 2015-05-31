@@ -18,10 +18,7 @@ public class GUIPlayerHealth implements GUIDrawable{
     public String texturenameFullHeart, activeTexture;
     private Player player;
     private final String inventorySlotTexture;
-    private final float bezelThickness;
-    private int itemWidth;
-    private final String bezelTextureLeft;
-    private final String bezelTextureRight;
+    private final String bezelTexture;
     
     public GUIPlayerHealth(Player player, float x, float y, float width, float height){
         this.x = x;
@@ -29,10 +26,8 @@ public class GUIPlayerHealth implements GUIDrawable{
         this.width = width;
         this.height = height;
         this.player = player;
-        this.bezelThickness = 4;
         this.inventorySlotTexture = "inventorySlot";
-        this.bezelTextureLeft = "inventoryBezel";
-        this.bezelTextureRight = this.bezelTextureLeft;
+        this.bezelTexture = "inventoryBezel";
         this.texturenameFullHeart = "texturenameFullHeart";
 
     }
@@ -57,12 +52,7 @@ public class GUIPlayerHealth implements GUIDrawable{
         }
     }
     private void drawBezels(SpriteBatch batch, TextureAtlas atlas) {
-        //Draw left bezel
-        //batch.draw(atlas.findRegion(bezelTextureLeft),
-          //      x, y);
-        
-        //Draw right bezel
-        batch.draw(atlas.findRegion(bezelTextureRight),
+        batch.draw(atlas.findRegion(bezelTexture),
                 x + 3*width, 
                 y);
     }

@@ -14,9 +14,6 @@ public class WorldItem implements DrawableWorldObjects{
     private String textureName;
     private String itemName;
     private Item item;
-    //private Rectangle shape;
-   // private Image image;
-   // private Graphics graphics;
     
     public WorldItem(String itemName, String textureName, float x, float y){
         this.height = 32;
@@ -25,19 +22,21 @@ public class WorldItem implements DrawableWorldObjects{
         this.y = y;
         this.textureName = textureName;
         this.itemName = itemName;
-        this.height = height;
-        this.width = width;
         this.item = new Item(itemName,textureName);
     }
     
+    @Override
     public float getX(){
         return x;
     }
     
+    @Override
     public float getY(){
         return y;
     }
     
+    
+    @Override
     public String getTextureName(){
         return textureName;
     }
