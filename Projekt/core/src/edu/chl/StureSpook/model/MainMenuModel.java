@@ -34,16 +34,16 @@ public class MainMenuModel implements GameModel{
     }
     
     public void trigger() {
-        if(menuItems[this.selectedIndex].getName().equals("New Game")) {
+        if(getSelectedItem().getName().equals("New Game")) {
             this.pcs.firePropertyChange("New Game", 1, 0);
         }
-        if(menuItems[this.selectedIndex].getName().equals("Load Game")) {
+        if(getSelectedItem().getName().equals("Load Game")) {
             this.pcs.firePropertyChange("Load Game", 1, 0);   
         }
-        if (menuItems[this.selectedIndex].getName().equals("Options")) {
+        if (getSelectedItem().getName().equals("Options")) {
             this.pcs.firePropertyChange("Options", 1, 0);
         }
-        if (menuItems[this.selectedIndex].getName().equals("Quit")) {
+        if (getSelectedItem().getName().equals("Quit")) {
             this.pcs.firePropertyChange("Quit", 1, 0);
         }
     }

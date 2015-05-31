@@ -52,9 +52,20 @@ public class PlayerTest {
     public void testJump() {
         float y1 = player.getY();
         player.setJump();
+        player.setOnGround(true);
         player.updateMotion();
         float y2 = player.getY();
         assertTrue(y2 > y1);
+    }
+    
+    @Test
+    public void testUnableToJump() {
+        float y1 = player.getY();
+        player.setJump();
+        player.setOnGround(false);
+        player.updateMotion();
+        float y2 = player.getY();
+        assertFalse(y2 > y1);
     }
     
     @Test
