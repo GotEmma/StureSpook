@@ -1,0 +1,243 @@
+
+overworld.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+background
+  rotate: false
+  xy: 1, 55
+  size: 2400, 960
+  orig: 2400, 960
+  offset: 0, 0
+  index: -1
+skyBackground
+  rotate: false
+  xy: 2403, 535
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+tile
+  rotate: false
+  xy: 1, 37
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+tile
+  rotate: false
+  xy: 2403, 517
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+tile
+  rotate: false
+  xy: 3205, 999
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 10
+tile
+  rotate: false
+  xy: 1, 19
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 11
+tile
+  rotate: false
+  xy: 19, 37
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 12
+tile
+  rotate: false
+  xy: 2403, 499
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 13
+tile
+  rotate: false
+  xy: 2421, 517
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 14
+tile
+  rotate: false
+  xy: 3205, 981
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 15
+tile
+  rotate: false
+  xy: 3223, 999
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 16
+tile
+  rotate: false
+  xy: 1, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 17
+tile
+  rotate: false
+  xy: 19, 19
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 18
+tile
+  rotate: false
+  xy: 37, 37
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 19
+tile
+  rotate: false
+  xy: 2403, 481
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+tile
+  rotate: false
+  xy: 2421, 499
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 20
+tile
+  rotate: false
+  xy: 2421, 499
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 21
+tile
+  rotate: false
+  xy: 2421, 499
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 22
+tile
+  rotate: false
+  xy: 2421, 499
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 23
+tile
+  rotate: false
+  xy: 2421, 499
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 28
+tile
+  rotate: false
+  xy: 2421, 499
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 29
+tile
+  rotate: false
+  xy: 2421, 499
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 30
+tile
+  rotate: false
+  xy: 2421, 499
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 31
+tile
+  rotate: false
+  xy: 2439, 517
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 24
+tile
+  rotate: false
+  xy: 3205, 963
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 25
+tile
+  rotate: false
+  xy: 3223, 981
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 26
+tile
+  rotate: false
+  xy: 3241, 999
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 27
+tile
+  rotate: false
+  xy: 19, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 3
+tile
+  rotate: false
+  xy: 37, 19
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 4
+tile
+  rotate: false
+  xy: 55, 37
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 5
+tile
+  rotate: false
+  xy: 2403, 463
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 6
+tile
+  rotate: false
+  xy: 2421, 481
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 7
+tile
+  rotate: false
+  xy: 2439, 499
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 8
+tile
+  rotate: false
+  xy: 2457, 517
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 9

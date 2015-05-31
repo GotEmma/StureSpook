@@ -5,6 +5,7 @@
  */
 package edu.chl.StureSpook.model;
 
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -27,8 +28,6 @@ public class Level {
     private int[][] tileMap;
     private final String skyBackgroundTextureName;
     private final String backgroundTextureName;
-    private DeadlyObsticles spikes;
-    private ActiveEnemies spider;
     private HeartItem heart;
     private int[] collisionValues;
     private boolean[][] collidableMap;
@@ -38,7 +37,7 @@ public class Level {
     
     public Level(String mapName) {
         this.skyBackgroundTextureName = "skyBackground";
-        this.backgroundTextureName = "levelBackground";
+        this.backgroundTextureName = "background";
         this.mapName = mapName;
         this.mapFileName = mapName + ".csv";
     }
@@ -55,20 +54,6 @@ public class Level {
     
     public String getMapName(){
         return this.mapName;
-    }
-    
-    
-    
-    //public List<ActiveEnemies> getActiveEnemies(){
-    //    return ActiveEnemies;
-    //}
-    
-    public DeadlyObsticles getSpikes(){
-        return spikes;
-    }
-    
-    public ActiveEnemies getSpider(){
-        return spider;
     }
     
     public float getWidth() {
@@ -98,20 +83,20 @@ public class Level {
 
     //Creates enemies and adds them to an arraylist 
     public void createEnemy(String enemy, float x, float y, float height, float width, float endX) {
-        if (enemy == "spider") {
+        if (enemy.equals("spider")) {
             DrawableObjects.add(createSpider(enemy, x, y, height, width, endX));
         }
-        if (enemy == "spikes") {
+        if (enemy.equals("spikes")) {
             DrawableObjects.add(createSpikes(enemy, x, y, height, width));
         }
     }
     
-    public ActiveEnemies createSpider(String str, float x, float y, float height, float width, float endX) {
-        return spider = new ActiveEnemies(str, x, y, height, width, endX);
+    public static ActiveEnemies createSpider(String str, float x, float y, float height, float width, float endX) {
+        return new ActiveEnemies(str, x, y, height, width, endX);
     }
 
-    public DeadlyObsticles createSpikes(String str, float x, float y, float height, float width) {
-        return spikes = new DeadlyObsticles(str, x, y, height, width);
+    public static DeadlyObsticles createSpikes(String str, float x, float y, float height, float width) {
+        return new DeadlyObsticles(str, x, y, height, width);
     }
     
     public void createHeart(float x, float y, float width, float height){
@@ -121,12 +106,11 @@ public class Level {
     public String getMapTextureName() {
         return mapTextureName;
     }
+    
+   
 
     public void init() {
         DrawableObjects = new ArrayList<DrawableWorldObjects>();
-        //ActiveEnemies = new ArrayList<ActiveEnemies>();
-        createEnemy("spikes", 200, 64, 30, 30, 250);
-        createEnemy("spider", 100, 64, 30, 30, 200);
         parseLevel();
     }
     
@@ -175,6 +159,9 @@ public class Level {
             //read numObjects lines and parse them as enemies
             for (int i=0; i< numObjects;i++) {
                 parseEnemy(br.readLine().split(regex));
+                //syntax:
+                //heart: "heart,x,y"
+                //door: "door,x,y,levelName,targetX,targetY"
             }
             
             
@@ -190,7 +177,13 @@ public class Level {
     private void parseEnemy(String[] args) {
         if (args[0].equals("heart")) {
             this.createHeart(Integer.parseInt(args[1]), Integer.parseInt(args[2]), 10, 10);
+        } else if (args[0].equals("door")) {
+            this.addDoor(Integer.parseInt(args[1]), Integer.parseInt(args[2]), args[3], new Point(Integer.parseInt(args[4]), Integer.parseInt(args[5])));
         }
+    }
+    
+    private void addDoor(int x, int y, String leadsToLevel, Point nextStartPoint) {
+        this.DrawableObjects.add(new Door(x,y,leadsToLevel,nextStartPoint));
     }
 
     public int[][] getTileMap() {

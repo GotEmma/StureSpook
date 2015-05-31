@@ -25,20 +25,16 @@ import java.util.Arrays;
 public class TileRenderer {
     private int lastMapHash;
     private Texture bufferTexture;
-    private boolean initialised = false;
     private FrameBuffer fb;
     
     private void redrawBufferTexture(World model, TextureAtlas currentLevelTextureAtlas, Camera camera) {
         int [][] tileMap = model.getCurrentLevel().getTileMap();
-        if (!initialised) {
-            //initialise buffers only once
-            fb = new FrameBuffer(Pixmap.Format.RGBA8888, 
+        fb = new FrameBuffer(Pixmap.Format.RGBA8888, 
                     tileMap.length*16, 
                     tileMap[0].length*16, 
                     false);
-            bufferTexture = fb.getColorBufferTexture();
-            initialised = true;
-        }
+        bufferTexture = fb.getColorBufferTexture();
+        
         // allocate temporary, uprojected batch to make sure no unwanted draw calls are flushed to frame buffer
         SpriteBatch batch = new SpriteBatch(); 
         fb.begin();
@@ -50,33 +46,18 @@ public class TileRenderer {
         matrix.setToOrtho2D(0, 0, fb.getWidth(),fb.getHeight());
         batch.setProjectionMatrix(matrix);
         
-        TextureRegion tileset = currentLevelTextureAtlas.findRegion("tileset");
-        int srcX = tileset.getRegionX();
-        int srcY = tileset.getRegionY();
-        int srcWidth = tileset.getRegionWidth();
-        int srcHeight = tileset.getRegionHeight();
-        System.out.println(srcX + ", "+ srcY + ", "+ srcWidth + ", "+ srcHeight);
         
         //draw tile map to buffer
         batch.begin();
         for(int i = tileMap.length-1; i >= 0; i--){
             for(int j = tileMap[i].length-1; j >= 0; j--){
                 if((tileMap[i][j] != -1)){
-                    System.out.println((tileMap[i][j] % 10)*16 + ", " + (tileMap[i][j] / 10)*16);
-                    /*batch.draw(tileset.getTexture(),
-                            i*16,
-                            j*16,
-                            0,//srcX + (tileMap[i][j] % 10)*16,
-                            0,//srcY + (tileMap[i][j] / 10)*16,
-                            16,
-                            16);*/
                     batch.draw(currentLevelTextureAtlas.findRegion("tile", tileMap[i][j]), i*16, j*16);
                     
-                    //batch.draw(new TextureRegion(tileset,0,srcWidth-16, 16,16), i*16, j*16);
-                    //if (batch.renderCalls >= batch.maxSpritesInBatch-10) {
+                    if (batch.renderCalls >= batch.maxSpritesInBatch-10) {
                         //flush batch if almost full
-                      //  batch.flush();
-                    //}
+                        batch.flush();
+                    }
                 }
             }
         }
@@ -90,7 +71,7 @@ public class TileRenderer {
     }
     
     public void draw(World model, SpriteBatch unprojectedBatch, TextureAtlas currentLevelTextureAtlas, Camera camera) {
-        if (this.mapHashHasChanged(model)) {
+        if (mapHashHasChanged(model)) {
             redrawBufferTexture(model, currentLevelTextureAtlas, camera);
         }
         

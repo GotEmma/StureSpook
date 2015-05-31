@@ -145,11 +145,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         // draw level background
 	projectedBatch.begin();
         projectedBatch.setProjectionMatrix(camera.combined);
-        projectedBatch.draw(currentLvlTextureAtlas.findRegion("levelBackground"), 0, 0);
+        projectedBatch.draw(currentLvlTextureAtlas.findRegion("background"), 0, 0);
         projectedBatch.end();
         
         // DRAWS TILEMAP
-        //this.tileRenderer.draw(model, unprojectedBatch, currentLvlTextureAtlas, camera);
+        this.tileRenderer.draw(model, unprojectedBatch, currentLvlTextureAtlas, camera);
         
         
         projectedBatch.begin();
@@ -227,20 +227,23 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
                 projectedBatch.draw(spiderFrame, ae.getX(), ae.getY());
                 
                 this.spiderAnimationState +=1;
-            }
-            if(dwo.getClass() == DeadlyObsticles.class){
+            } else if (dwo.getClass() == DeadlyObsticles.class){
                 DeadlyObsticles deo = (DeadlyObsticles) dwo;
                 projectedBatch.draw(textureAtlas.findRegion(deo.getTextureName()), 
                 deo.getX(),
                 deo.getY());
-            }
-            if(dwo.getClass() == HeartItem.class){
+            } else if (dwo.getClass() == HeartItem.class){
                 HeartItem he = (HeartItem) dwo;
                 //System.out.println("Draw heart");
                 projectedBatch.draw(textureAtlas.findRegion(he.getTextureName()), 
                     he.getX(),
                     he.getY());
+            } else {
+                projectedBatch.draw(textureAtlas.findRegion(dwo.getTextureName()), 
+                    dwo.getX(),
+                    dwo.getY());
             }
+            
         }
                 
         

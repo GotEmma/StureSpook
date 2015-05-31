@@ -12,16 +12,16 @@ import java.awt.Point;
  * @author Olof
  */
 public class Door implements DrawableWorldObjects{
-    float x,y,width,height;
-    String textureName;
-    int connectedLevel;
-    Point nextLvlStartPoint;
+    private float x,y,width,height;
+    private String textureName;
+    private String leadsToLevel;
+    private Point nextLvlStartPoint;
     
-    public Door(float x, float y, int connectedLevel, Point nextLvlStartPoint){
+    public Door(float x, float y, String leadsToLevel, Point nextLvlStartPoint){
         this.x=x; this.y=y;
         this.width = 32;
         this.height = 32;
-        this.connectedLevel=connectedLevel;
+        this.leadsToLevel=leadsToLevel;
         this.textureName="door";
         this.nextLvlStartPoint=nextLvlStartPoint;
     }
@@ -31,8 +31,8 @@ public class Door implements DrawableWorldObjects{
         return x>=this.x && x<=(this.x+width) && y>=this.y && y<=(this.y+height);
     }
     
-    public int getConnectedLevelNumber(){
-        return connectedLevel;
+    public String getConnectedLevelKey(){
+        return leadsToLevel;
     }
     
     public Point getNextLvlStartPoint(){
@@ -63,4 +63,6 @@ public class Door implements DrawableWorldObjects{
     public String getTextureName() {
         return textureName;
     }
+    
+    
 }

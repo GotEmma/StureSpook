@@ -25,6 +25,7 @@ public class World implements GameModel {
     private int currentLevel;
     private Options options;
     private Inventory inventory;
+    private boolean interactOnNextUpdate;
     
     public World(){
         currentLevel = 2;
@@ -51,8 +52,8 @@ public class World implements GameModel {
     //If player collides with enemy, increase death count by one
     public void playerTakesHarm(){
         for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
-            if(dwo.getClass() != HeartItem.class){
-                if(collide(player, dwo)){
+            if(dwo.getClass() == ActiveEnemies.class){
+                if(util.collide(player, dwo)){
                     player.deathCounter(1);
                     playerFromEnemy(player, dwo);
                 }
@@ -65,7 +66,7 @@ public class World implements GameModel {
         for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
             if(dwo.getClass() == HeartItem.class){
                 HeartItem he = (HeartItem) dwo;
-                if(collide(player, he)){
+                if(util.collide(player, he)){
                     player.deathCounterMinus();
                     itemToRemove = he;
                 }
@@ -78,7 +79,7 @@ public class World implements GameModel {
     
     public void enemyAction(){
         for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
-            if(dwo.getClass() == ActiveEnemies.class){
+            if(dwo.getClass() == ActiveEnemies.class || dwo.getClass() == DeadlyObsticles.class){
                 ActiveEnemies ae = (ActiveEnemies) dwo;
                 ae.act();
             }
@@ -88,7 +89,7 @@ public class World implements GameModel {
     //Pushes player from enemy when they have collided
     public void playerFromEnemy(Player player, DrawableWorldObjects object){
         for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
-            if(dwo.getClass() != HeartItem.class){
+            if(dwo.getClass() == ActiveEnemies.class || dwo.getClass() == DeadlyObsticles.class){
                 if (player.getX()>object.getX()){
                     player.setDX(0);
                     player.setX(player.getX() + 4);
@@ -116,45 +117,18 @@ public class World implements GameModel {
             die();
         }
         
+        if (interactOnNextUpdate) {
+            this.playerInteract();
+            interactOnNextUpdate = false;
+        }
+        
         player.updateMotion();
         
         applyCollision(player, this.getCurrentLevel());
         flashlight.setStartPoint(player.getX()+10, player.getY()+10);
         pcs.firePropertyChange("logic updated", 1, 0);
     }
-    //Checks if player collides with any DrawableWorldObjects like enemys
-    //on the X-axis and returns true if it does
-    public boolean collideX(Player player, DrawableWorldObjects object){
-        if (player.getX()>object.getX()-player.getWidth()) { //inte för litet
-            if (player.getX()<object.getX()+object.getWidth()) { //inte heller för stort
-                return true;
-                
-            }
-            
-        }
-        return false;
-    }
-
-    //Checks if player collides with any DrawableWorldObjects like enemys
-    //on the Y-axis and returns true if it does
-    public boolean collideY(Player player, DrawableWorldObjects object){
-        if (player.getY()>object.getHeight()-player.getHeight()) { //inte för litet
-            if (player.getY()<object.getY()+object.getHeight()) { //inte heller för stort
-                return true;   
-            } 
-        }
-        return false;
-    }
     
-    //Checks if player collides with any DrawableWorldObjects on both
-    //the X-axis and the Y-axis, and returns true if it does
-    public boolean collide(Player player, DrawableWorldObjects object){
-        if(collideX(player, object) && collideY(player, object)){
-            return true;
-        }
-        return false;
-    }
-
     public void setMoveLeft(boolean t) {
         player.setMoveLeft(t);
     }
@@ -307,16 +281,29 @@ public class World implements GameModel {
         deinitLevel(lastLevel);
     }
     
-    public void changeLevel(String levelName) {
+    public void changeLevel(String levelName, Point goalPoint) {
         for (int i = 0;i<levels.length;i++) {
             if (levelName.equals(levels[i].getMapName())) {
                 changeLevel(i);
+                player.setX(goalPoint.x);
+                player.setY(goalPoint.y);
             }
         }
     }
     
     public void setInteract(){
-        
+        this.interactOnNextUpdate = true;
+    }
+    
+    private void playerInteract(){
+        for (DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()) {
+            if (util.collide(player,dwo)) {
+                if (dwo.getClass() == Door.class) {
+                    Door door = (Door)dwo;
+                    changeLevel(door.getConnectedLevelKey(), door.getNextLvlStartPoint());
+                }
+            }
+        }
     }
     
     public Inventory getInventory() {
