@@ -151,14 +151,10 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         // DRAWS TILEMAP
         this.tileRenderer.draw(model, unprojectedBatch, currentLvlTextureAtlas, camera);
         
-        
+        //draw free objects
         projectedBatch.begin();
-        // DRAWS PLAYER + Other Objects
-        drawPlayer();
-        
-        
         drawDrawableObjects();
-        
+        drawPlayer();
         projectedBatch.end();
 
         //DRAW FLASHLIGHTCONE
@@ -207,7 +203,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
             projectedBatch.draw(textureAtlas.findRegion("playerJump"), player.getX(), player.getY());
         }
         else if(player.getCrouch()){
-            projectedBatch.draw(textureAtlas.findRegion("playerCrouch1"), player.getX(), player.getY());
+            projectedBatch.draw(textureAtlas.findRegion("playerCrouch",2), player.getX(), player.getY());
         }
         else {
             projectedBatch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()),player.getX() ,player.getY());
@@ -245,16 +241,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
             }
             
         }
-                
-        
-        
-        /*for(DrawableWorldObjects dwo : model.getCurrentLevel().getDrawableObjects()){
-                    
-            
-                    batch.draw(textureAtlas.findRegion(dwo.getTextureName()), 
-                    dwo.getX(),
-                    dwo.getY());
-         }*/
+          
     }
     
     public void loadSoundEffects(){

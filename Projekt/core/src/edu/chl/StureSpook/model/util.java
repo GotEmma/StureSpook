@@ -29,7 +29,7 @@ public class util {
     //Checks if player collides with any DrawableWorldObjects like enemys
     //on the Y-axis and returns true if it does
     private static boolean collideY(Player player, DrawableWorldObjects object){
-        if (player.getY()>object.getHeight()-player.getHeight()) { //inte för litet
+        if (player.getY()>object.getY()-player.getHeight()) { //inte för litet
             if (player.getY()<object.getY()+object.getHeight()) { //inte heller för stort
                 return true;   
             } 

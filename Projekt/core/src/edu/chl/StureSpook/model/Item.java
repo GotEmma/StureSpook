@@ -9,47 +9,25 @@ package edu.chl.StureSpook.model;
  *
  * @author emmafahlen
  */
-public class Item implements DrawableWorldObjects {
+public class Item {
     
     private String name;
     private String textureName;
-    private float height;
-    private float width;
-    private float x;
-    private float y;
     
-    public Item(String name, String textureName, float height, float width, float x, float y){
+    public Item(String name, String textureName){
         this.name = name;
         this.textureName = textureName;
-        this.height = height;
-        this.width = width;
-        this.x = x;
-        this.y = y;
     }
-
-    @Override
-    public float getX() {
-        return x;
-    }
-
-    @Override
-    public float getY() {
-       return y;
-    }
-
-    @Override
+    
     public String getTextureName() {
-        return textureName;
+        return this.textureName;
     }
+    
+    public String getName() {
+        return this.name;
+    }
+    
 
-    @Override
-    public float getHeight() {
-        return height;
-    }
-
-    @Override
-    public float getWidth() {
-        return width;
-    }
+    
     
 }

@@ -98,14 +98,18 @@ public class Player {
 
     public void updateMotion(){
         float maxSpeed = 3.5f;
-        float ddx = 0.09f;
+        float ddx = 0.15f;
         float friction = 0.8f;
+        
+        float currentDDX = ddx * (this.crouch ? 0.5f : 1);
+        float currentMaxSpeed = maxSpeed * (this.crouch ? 0.5f : 1);
+        
         if(moveLeft){
             if(dx > 0) dx*=friction;
-            dx = Math.max(-maxSpeed, dx-ddx);
+            dx = Math.max(-currentMaxSpeed, dx-currentDDX);
         }else if(moveRight){
             if(dx < 0) dx*=friction;
-            dx = Math.min(maxSpeed, dx+ddx);
+            dx = Math.min(currentMaxSpeed, dx+currentDDX);
         }else if(Math.abs(dx)>0){
             dx*=friction;
             if(Math.abs(dx)<1.5*ddx){

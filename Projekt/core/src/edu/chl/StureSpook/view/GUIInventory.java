@@ -92,9 +92,9 @@ public class GUIInventory implements GUIDrawable{
         this.mouseOverIndex = itemIndex;
         
         if (this.mouseOverIndex != this.mouseOverIndexCached) {
-            this.tooltipCache.setText(this.inventory.getItem(itemIndex).getTextureName(),
+            this.tooltipCache.setText(this.inventory.getItem(itemIndex).getName(),
                     posX + bezelThickness + itemIndex*itemWidth,
-                    posY + bezelThickness*2);
+                    posY + itemHeight +bezelThickness*2);
         }
         
         this.tooltipCache.draw(batch);

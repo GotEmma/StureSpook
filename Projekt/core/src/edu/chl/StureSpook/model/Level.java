@@ -162,6 +162,9 @@ public class Level {
                 //syntax:
                 //heart: "heart,x,y"
                 //door: "door,x,y,levelName,targetX,targetY"
+                //spider: "spider,startX,y,endX"
+                //spikes: "spikes,x,y"
+                //items: "item,itemName,textureName,x,y"
             }
             
             
@@ -179,11 +182,21 @@ public class Level {
             this.createHeart(Integer.parseInt(args[1]), Integer.parseInt(args[2]), 10, 10);
         } else if (args[0].equals("door")) {
             this.addDoor(Integer.parseInt(args[1]), Integer.parseInt(args[2]), args[3], new Point(Integer.parseInt(args[4]), Integer.parseInt(args[5])));
+        } else if (args[0].equals("spider")) {
+            this.createEnemy(args[0], Integer.parseInt(args[1]), Integer.parseInt(args[2]), 30, 30, Integer.parseInt(args[3]));
+        }else if (args[0].equals("spikes")) {
+            this.createEnemy(args[0], Integer.parseInt(args[1]), Integer.parseInt(args[2]), 30, 30,0);
+        }else if (args[0].equals("item")) {
+            this.addItem(args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]));
         }
     }
     
     private void addDoor(int x, int y, String leadsToLevel, Point nextStartPoint) {
         this.DrawableObjects.add(new Door(x,y,leadsToLevel,nextStartPoint));
+    }
+    
+    private void addItem(String itemName, String textureName, float x, float y) {
+        this.DrawableObjects.add(new WorldItem(itemName,textureName,x,y));
     }
 
     public int[][] getTileMap() {
@@ -192,13 +205,12 @@ public class Level {
 
     // Kom ihåg att fixa inmatning av kollisionsvärden från csv filen 
     public boolean isCollidable(int x, int y) {
-        /*for (int i = 0; i < collisionValues.length; i++) {
+        for (int i = 0; i < collisionValues.length; i++) {
             if (tileMap[x][y] == collisionValues[i]) {
                 return true;
             }
         }
-        return false;*/
-        return tileMap[x][y] != -1;
+        return false;
     }
 
     public boolean isValueCollidable(int value) {

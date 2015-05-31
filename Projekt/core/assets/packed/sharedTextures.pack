@@ -17,30 +17,51 @@ inventorySlot
   orig: 32, 38
   offset: 0, 0
   index: -1
-door
+bottle
   rotate: false
   xy: 35, 95
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-soundButtonMuted
+cat
   rotate: false
   xy: 35, 61
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-soundButtonUnmuted
+diamond
   rotate: false
   xy: 69, 95
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-texturenameFullHeart
+door
   rotate: false
   xy: 35, 27
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+soundButtonMuted
+  rotate: false
+  xy: 69, 61
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+soundButtonUnmuted
+  rotate: false
+  xy: 103, 95
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+texturenameFullHeart
+  rotate: false
+  xy: 69, 27
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -54,40 +75,33 @@ player
   index: -1
 spikes
   rotate: false
-  xy: 69, 63
+  xy: 103, 63
   size: 30, 30
   orig: 30, 30
   offset: 0, 0
   index: -1
 spider
   rotate: false
-  xy: 103, 112
+  xy: 137, 112
   size: 35, 15
   orig: 35, 15
   offset: 0, 0
   index: 4
 blankButton
   rotate: false
-  xy: 103, 94
+  xy: 137, 94
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 menuButton
   rotate: false
-  xy: 140, 111
-  size: 32, 16
-  orig: 32, 16
-  offset: 0, 0
-  index: -1
-menuButtonMouseover
-  rotate: false
   xy: 174, 111
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
-soundButton
+menuButtonMouseover
   rotate: false
   xy: 208, 111
   size: 32, 16
@@ -101,114 +115,121 @@ playerCrouch
   orig: 13, 25
   offset: 0, 0
   index: 2
+soundButton
+  rotate: false
+  xy: 103, 45
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
 soundButtonSlider
   rotate: false
-  xy: 69, 45
+  xy: 103, 27
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 spider
   rotate: false
-  xy: 69, 27
+  xy: 135, 76
   size: 30, 16
   orig: 30, 16
   offset: 0, 0
   index: 1
 spider
   rotate: false
-  xy: 101, 77
+  xy: 171, 94
   size: 31, 15
   orig: 31, 15
   offset: 0, 0
   index: 2
 spider
   rotate: false
-  xy: 137, 94
+  xy: 167, 77
   size: 31, 15
   orig: 31, 15
   offset: 0, 0
   index: 3
 playerWalk
   rotate: false
-  xy: 134, 64
+  xy: 137, 46
   size: 17, 28
   orig: 17, 28
   offset: 0, 0
   index: 4
+playerJump
+  rotate: false
+  xy: 156, 46
+  size: 14, 28
+  orig: 14, 28
+  offset: 0, 0
+  index: -1
 playerWalk
   rotate: false
-  xy: 153, 64
+  xy: 172, 47
   size: 16, 28
   orig: 16, 28
   offset: 0, 0
   index: 1
-playerWalk
-  rotate: false
-  xy: 103, 47
-  size: 15, 28
-  orig: 15, 28
-  offset: 0, 0
-  index: 2
 playerStanding
   rotate: false
-  xy: 120, 45
+  xy: 190, 45
   size: 12, 30
   orig: 12, 30
   offset: 0, 0
   index: -1
 playerWalk
   rotate: false
-  xy: 134, 34
+  xy: 137, 16
+  size: 15, 28
+  orig: 15, 28
+  offset: 0, 0
+  index: 2
+playerWalk
+  rotate: false
+  xy: 154, 16
   size: 15, 28
   orig: 15, 28
   offset: 0, 0
   index: 5
-playerJump
+testSpider
   rotate: false
-  xy: 151, 34
-  size: 14, 28
-  orig: 14, 28
+  xy: 204, 93
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
+playerCrouch
+  rotate: false
+  xy: 222, 83
+  size: 14, 26
+  orig: 14, 26
+  offset: 0, 0
+  index: 1
 inventoryBezel
   rotate: false
-  xy: 167, 24
+  xy: 204, 43
   size: 4, 38
   orig: 4, 38
   offset: 0, 0
   index: -1
 playerWalk
   rotate: false
-  xy: 171, 80
+  xy: 210, 52
   size: 14, 29
   orig: 14, 29
   offset: 0, 0
   index: 6
 playerWalk
   rotate: false
-  xy: 187, 80
+  xy: 226, 52
   size: 12, 29
   orig: 12, 29
   offset: 0, 0
   index: 3
-playerCrouch
-  rotate: false
-  xy: 201, 83
-  size: 14, 26
-  orig: 14, 26
-  offset: 0, 0
-  index: 1
-testSpider
-  rotate: false
-  xy: 217, 93
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
 smallHeart
   rotate: false
-  xy: 171, 67
+  xy: 23, 10
   size: 12, 11
   orig: 12, 11
   offset: 0, 0

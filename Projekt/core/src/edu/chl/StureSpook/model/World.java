@@ -28,7 +28,7 @@ public class World implements GameModel {
     private boolean interactOnNextUpdate;
     
     public World(){
-        currentLevel = 2;
+        currentLevel = 1;
         levels = new Level[5];
         levels[0] = new Level("testTileMap");
         levels[1] = new Level("overworld");
@@ -52,7 +52,7 @@ public class World implements GameModel {
     //If player collides with enemy, increase death count by one
     public void playerTakesHarm(){
         for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
-            if(dwo.getClass() == ActiveEnemies.class){
+            if(dwo.getClass() == ActiveEnemies.class || dwo.getClass() == DeadlyObsticles.class){
                 if(util.collide(player, dwo)){
                     player.deathCounter(1);
                     playerFromEnemy(player, dwo);
@@ -79,7 +79,7 @@ public class World implements GameModel {
     
     public void enemyAction(){
         for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
-            if(dwo.getClass() == ActiveEnemies.class || dwo.getClass() == DeadlyObsticles.class){
+            if(dwo.getClass() == ActiveEnemies.class){
                 ActiveEnemies ae = (ActiveEnemies) dwo;
                 ae.act();
             }
@@ -89,7 +89,7 @@ public class World implements GameModel {
     //Pushes player from enemy when they have collided
     public void playerFromEnemy(Player player, DrawableWorldObjects object){
         for(DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()){
-            if(dwo.getClass() == ActiveEnemies.class || dwo.getClass() == DeadlyObsticles.class){
+            if(dwo.getClass() == ActiveEnemies.class){
                 if (player.getX()>object.getX()){
                     player.setDX(0);
                     player.setX(player.getX() + 4);
@@ -296,13 +296,34 @@ public class World implements GameModel {
     }
     
     private void playerInteract(){
+        DrawableWorldObjects itemToGet = null;
         for (DrawableWorldObjects dwo : getCurrentLevel().getDrawableObjects()) {
             if (util.collide(player,dwo)) {
                 if (dwo.getClass() == Door.class) {
                     Door door = (Door)dwo;
                     changeLevel(door.getConnectedLevelKey(), door.getNextLvlStartPoint());
+                } else if (dwo.getClass() == WorldItem.class) {
+                    itemToGet = dwo;
                 }
             }
+        }
+        if (itemToGet != null) {
+            getItem(itemToGet);
+        }
+        
+    }
+    
+    private void getItem(DrawableWorldObjects dwo) {
+        WorldItem itemToRemove = null;
+        if(dwo.getClass() == WorldItem.class){
+            WorldItem item = (WorldItem) dwo;
+            if(util.collide(player, item)){
+                inventory.addItem(item.getItem());
+                itemToRemove = item;
+            }
+        }
+        if (itemToRemove != null) {
+            getCurrentLevel().removeItem(itemToRemove);
         }
     }
     
