@@ -26,7 +26,7 @@ public class Flashlight {
 
     //Vision parameters
     private double visionRadian = Math.PI / 6;
-    private float distanceVisible = 200;
+    private float distanceVisible = 300;
 
     private Point[] points;
     private Edge[] edges;
@@ -227,6 +227,7 @@ public class Flashlight {
 
         while (!sortedPoints.isEmpty()) {
             Point point = sortedPoints.poll();
+            boolean addedPoint = false;
             if (insideVisionCone(point)) {
                 for (Edge edge : edges) {
                     Point raytraced = rayTracing(startPoint, point, edge);
@@ -240,9 +241,13 @@ public class Flashlight {
                              System.out.println("raytraced: (" + raytraced.x + ", " + raytraced.y + ")");
                              */
                             polygon.add(raytraced);
+                            addedPoint = true;
                             break;
                         }
                     }
+                }
+                if(!addedPoint){
+                    polygon.add(maxDistance(point));
                 }
             }
         }
