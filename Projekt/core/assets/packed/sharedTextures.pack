@@ -3,213 +3,213 @@ sharedTextures.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-testBackground
-  rotate: false
-  xy: 1, 256
-  size: 1000, 600
-  orig: 1000, 600
-  offset: 0, 0
-  index: -1
 soundButtonExpansion
   rotate: false
-  xy: 1, 190
+  xy: 1, 63
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 inventorySlot
   rotate: false
-  xy: 1, 150
+  xy: 1, 23
   size: 32, 38
   orig: 32, 38
   offset: 0, 0
   index: -1
+door
+  rotate: false
+  xy: 35, 95
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 soundButtonMuted
   rotate: false
-  xy: 35, 222
+  xy: 35, 61
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 soundButtonUnmuted
   rotate: false
-  xy: 1, 116
+  xy: 69, 95
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 texturenameFullHeart
   rotate: false
-  xy: 35, 188
+  xy: 35, 27
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player
   rotate: false
-  xy: 1003, 836
+  xy: 1, 1
   size: 20, 20
   orig: 20, 20
   offset: 0, 0
   index: -1
 spikes
   rotate: false
-  xy: 69, 224
+  xy: 69, 63
   size: 30, 30
   orig: 30, 30
   offset: 0, 0
   index: -1
 spider
   rotate: false
-  xy: 101, 239
+  xy: 103, 112
   size: 35, 15
   orig: 35, 15
   offset: 0, 0
   index: 4
 blankButton
   rotate: false
-  xy: 1, 98
+  xy: 103, 94
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 menuButton
   rotate: false
-  xy: 35, 170
+  xy: 140, 111
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 menuButtonMouseover
   rotate: false
-  xy: 1, 80
+  xy: 174, 111
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 soundButton
   rotate: false
-  xy: 35, 152
+  xy: 208, 111
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
+playerCrouch
+  rotate: false
+  xy: 242, 102
+  size: 13, 25
+  orig: 13, 25
+  offset: 0, 0
+  index: 2
 soundButtonSlider
   rotate: false
-  xy: 1, 62
+  xy: 69, 45
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 spider
   rotate: false
-  xy: 69, 206
+  xy: 69, 27
   size: 30, 16
   orig: 30, 16
   offset: 0, 0
   index: 1
 spider
   rotate: false
-  xy: 101, 222
+  xy: 101, 77
   size: 31, 15
   orig: 31, 15
   offset: 0, 0
   index: 2
 spider
   rotate: false
-  xy: 138, 239
+  xy: 137, 94
   size: 31, 15
   orig: 31, 15
   offset: 0, 0
   index: 3
 playerWalk
   rotate: false
-  xy: 1003, 806
+  xy: 134, 64
   size: 17, 28
   orig: 17, 28
   offset: 0, 0
   index: 4
 playerWalk
   rotate: false
-  xy: 35, 122
+  xy: 153, 64
   size: 16, 28
   orig: 16, 28
   offset: 0, 0
   index: 1
 playerWalk
   rotate: false
-  xy: 1, 32
+  xy: 103, 47
   size: 15, 28
   orig: 15, 28
   offset: 0, 0
   index: 2
-playerWalk
-  rotate: false
-  xy: 69, 176
-  size: 15, 28
-  orig: 15, 28
-  offset: 0, 0
-  index: 5
-playerWalk
-  rotate: false
-  xy: 1003, 775
-  size: 14, 29
-  orig: 14, 29
-  offset: 0, 0
-  index: 6
-inventoryBezel
-  rotate: false
-  xy: 1019, 766
-  size: 4, 38
-  orig: 4, 38
-  offset: 0, 0
-  index: -1
-playerJump
-  rotate: false
-  xy: 1003, 745
-  size: 14, 28
-  orig: 14, 28
-  offset: 0, 0
-  index: -1
 playerStanding
   rotate: false
-  xy: 35, 90
+  xy: 120, 45
   size: 12, 30
   orig: 12, 30
   offset: 0, 0
   index: -1
 playerWalk
   rotate: false
-  xy: 1, 1
+  xy: 134, 34
+  size: 15, 28
+  orig: 15, 28
+  offset: 0, 0
+  index: 5
+playerJump
+  rotate: false
+  xy: 151, 34
+  size: 14, 28
+  orig: 14, 28
+  offset: 0, 0
+  index: -1
+inventoryBezel
+  rotate: false
+  xy: 167, 24
+  size: 4, 38
+  orig: 4, 38
+  offset: 0, 0
+  index: -1
+playerWalk
+  rotate: false
+  xy: 171, 80
+  size: 14, 29
+  orig: 14, 29
+  offset: 0, 0
+  index: 6
+playerWalk
+  rotate: false
+  xy: 187, 80
   size: 12, 29
   orig: 12, 29
   offset: 0, 0
   index: 3
 playerCrouch
   rotate: false
-  xy: 53, 124
+  xy: 201, 83
   size: 14, 26
   orig: 14, 26
   offset: 0, 0
   index: 1
-playerCrouch
-  rotate: false
-  xy: 18, 35
-  size: 13, 25
-  orig: 13, 25
-  offset: 0, 0
-  index: 2
 testSpider
   rotate: false
-  xy: 134, 221
+  xy: 217, 93
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 smallHeart
   rotate: false
-  xy: 171, 244
-  size: 11, 10
-  orig: 11, 10
+  xy: 171, 67
+  size: 12, 11
+  orig: 12, 11
   offset: 0, 0
   index: -1

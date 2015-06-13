@@ -1,0 +1,236 @@
+
+brickHouseLevel2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+background
+  rotate: false
+  xy: 1, 1
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+0
+  rotate: false
+  xy: 803, 417
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+1
+  rotate: false
+  xy: 803, 351
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+10
+  rotate: false
+  xy: 869, 417
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+11
+  rotate: false
+  xy: 803, 285
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+12
+  rotate: false
+  xy: 869, 351
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+13
+  rotate: false
+  xy: 935, 417
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+14
+  rotate: false
+  xy: 803, 219
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+15
+  rotate: false
+  xy: 869, 285
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+16
+  rotate: false
+  xy: 935, 351
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+17
+  rotate: false
+  xy: 1001, 417
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+18
+  rotate: false
+  xy: 803, 153
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+19
+  rotate: false
+  xy: 869, 219
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 935, 285
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+20
+  rotate: false
+  xy: 1001, 351
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+21
+  rotate: false
+  xy: 1001, 351
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+22
+  rotate: false
+  xy: 1001, 351
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+23
+  rotate: false
+  xy: 1001, 351
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+28
+  rotate: false
+  xy: 1001, 351
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+29
+  rotate: false
+  xy: 1001, 351
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+30
+  rotate: false
+  xy: 1001, 351
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+31
+  rotate: false
+  xy: 1001, 351
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+24
+  rotate: false
+  xy: 1067, 417
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+25
+  rotate: false
+  xy: 803, 87
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+26
+  rotate: false
+  xy: 869, 153
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+27
+  rotate: false
+  xy: 935, 219
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 1001, 285
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 1067, 351
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 1133, 417
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+6
+  rotate: false
+  xy: 803, 21
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+7
+  rotate: false
+  xy: 803, 21
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+8
+  rotate: false
+  xy: 869, 87
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+9
+  rotate: false
+  xy: 935, 153
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1

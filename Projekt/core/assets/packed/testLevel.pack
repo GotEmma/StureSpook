@@ -3,14 +3,7 @@ testLevel.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-skyBackground
-  rotate: false
-  xy: 1, 501
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-skyMoonBackground
+skyBackground2
   rotate: false
   xy: 1, 19
   size: 800, 480
@@ -19,14 +12,14 @@ skyMoonBackground
   index: -1
 0
   rotate: false
-  xy: 803, 965
+  xy: 1, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 1
   rotate: false
-  xy: 1, 1
+  xy: 803, 483
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

@@ -192,15 +192,12 @@ public class Level {
 
     // Kom ihåg att fixa inmatning av kollisionsvärden från csv filen 
     public boolean isCollidable(int x, int y) {
-        return tileMap[x][y] != -1;
-        /*
-         for (int i = 0; i < collisionValues.length; i++) {
-         if (tileMap[x][y] == collisionValues[i]) {
-         return true;
-         }
-         }
-         return false;
-         */
+        for (int i = 0; i < collisionValues.length; i++) {
+            if (tileMap[x][y] == collisionValues[i]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isValueCollidable(int value) {
