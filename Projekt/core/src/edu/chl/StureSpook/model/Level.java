@@ -26,7 +26,8 @@ public class Level {
     private String mapFileName;
     private String mapTextureName;
     private int[][] tileMap;
-    private final String backgroundImageName;
+    private final String skyBackgroundTextureName;
+    private final String backgroundTextureName;
     private DeadlyObsticles spikes;
     private ActiveEnemies spider;
     private HeartItem heart;
@@ -75,15 +76,20 @@ public class Level {
         return this.tileHeight;
     }
 
-    public Level(String mapFileName, String backgroundImageName) {
-        this.backgroundImageName = backgroundImageName;
+    public Level(String mapFileName) {
+        this.skyBackgroundTextureName = "skyBackground";
+        this.backgroundTextureName = "background";
         this.mapFileName = mapFileName;
         this.width = 1000; //Set using constructor later?
         this.height = 600;
     }
 
     public String getBackgroundImageName() {
-        return backgroundImageName;
+        return backgroundTextureName;
+    }
+    
+    public String getSkyBackgroundImageName() {
+        return skyBackgroundTextureName;
     }
 
     //Creates enemies and adds them to an arraylist 
@@ -148,6 +154,12 @@ public class Level {
                     tileMap = new int[tWidth][tHeight];
                     this.tileWidth = tWidth;
                     this.tileHeight = tHeight;
+                } else if (lineNbr == 2) {
+                    String[] collidableTiles = line.split(",");
+                    this.collisionValues = new int[collidableTiles.length];
+                    for (int i = 0;i < collidableTiles.length;i++) {
+                        this.collisionValues[i] = Integer.parseInt(collidableTiles[i]);
+                    }
                 } else if(lineNbr < tileHeight -2){
                     StringBuilder builder = new StringBuilder();
                     int tileWidthNbr = 0;
