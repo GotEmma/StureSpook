@@ -55,12 +55,14 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     private TextureRegion playerFrame;
     private TextureRegion spiderFrame;
     private Options options;
+    private TileRenderer tileRenderer;
     
     private GUIDrawable[] visibleGUIElements;
     private GUIClickable[] clickableGUIElements;
     
     private FrameBuffer lightMap;
     private Texture lightMapTexture;
+    private boolean darknessEnabled = true;
     
     private Sound walking;
     private Sound running;
@@ -109,6 +111,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         shapeRenderer.setAutoShapeType(true);
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
+        tileRenderer = new TileRenderer();
+        loadSoundEffects();
         
         buildGUI();
         
@@ -155,7 +159,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
          }*/
     }
     
-    public void soundEffects(){
+    public void loadSoundEffects(){
         walking = Gdx.audio.newSound(Gdx.files.internal("walk.wav"));
         running = Gdx.audio.newSound(Gdx.files.internal("run.wav"));
     }
@@ -167,7 +171,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         Player player = this.model.getPlayer();
         
-        soundEffects();
+        //change texture atlas if level has changed
+        if(!currentLvlTextureName.equals(model.getCurrentLevel().getMapTextureName())){
+            currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
+            currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
+        }
 
        
         float cameraX = Math.max(player.getX(),camera.viewportWidth/2); //left limit
@@ -185,22 +193,11 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
 	batch.begin();
         batch.setProjectionMatrix(camera.combined);
         batch.draw(currentLvlTextureAtlas.findRegion(this.model.getCurrentLevel().getBackgroundImageName()), 0, 0);
-        
+        batch.end();
         // DRAWS TILEMAP
-        if(currentLvlTextureName != model.getCurrentLevel().getMapTextureName()){
-            currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
-            currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
-        }
+        this.tileRenderer.draw(model, guiBatch, currentLvlTextureAtlas, camera);
         
-        int[][] tileMap = model.getCurrentLevel().getTileMap();
-        for(int i = tileMap.length-1; i >= 0; i--){
-            for(int j = tileMap[i].length-1; j >= 0; j--){
-                if(tileMap[i][j] != -1){
-                    batch.draw(currentLvlTextureAtlas.findRegion(tileMap[i][j]+""),i*16,j*16);
-                }
-            }
-        }
-        
+        batch.begin();
         // DRAWS PLAYER + Other Objects
         if(player.getMoveRight() || player.getMoveLeft()){
             playerFrame = playerWalking.getKeyFrame(this.animationState);
@@ -234,10 +231,13 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         batch.end();
 
         //DRAW FLASHLIGHTCONE
-        this.drawLightFrameBuffer();
+        if (this.darknessEnabled) {
+            this.drawLightFrameBuffer();
+        }
         
-        //DRAW USER INTERFACE HERE
+        
         guiBatch.begin();
+        //DRAW USER INTERFACE HERE
         for (GUIDrawable b : visibleGUIElements) {
             b.draw(guiBatch, textureAtlas, screenMouseX, screenMouseY);
         }
@@ -258,6 +258,10 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     @Override
     public boolean keyDown(int i) {
+        if (i == Input.Keys.L) {
+            this.darknessEnabled = !darknessEnabled;
+        }
+        
         for(DesktopInputListener l:listeners){
             l.keyDown(i);
         }
@@ -296,22 +300,15 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     
     private void drawLightFrameBuffer() {
-        shapeRenderer.begin(ShapeType.Filled);
-        
         //start drawing to frame buffer
         lightMap.begin();
         
-        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClearColor(0, 0, 0, 0.7f); //set alpha of darkness to 70%
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //Gdx.gl.glBlendFuncSeparate(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA, GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
-
-        //draw outer circle to buffer with partial transparency
-        shapeRenderer.setColor(0, 0, 0, 0.7f);
-        shapeRenderer.rect(0,0, camera.viewportWidth, camera.viewportHeight);
         
-        shapeRenderer.flush();
-        shapeRenderer.set(ShapeType.Filled);
         
+        shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.setColor(0, 0, 1, 0);
         float[] polygon = model.getFlashlightPolygon();
