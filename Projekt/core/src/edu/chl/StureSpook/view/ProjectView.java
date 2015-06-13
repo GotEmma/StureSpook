@@ -37,7 +37,7 @@ import java.util.HashMap;
 public class ProjectView extends InputAdapter implements GameView,PropertyChangeListener{
 
     private World model;
-    private SpriteBatch batch,guiBatch;
+    private SpriteBatch projectedBatch,unprojectedBatch;
     private ShapeRenderer shapeRenderer;
     private HashMap<String,Sprite> sprites;
     private OrthographicCamera camera;
@@ -102,8 +102,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     @Override
     public void init() {
         this.loadAssets();
-        batch = new SpriteBatch();
-        guiBatch = new SpriteBatch();
+        projectedBatch = new SpriteBatch();
+        unprojectedBatch = new SpriteBatch();
        // animationKeyFrames = new TextureRegion [] {new TextureRegion(new Texture(""))}; 
         playerWalking = new Animation(4, textureAtlas.findRegions("playerWalk"));
         spiderWalking = new Animation(4, textureAtlas.findRegions("spider"));
@@ -120,6 +120,100 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         lightMapTexture = lightMap.getColorBufferTexture();
     }
     
+    
+    
+    private void render(){
+        
+        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        Player player = this.model.getPlayer();
+        
+        //change texture atlas if level has changed
+        if(!currentLvlTextureName.equals(model.getCurrentLevel().getMapTextureName())){
+            currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
+            currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
+        }
+
+        updateCameraPosition(player);
+       
+        //draw sky background
+        unprojectedBatch.begin();
+        unprojectedBatch.draw(currentLvlTextureAtlas.findRegion(this.model.getCurrentLevel().getSkyBackgroundImageName()), 0, 0);
+        unprojectedBatch.end();
+        
+        // draw level background
+	projectedBatch.begin();
+        projectedBatch.setProjectionMatrix(camera.combined);
+        projectedBatch.draw(currentLvlTextureAtlas.findRegion(this.model.getCurrentLevel().getBackgroundImageName()), 0, 0);
+        projectedBatch.end();
+        
+        // DRAWS TILEMAP
+        this.tileRenderer.draw(model, unprojectedBatch, currentLvlTextureAtlas, camera);
+        
+        
+        projectedBatch.begin();
+        // DRAWS PLAYER + Other Objects
+        drawPlayer(player);
+        
+        
+        drawDrawableObjects();
+        
+        projectedBatch.end();
+
+        //DRAW FLASHLIGHTCONE
+        if (this.darknessEnabled) {
+            this.drawLightFrameBuffer();
+        }
+        
+        drawGUI();
+        
+    }
+    
+    private void updateCameraPosition(Player player) {
+        float cameraX = Math.max(player.getX(),camera.viewportWidth/2); //left limit
+        cameraX = Math.min(cameraX, 
+                this.model.getCurrentLevel().getWidth()-(camera.viewportWidth/2) );//right limit
+        
+        float cameraY = Math.max(player.getY(),camera.viewportHeight/2); //bottom limit
+        cameraY = Math.min(cameraY, 
+                this.model.getCurrentLevel().getHeight()-(camera.viewportHeight/2) );//top limit
+        
+        camera.position.set(cameraX, cameraY, 100);
+        camera.update();
+    }
+    
+    private void drawGUI() {
+        if (!unprojectedBatch.isDrawing()) { unprojectedBatch.begin(); }
+        for (GUIDrawable b : visibleGUIElements) {
+            b.draw(unprojectedBatch, textureAtlas, screenMouseX, screenMouseY);
+        }
+        unprojectedBatch.end();
+    }
+    
+    private void drawPlayer(Player player) {
+        if(player.getMoveRight() || player.getMoveLeft()){
+            playerFrame = playerWalking.getKeyFrame(this.animationState);
+            playerFrame.flip((player.getMoveLeft() ^ playerFrame.isFlipX()), false);
+            
+            projectedBatch.draw(playerFrame, player.getX(), player.getY());
+            playerWalking.setPlayMode(Animation.PlayMode.LOOP);
+            this.animationState +=1;
+            
+            //long id = walking.play();
+        } 
+        else if(player.isJumping()) {
+            projectedBatch.draw(textureAtlas.findRegion("playerJump"), player.getX(), player.getY());
+        }
+        else if(player.getCrouch()){
+            projectedBatch.draw(textureAtlas.findRegion("playerCrouch1"), player.getX(), player.getY());
+        }
+        else {
+            projectedBatch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()),player.getX() ,player.getY());
+            //walking.pause();
+        }
+    }
+    
     //Draws all the DrawableWorldObjects on the current level
     public void drawDrawableObjects(){
         for(DrawableWorldObjects dwo : model.getCurrentLevel().getDrawableObjects()){
@@ -129,20 +223,20 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
                 spiderFrame = spiderWalking.getKeyFrame(this.spiderAnimationState);
                 spiderFrame.flip((!ae.goingRight() ^ spiderFrame.isFlipX()), false);
                 
-                batch.draw(spiderFrame, ae.getX(), ae.getY());
+                projectedBatch.draw(spiderFrame, ae.getX(), ae.getY());
                 
                 this.spiderAnimationState +=1;
             }
             if(dwo.getClass() == DeadlyObsticles.class){
                 DeadlyObsticles deo = (DeadlyObsticles) dwo;
-                batch.draw(textureAtlas.findRegion(deo.getTextureName()), 
+                projectedBatch.draw(textureAtlas.findRegion(deo.getTextureName()), 
                 deo.getX(),
                 deo.getY());
             }
             if(dwo.getClass() == HeartItem.class){
                 HeartItem he = (HeartItem) dwo;
                 //System.out.println("Draw heart");
-                batch.draw(textureAtlas.findRegion(he.getTextureName()), 
+                projectedBatch.draw(textureAtlas.findRegion(he.getTextureName()), 
                     he.getX(),
                     he.getY());
             }
@@ -162,86 +256,6 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     public void loadSoundEffects(){
         walking = Gdx.audio.newSound(Gdx.files.internal("walk.wav"));
         running = Gdx.audio.newSound(Gdx.files.internal("run.wav"));
-    }
-    
-    private void render(){
-        
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
-        Player player = this.model.getPlayer();
-        
-        //change texture atlas if level has changed
-        if(!currentLvlTextureName.equals(model.getCurrentLevel().getMapTextureName())){
-            currentLvlTextureName = model.getCurrentLevel().getMapTextureName();
-            currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
-        }
-
-       
-        float cameraX = Math.max(player.getX(),camera.viewportWidth/2); //left limit
-        cameraX = Math.min(cameraX, 
-                this.model.getCurrentLevel().getWidth()-(camera.viewportWidth/2) );//right limit
-        
-        float cameraY = Math.max(player.getY(),camera.viewportHeight/2); //bottom limit
-        cameraY = Math.min(cameraY, 
-                this.model.getCurrentLevel().getHeight()-(camera.viewportHeight/2) );//top limit
-        
-        camera.position.set(cameraX, cameraY, 100);
-        camera.update();
-        
-        // DRAWS BACKGROUND
-	batch.begin();
-        batch.setProjectionMatrix(camera.combined);
-        batch.draw(currentLvlTextureAtlas.findRegion(this.model.getCurrentLevel().getBackgroundImageName()), 0, 0);
-        batch.end();
-        // DRAWS TILEMAP
-        this.tileRenderer.draw(model, guiBatch, currentLvlTextureAtlas, camera);
-        
-        batch.begin();
-        // DRAWS PLAYER + Other Objects
-        if(player.getMoveRight() || player.getMoveLeft()){
-            playerFrame = playerWalking.getKeyFrame(this.animationState);
-            playerFrame.flip((player.getMoveLeft() ^ playerFrame.isFlipX()), false);
-            
-            batch.draw(playerFrame, player.getX(), player.getY());
-            playerWalking.setPlayMode(Animation.PlayMode.LOOP);
-            this.animationState +=1;
-            
-            //long id = walking.play();
-        } 
-        else if(player.isJumping()) {
-            batch.draw(textureAtlas.findRegion("playerJump"), player.getX(), player.getY());
-        }
-        else if(player.getCrouch()){
-            batch.draw(textureAtlas.findRegion("playerCrouch1"), player.getX(), player.getY());
-        }
-        else {
-            batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()),player.getX() ,player.getY());
-            //walking.pause();
-        }
-        
-        
-        
-        drawDrawableObjects();
-        
-       // batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill(), drawableObjects.get(1).getX(), ));
-        //batch.draw(textureAtlas.findRegion(player.getTextureName()),player.getX() ,player.getY());
-        //batch.draw(textureAtlas.findRegion(player.getTextureNameStandStill()),spikes.getX(), spikes.getY());
-        //batch.draw(textureAtlas.findRegion(player.getTextureName()),enemy2.getX(), enemy2.getY());
-        batch.end();
-
-        //DRAW FLASHLIGHTCONE
-        if (this.darknessEnabled) {
-            this.drawLightFrameBuffer();
-        }
-        
-        
-        guiBatch.begin();
-        //DRAW USER INTERFACE HERE
-        for (GUIDrawable b : visibleGUIElements) {
-            b.draw(guiBatch, textureAtlas, screenMouseX, screenMouseY);
-        }
-        guiBatch.end();
     }
     
     public void addInputListener(DesktopInputListener listener){
@@ -325,9 +339,9 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         
         //draw to GUI batch to make sure texture always covers screen
-        guiBatch.begin();
+        unprojectedBatch.begin();
         //fetch frame buffer as texture and draw to screen
-        guiBatch.draw(lightMap.getColorBufferTexture(), //texture
+        unprojectedBatch.draw(lightMap.getColorBufferTexture(), //texture
                 0, //x
                 0, //y
                 camera.viewportWidth, //width
@@ -338,7 +352,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
                 (int)camera.viewportHeight, //srcHeight
                 false, //flipX
                 true);//flipY
-        guiBatch.end();
+        unprojectedBatch.end();
         //lightMap.dispose();
     }
     
