@@ -124,10 +124,10 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
     
     private void render(){
         
+        //clear screen
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        Player player = this.model.getPlayer();
         
         //change texture atlas if level has changed
         if(!currentLvlTextureName.equals(model.getCurrentLevel().getMapTextureName())){
@@ -135,7 +135,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
             currentLvlTextureAtlas = new TextureAtlas("packed/" +currentLvlTextureName);
         }
 
-        updateCameraPosition(player);
+        updateCameraPosition();
        
         //draw sky background
         unprojectedBatch.begin();
@@ -154,7 +154,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
         projectedBatch.begin();
         // DRAWS PLAYER + Other Objects
-        drawPlayer(player);
+        drawPlayer();
         
         
         drawDrawableObjects();
@@ -170,14 +170,14 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         
     }
     
-    private void updateCameraPosition(Player player) {
-        float cameraX = Math.max(player.getX(),camera.viewportWidth/2); //left limit
+    private void updateCameraPosition() {
+        float cameraX = Math.max(model.getPlayer().getX(),camera.viewportWidth/2); //left limit
         cameraX = Math.min(cameraX, 
-                this.model.getCurrentLevel().getWidth()-(camera.viewportWidth/2) );//right limit
+                model.getCurrentLevel().getWidth()-(camera.viewportWidth/2) );//right limit
         
-        float cameraY = Math.max(player.getY(),camera.viewportHeight/2); //bottom limit
+        float cameraY = Math.max(model.getPlayer().getY(),camera.viewportHeight/2); //bottom limit
         cameraY = Math.min(cameraY, 
-                this.model.getCurrentLevel().getHeight()-(camera.viewportHeight/2) );//top limit
+                model.getCurrentLevel().getHeight()-(camera.viewportHeight/2) );//top limit
         
         camera.position.set(cameraX, cameraY, 100);
         camera.update();
@@ -191,7 +191,8 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         unprojectedBatch.end();
     }
     
-    private void drawPlayer(Player player) {
+    private void drawPlayer() {
+        Player player = model.getPlayer();
         if(player.getMoveRight() || player.getMoveLeft()){
             playerFrame = playerWalking.getKeyFrame(this.animationState);
             playerFrame.flip((player.getMoveLeft() ^ playerFrame.isFlipX()), false);
@@ -258,6 +259,7 @@ public class ProjectView extends InputAdapter implements GameView,PropertyChange
         running = Gdx.audio.newSound(Gdx.files.internal("run.wav"));
     }
     
+    @Override
     public void addInputListener(DesktopInputListener listener){
         listeners.add(listener);
     }

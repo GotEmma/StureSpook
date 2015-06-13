@@ -19,8 +19,6 @@ import java.util.List;
  */
 public class Level {
 
-    private float width;
-    private float height;
     private int tileWidth;
     private int tileHeight;
     private String mapFileName;
@@ -61,11 +59,11 @@ public class Level {
     }
     
     public float getWidth() {
-        return this.width;
+        return this.tileWidth*16;
     }
 
     public float getHeight() {
-        return this.height;
+        return this.tileHeight*16;
     }
 
     public int getTileWidth() {
@@ -80,8 +78,6 @@ public class Level {
         this.skyBackgroundTextureName = "skyBackground";
         this.backgroundTextureName = "background";
         this.mapFileName = mapFileName;
-        this.width = 1000; //Set using constructor later?
-        this.height = 600;
     }
 
     public String getBackgroundImageName() {
@@ -124,17 +120,45 @@ public class Level {
         createEnemy("spikes", 200, 64, 30, 30, 250);
         createEnemy("spider", 100, 64, 30, 30, 200);
         createHeart(300,64,10,10);
-        
-        
-        
+        parseLevel();
+    }
+    
+    private void parseLevel() {
         try {
             BufferedReader br = new BufferedReader(new FileReader(mapFileName));
-            String line = "";
-            char split = ',';
+            String[] lineSplit;
+            String regex = ",";
             int lineNbr = 0;
             int tWidth = 0;
             int tHeight = 0;
-
+            
+            //first line is map texture name
+            mapTextureName = br.readLine();
+            
+            //second line is tile map size
+            lineSplit = br.readLine().split(regex);
+            tWidth = Integer.parseInt(lineSplit[0]);
+            tHeight = Integer.parseInt(lineSplit[1]);
+            tileMap = new int[tWidth][tHeight];
+            this.tileWidth = tWidth;
+            this.tileHeight = tHeight;
+            
+            //third line is collidable tiles
+            lineSplit = br.readLine().split(regex);
+            this.collisionValues = new int[lineSplit.length];
+            for (int i = 0;i < lineSplit.length;i++) {
+                this.collisionValues[i] = Integer.parseInt(lineSplit[i]);
+            }
+            
+            //next tHeight number of lines is map data
+            for (int y=0; y < tHeight;y++) {
+                lineSplit = br.readLine().split(regex);
+                for (int x=0; x < tWidth; x++) {
+                    tileMap[x][tHeight - (y+1)] = Integer.parseInt(lineSplit[x]);
+                }
+            }
+           
+            /*
             while ((line = br.readLine()) != null) {
                 if (lineNbr == 0) {
                     mapTextureName = line;
@@ -155,12 +179,7 @@ public class Level {
                     this.tileWidth = tWidth;
                     this.tileHeight = tHeight;
                 } else if (lineNbr == 2) {
-                    String[] collidableTiles = line.split(",");
-                    this.collisionValues = new int[collidableTiles.length];
-                    for (int i = 0;i < collidableTiles.length;i++) {
-                        this.collisionValues[i] = Integer.parseInt(collidableTiles[i]);
-                    }
-                } else if(lineNbr < tileHeight -2){
+                     else if(lineNbr < tileHeight -2){
                     StringBuilder builder = new StringBuilder();
                     int tileWidthNbr = 0;
                     for (int j = 0; j < line.length(); j++) {
@@ -177,8 +196,8 @@ public class Level {
                 else{
                     //Add further data to the level here 
                     //such as enemies, items or moving platforms
-                }
-            }
+                }*/
+            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -192,12 +211,13 @@ public class Level {
 
     // Kom ihåg att fixa inmatning av kollisionsvärden från csv filen 
     public boolean isCollidable(int x, int y) {
-        for (int i = 0; i < collisionValues.length; i++) {
+        /*for (int i = 0; i < collisionValues.length; i++) {
             if (tileMap[x][y] == collisionValues[i]) {
                 return true;
             }
         }
-        return false;
+        return false;*/
+        return tileMap[x][y] != -1;
     }
 
     public boolean isValueCollidable(int value) {

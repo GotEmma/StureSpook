@@ -28,7 +28,7 @@ public class World implements GameModel {
     
     public World(){
         currentLevel = 0;
-        levels[0] = new Level("testTileMap.csv","skyMoonBackground");
+        levels[0] = new Level("testTileMap.csv");
         player = new Player();
         player.setX(50);
         player.setY(50);
@@ -219,42 +219,64 @@ public class World implements GameModel {
         float xUpperLimit = 1e9f;
         float yLowerLimit = 0;
         float yUpperLimit = 1e9f;
-        float playerheight = 20;
-        float playerwidth = 20;
         
         
-        Point[] points = new Point[]{
-            new Point(10,0), //bottom center
-            new Point(10,20),//top center
-            new Point(20,10),//center left
-            new Point(0,10),//cencer right
-        };
+        Point[] points;
+        if (!player.getCrouch()) {
+               points = new Point[]{
+            //left points
+            new Point(0,(int)(0.25*player.getHeight()) ),
+            new Point(0,(int)(0.75*player.getHeight()) ),
+            
+            //right points
+            new Point((int)player.getWidth(),(int)(0.25*player.getHeight()) ),
+            new Point((int)player.getWidth(),(int)(0.75*player.getHeight()) ),
+            
+            //top and bottom middle points
+            new Point((int)player.getWidth()/2,(int)player.getHeight()),
+            new Point((int)player.getWidth()/2,0)
+            
+            };
+        } else {
+            points = new Point[]{
+            //top and bottom middle points
+            new Point((int)player.getWidth()/2,0),
+            new Point((int)player.getWidth()/2,(int)player.getHeight()),
+            
+            //left point
+            new Point(0,(int)(0.5*player.getHeight()) ),
+            
+            //right point
+            new Point((int)player.getWidth(),(int)(0.5*player.getHeight()) )
+            };
+        }
         
         //first check bottom middle point
         for (Point p : points) {
             float currentX = p.x + player.getX();
             float currentY = p.y + player.getY();
             if (tilemap[util.floatToTile(currentX)][util.floatToTile(currentY)] != -1) {
-                if (p.x < playerwidth/2) { //if point is right of player center
-                    //handle as right point
-                    xLowerLimit = Math.max(xLowerLimit, (util.floatToTile(currentX)*16+16));
-                    continue;
-                } else if (p.x > playerwidth/2){ //if point is left of player center
-                    //handle as left point
-                    xUpperLimit = Math.min(xUpperLimit, (util.floatToTile(currentX-16)*16));
-
-                    continue;
-                }
-                
-                if (p.y < playerheight/2) { //if point is below player center
+                if (p.y == 0) { //if point is below player center
                     //handle as bottom point
                     yLowerLimit = Math.max( yLowerLimit, (util.floatToTile(currentY)*16+16) );
                     //continue;
-                } else if (p.y > playerheight/2){ //if point is above player center
+                } else if (p.y == player.getHeight()){ //if point is above player center
                     //handle as top point
-                    yUpperLimit = Math.min( yUpperLimit, (util.floatToTile(currentY)*16) -20);
+                    yUpperLimit = Math.min( yUpperLimit, (util.floatToTile(currentY)*16) -player.getHeight());
                     //continue;
                 }
+                
+                if (p.x == 0) { //if point is right of player center
+                    //handle as right point
+                    xLowerLimit = Math.max(xLowerLimit, (util.floatToTile(currentX)*16+16));
+                } else if (p.x == player.getWidth()){ //if point is left of player center
+                    //handle as left point
+                    xUpperLimit = Math.min(xUpperLimit, (util.floatToTile(currentX-16)*16));
+                }
+                
+                
+                
+                
                 
             }
             

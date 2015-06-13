@@ -3,11 +3,18 @@ testLevel.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-skyBackground2
+skyBackground
   rotate: false
   xy: 1, 19
   size: 800, 480
   orig: 800, 480
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 803, 435
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 0
@@ -19,7 +26,7 @@ skyBackground2
   index: -1
 1
   rotate: false
-  xy: 803, 483
+  xy: 803, 417
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

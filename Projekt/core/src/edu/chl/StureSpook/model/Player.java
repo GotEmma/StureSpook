@@ -32,6 +32,7 @@ public class Player {
     private boolean crouch;
     private boolean onGround;
     private float height = 30;
+    private float crouchedHeight = 12;
     private float width = 20;
     private int deathCount = 0;
     
@@ -52,6 +53,7 @@ public class Player {
     
     public float getX(){ return this.x; }
     public float getY(){ return this.y; }
+    //public float getHeight(){ return crouch ? crouchedHeight : this.height; }
     public float getHeight(){ return this.height; }
     public float getWidth(){ return this.width; }
     
@@ -161,7 +163,6 @@ public class Player {
     
     public void setCrouch(boolean t){
        crouch = t;
-       System.out.println(crouch);
     }
     
     public boolean getCrouch(){
