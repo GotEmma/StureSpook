@@ -19,7 +19,7 @@ import java.beans.PropertyChangeSupport;
  */
 public class World implements GameModel {
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    private Level[] levels = new Level[1];
+    private Level[] levels;
     private Player player;    
     private Flashlight flashlight;
     private int currentLevel;
@@ -27,8 +27,14 @@ public class World implements GameModel {
     private Inventory inventory;
     
     public World(){
-        currentLevel = 0;
+        currentLevel = 1;
+        levels = new Level[2];
         levels[0] = new Level("testTileMap.csv");
+        levels[1] = new Level("overworld.csv");
+        //levels[2] = new Level("woodenHouse.csv");
+        //levels[3] = new Level("brickHouse.csv");
+        //levels[4] = new Level("brickHouseLevel2.csv");
+        
         player = new Player();
         player.setX(50);
         player.setY(50);
