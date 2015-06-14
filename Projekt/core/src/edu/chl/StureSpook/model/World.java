@@ -261,7 +261,8 @@ public class World implements GameModel {
         for (Point p : points) {
             float currentX = p.x + player.getX();
             float currentY = p.y + player.getY();
-            if (tilemap[util.floatToTile(currentX)][util.floatToTile(currentY)] != -1) {
+            //if (tilemap[util.floatToTile(currentX)][util.floatToTile(currentY)] != -1) {
+            if (this.getCurrentLevel().isCollidable(util.floatToTile(currentX), util.floatToTile(currentY))) {
                 if (p.y == 0) { //if point is below player center
                     //handle as bottom point
                     yLowerLimit = Math.max( yLowerLimit, (util.floatToTile(currentY)*16+16) );
