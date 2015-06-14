@@ -28,12 +28,12 @@ public class World implements GameModel {
     
     public World(){
         currentLevel = 1;
-        levels = new Level[2];
+        levels = new Level[5];
         levels[0] = new Level("testTileMap.csv");
         levels[1] = new Level("overworld.csv");
-        //levels[2] = new Level("woodenHouse.csv");
-        //levels[3] = new Level("brickHouse.csv");
-        //levels[4] = new Level("brickHouseLevel2.csv");
+        levels[2] = new Level("woodenHouse.csv");
+        levels[3] = new Level("brickHouse.csv");
+        levels[4] = new Level("brickHouseLevel2.csv");
         
         player = new Player();
         player.setX(50);

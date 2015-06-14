@@ -50,16 +50,33 @@ public class TileRenderer {
         matrix.setToOrtho2D(0, 0, fb.getWidth(),fb.getHeight());
         batch.setProjectionMatrix(matrix);
         
+        TextureRegion tileset = currentLevelTextureAtlas.findRegion("tileset");
+        int srcX = tileset.getRegionX();
+        int srcY = tileset.getRegionY();
+        int srcWidth = tileset.getRegionWidth();
+        int srcHeight = tileset.getRegionHeight();
+        System.out.println(srcX + ", "+ srcY + ", "+ srcWidth + ", "+ srcHeight);
+        
         //draw tile map to buffer
         batch.begin();
         for(int i = tileMap.length-1; i >= 0; i--){
             for(int j = tileMap[i].length-1; j >= 0; j--){
                 if((tileMap[i][j] != -1)){
-                    batch.draw(currentLevelTextureAtlas.findRegion(tileMap[i][j]+""),i*16,j*16);
-                    if (batch.renderCalls >= batch.maxSpritesInBatch-10) {
+                    System.out.println((tileMap[i][j] % 10)*16 + ", " + (tileMap[i][j] / 10)*16);
+                    /*batch.draw(tileset.getTexture(),
+                            i*16,
+                            j*16,
+                            0,//srcX + (tileMap[i][j] % 10)*16,
+                            0,//srcY + (tileMap[i][j] / 10)*16,
+                            16,
+                            16);*/
+                    batch.draw(currentLevelTextureAtlas.findRegion("tile", tileMap[i][j]), i*16, j*16);
+                    
+                    //batch.draw(new TextureRegion(tileset,0,srcWidth-16, 16,16), i*16, j*16);
+                    //if (batch.renderCalls >= batch.maxSpritesInBatch-10) {
                         //flush batch if almost full
-                        batch.flush();
-                    }
+                      //  batch.flush();
+                    //}
                 }
             }
         }
@@ -67,7 +84,6 @@ public class TileRenderer {
         //flush tiles to buffer and 
         batch.end();
         fb.end();
-        //bufferTexture = new Texture(fb.getColorBufferTexture().getTextureData());
         batch.dispose();
         //fb.dispose();
         
@@ -104,5 +120,6 @@ public class TileRenderer {
         lastMapHash = hash;
         return hasChanged;
     }
+    
     
 }
