@@ -55,6 +55,10 @@ public class Player {
         }
     }
     
+    public void resetDeathCount(){
+        this.deathCount = 0;
+    }
+    
     
     public void deathCounterMinus(){
         if(this.deathCount>=1){

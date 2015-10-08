@@ -64,8 +64,10 @@ public class World implements GameModel {
             if(dwo.getClass() == HeartItem.class){
                 HeartItem he = (HeartItem) dwo;
                 if(util.collide(player, he)){
+                    if(player.getDeathCount() != 0){
                     player.deathCounterMinus();
                     itemToRemove = he;
+                    }
                 }
             }
         }
@@ -99,7 +101,14 @@ public class World implements GameModel {
         }
     }
     public void die(){
-        //System.out.println("Player is DEAD");
+        if(player.isDead()){
+            currentLevel = 1;
+            player.setX(50);
+            player.setY(50);
+            flashlight = new Flashlight();
+            inventory = new Inventory();
+            player.resetDeathCount();
+        }
     }
     
     @Override
@@ -259,10 +268,12 @@ public class World implements GameModel {
             player.setDY(0.0f);
         }
         
-        if (tilemap[util.floatToTile(player.getX()+10)][util.floatToTile(player.getY()-4)] != -1) { 
-            player.setOnGround(true);
-        } else {
-            player.setOnGround(false);
+        if(!player.isDead()){
+            if (tilemap[util.floatToTile(player.getX()+10)][util.floatToTile(player.getY()-4)] != -1) { 
+                player.setOnGround(true);
+            } else {
+              player.setOnGround(false);
+            }
         }
         
     }
