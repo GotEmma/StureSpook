@@ -104,7 +104,7 @@ public class World implements GameModel {
         if(player.isDead()){
             currentLevel = 1;
             player.setX(50);
-            player.setY(50);
+            player.setY(55);
             flashlight = new Flashlight();
             inventory = new Inventory();
             player.resetDeathCount();
@@ -114,14 +114,19 @@ public class World implements GameModel {
     @Override
     public void update(){
         
-        playerTakesHarm();
         
-        enemyAction();
-        playerGetsLife();
+        playerTakesHarm();
         
         if (player.isDead()){
             die();
         }
+        
+        
+        
+        enemyAction();
+        playerGetsLife();
+        
+        
         
         if (interactOnNextUpdate) {
             this.playerInteract();
@@ -133,6 +138,7 @@ public class World implements GameModel {
         applyCollision(player, this.getCurrentLevel());
         flashlight.setStartPoint(player.getX()+10, player.getY()+10);
         pcs.firePropertyChange("logic updated", 1, 0);
+        System.out.print(player.getDeathCount());
     }
     
     public void setMoveLeft(boolean t) {
@@ -275,8 +281,8 @@ public class World implements GameModel {
               player.setOnGround(false);
             }
         }
-        
     }
+    
     
     private void changeLevel(int newLevel){ 
         int lastLevel = currentLevel;
